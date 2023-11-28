@@ -1,0 +1,63 @@
+<UserControl x:Class="SmartOffice.Views.FoodOrdering.FoodOrder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
+             mc:Ignorable="d"
+             d:DesignHeight="850" d:DesignWidth="1100"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="12"
+             FontFamily="{DynamicResource MaterialDesignFont}">
+    <Grid>
+        
+        <materialDesign:Card UniformCornerRadius="5">
+            
+            <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" Header="Essensbestellung" Margin="3" >
+                
+                <Grid>
+                    
+                    <mde:TabControlStepper IsLinear="False" Layout="Horizontal">
+                        
+                        <TabItem Header="Restaurant auswählen">
+                            <StackPanel Margin="5">
+                                <ListView>
+                                    
+                                </ListView>
+                                <mde:StepButtonBar Cancel="Abbrechen" Continue="Weiter" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </TabItem>
+                        
+                        <TabItem Header="Speise auswählen">
+                            <StackPanel Margin="5">
+                                <ListView>
+                                    
+                                </ListView>
+                                <mde:StepButtonBar Continue="Weiter" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </TabItem>
+                        
+                        <TabItem Header="Zahlungsmethode auswählen">
+                            <StackPanel Margin="5">
+                                <mde:StepButtonBar Continue="Weiter" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </TabItem>
+                        
+                        <TabItem Header="Übersicht">
+                            <StackPanel Margin="5">
+                                <mde:StepButtonBar Continue="Fertig" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </TabItem>
+                        
+                    </mde:TabControlStepper>
+                    
+                </Grid>
+                
+            </GroupBox>
+            
+        </materialDesign:Card>
+        
+    </Grid>
+</UserControl>

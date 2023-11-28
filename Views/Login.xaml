@@ -1,0 +1,102 @@
+<Window x:Class="SmartOffice.Views.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Height="500" 
+        Width="350" 
+        WindowState="Normal" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" 
+        ResizeMode="NoResize" 
+        Background="{x:Null}"
+        AllowsTransparency="True"
+        MouseLeftButtonDown="WindowDragMove"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="12"
+        FontFamily="{DynamicResource MaterialDesignFont}" >
+    
+    <Grid>
+        
+        <materialDesign:Card UniformCornerRadius="5" Background="{DynamicResource MaterialDesignPaper}">
+            
+            <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" Header="Anmeldung" Margin="4" >
+                
+                <Grid ShowGridLines="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.8*" />
+                    <RowDefinition Height="0.1*" />
+                    <RowDefinition Height="0.3*" />
+                    <RowDefinition Height="0.1*" />
+                    <RowDefinition Height="0.3*" />
+                    <RowDefinition Height="0.2*" />
+                    <RowDefinition Height="0.3*" />
+                    <RowDefinition Height="0.2*" />
+                    <RowDefinition Height="0.6*" />
+                </Grid.RowDefinitions>
+                    
+                    <materialDesign:DialogHost Grid.Row="0" Grid.Column="2" x:Name="DialogHost" CloseOnClickAway="True" Margin="5">
+                        
+                        <StackPanel>
+                            <materialDesign:PopupBox HorizontalAlignment="Right" PlacementMode="LeftAndAlignTopEdges" StaysOpen="False">
+                                
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                    <Button ToolTip="EasyOffice schließen" Click="CloseOnClick" Style="{StaticResource MaterialDesignIconButton}" Margin="5" >
+                                        <materialDesign:PackIcon Kind="ExitRun"/>
+                                    </Button>
+                                </StackPanel>
+                                
+                            </materialDesign:PopupBox>
+                            
+                        </StackPanel>
+                    </materialDesign:DialogHost>
+                
+                    <Image Grid.Row="0" Grid.Column="1" Source="../Resources/Logos/SmartOfficeLogo.png"
+                           Margin="-5"
+                           Height="150"
+                           Width="150">
+                    </Image>
+                
+                    <materialDesign:PackIcon Grid.Column="0" Grid.Row="2" Kind="User" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" Width="25" Margin="0 0 10 0" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource MaterialDesignFilledTextBox}"
+                             HorizontalContentAlignment="Left"
+                             VerticalContentAlignment="Center"
+                             materialDesign:HintAssist.Hint="Benutzername" />
+                    
+                    <materialDesign:PackIcon Grid.Column="0" Grid.Row="4" Kind="Password" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" Width="25" Margin="0 0 10 0" />
+                    <PasswordBox Grid.Row="4" Grid.Column="1" Style="{StaticResource MaterialDesignFilledRevealPasswordBox}"
+                                 HorizontalContentAlignment="Left"
+                                 VerticalContentAlignment="Center"
+                                 materialDesign:HintAssist.Hint="Passwort" />
+                    
+                    <Button Grid.Row="6" Grid.Column="1" Click="StartEasyOffice" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Margin="3">
+                        <materialDesign:PackIcon Kind="Login" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Button>
+                    
+                    <TextBlock Grid.Row="8" Grid.Column="1" Text="Noch kein Benutzerkonto?" TextAlignment="Center" Height="20" VerticalAlignment="Top" Margin="10" />
+                    <Button Grid.Row="8" Grid.Column="1" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                            Click="OpenRegister" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 10 0 0">
+                        <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                
+                </Grid>
+                
+            </GroupBox>
+            
+        </materialDesign:Card>
+    </Grid>
+    
+</Window>

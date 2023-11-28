@@ -1,0 +1,114 @@
+﻿<Window x:Class="SmartOffice.Views.HomeScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Height="800" Width="1200"
+        WindowState="Normal" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" 
+        ResizeMode="NoResize" 
+        Background="{x:Null}"
+        AllowsTransparency="True"
+        MouseLeftButtonDown="WindowDragMove"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="12"
+        FontFamily="{DynamicResource MaterialDesignFont}" >
+    
+    <Grid>
+        
+        <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}">
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="13*" />
+                </Grid.ColumnDefinitions>
+                
+                <Grid.Resources>
+                    <Style TargetType="materialDesign:PackIcon">
+                        <Setter Property="Width" Value="30" />
+                        <Setter Property="Height" Value="30" />
+                    </Style>
+                </Grid.Resources>
+                
+                <Grid Grid.Column="0">
+                    
+                    <materialDesign:Card Margin="-4 6 0 0" UniformCornerRadius="15" Height="70" Width="70" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <Image Source="../Resources/Logos/SmartOfficeLogoOnly.png"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Height="90"
+                               Width="90"
+                               Margin="0 13 1 0" >
+                        </Image>
+                    </materialDesign:Card>
+                    
+                    
+                    
+                    <materialDesign:Card Margin="-4 0 0 8" UniformCornerRadius="15" Height="700" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        
+                        <ListView Margin="0 15">
+                            
+                            <ListViewItem HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 0 0 0">
+                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadMqtt" HorizontalAlignment="Left">
+                                    <materialDesign:PackIcon Kind="LocalAreaNetwork" />
+                                </Button>
+                            </ListViewItem>
+                            
+                            <ListViewItem HorizontalAlignment="Center" Margin="0 0 0 0">
+                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadChat" HorizontalAlignment="Left">
+                                    <materialDesign:PackIcon Kind="Chat" />
+                                </Button>
+                            </ListViewItem>
+                            
+                            <ListViewItem HorizontalAlignment="Center" Margin="0 0 0 0">
+                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadFoodOrder" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="Food" />
+                                </Button>
+                            </ListViewItem>
+                            
+                            <ListViewItem HorizontalAlignment="Center" Margin="0 140 0 0">
+                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadAdminSettings" HorizontalAlignment="Left" IsEnabled="False">
+                                    <materialDesign:PackIcon Kind="Administrator" />
+                                </Button>
+                            </ListViewItem>
+                            
+                            <ListViewItem HorizontalAlignment="Center" Margin="0 0 0 0">
+                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadUserSettings" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="Settings"/>
+                                </Button>
+                            </ListViewItem>
+                            
+                            <ListViewItem HorizontalAlignment="Center" Margin="0 0 0 0">
+                                <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Click="Logout" HorizontalAlignment="Left" Height="50" Width="50">
+                                        <materialDesign:PackIcon Kind="ExitToApp" />
+                                </Button>
+                            </ListViewItem>
+                            
+                        </ListView>
+                        
+                    </materialDesign:Card>
+                    
+                </Grid>
+                
+                <Grid Grid.Column="1" Margin="10" ShowGridLines="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="15*" />
+                        <RowDefinition Height="0.5*" />
+                    </Grid.RowDefinitions>
+                    
+                    <Grid x:Name="RenderPages" Grid.Row="1" Margin="5"></Grid>
+                    
+                </Grid>
+                
+            </Grid>
+            
+        </materialDesign:Card>
+
+    </Grid>
+</Window>

@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
+      <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
+      <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models\" />
+      <Folder Include="Services\MQTTService\" />
+      <Folder Include="Services\UserService\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\Logos\SmartOfficeLogo.png" />
+      <Resource Include="Resources\Logos\SmartOfficeLogo.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Logos\SmartOfficeLogoOnly.png" />
+      <Resource Include="Resources\Logos\SmartOfficeLogoOnly.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+    </ItemGroup>
+
+</Project>
