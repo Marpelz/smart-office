@@ -1,12 +1,56 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using SmartOffice.Services.UserService;
+using SmartOffice.Views;
 
 namespace SmartOffice;
 
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App : Application
+public partial class App
 {
+    private static readonly IHost Host = Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+        .ConfigureServices((context, services) => { ConfigureServices(context.Configuration, services); })
+        .Build();
+    
+    private void OnStartup(object sender, StartupEventArgs e)
+    {
+        using var mutex = new Mutex(true, "SmartOfficeApplication", out var createdNew);
+        if (createdNew)
+        {
+            Host.Start();
+
+            var login = Host.Services.GetRequiredService<Login>();
+            login.Show();
+        }
+        else
+        {
+            MessageBox.Show("Die Anwendung ist bereits gestartet.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            Current.Shutdown();
+        }
+    }
+    
+    private static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
+    {
+        // DB-Context
+        services.AddDbContext<SmartOfficeDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("SmartOfficeDB")), ServiceLifetime.Transient);
+        
+
+        // Services
+        services.AddTransient<IUserService, UserService>();
+
+        // Logger
+        services.AddLogging(configure => configure.AddConsole());
+
+        // Screens
+        services.AddTransient<Login>();
+        services.AddTransient<Register>();
+        services.AddTransient<HomeScreen>();
+    }
 }

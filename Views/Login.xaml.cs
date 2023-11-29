@@ -1,23 +1,20 @@
 using System.Windows;
 using System.Windows.Input;
-using MaterialDesignThemes.Wpf;
-using MaterialDesignExtensions.Themes;
-using PaletteHelper = MaterialDesignThemes.Wpf.PaletteHelper;
-using PaletteHelperExt = MaterialDesignExtensions.Themes.PaletteHelper;
+using Microsoft.Extensions.DependencyInjection;
+using SmartOffice.Services.UserService;
 
 namespace SmartOffice.Views;
 
-public partial class Login : Window
+public partial class Login
 {
-    private Register? _register;
-    private HomeScreen? _homeScreen;
+    private readonly IUserService _userService;
+    private readonly IServiceProvider _service;
     
-    
-    private bool IsLightTheme { get; set; }
-    
-    public Login()
+    public Login(IServiceProvider service)
     {
         InitializeComponent();
+        _service = service;
+        _userService = _service.GetRequiredService<IUserService>();
     }
     
     private void WindowDragMove(object sender, MouseButtonEventArgs e)
@@ -35,15 +32,47 @@ public partial class Login : Window
 
     private void OpenRegister(object sender, RoutedEventArgs e)
     {
-        _register = new Register();
-        _register.Show();
+        var register = _service.GetRequiredService<Register>();
+        register.Show();
         Close();
     }
 
-    private void StartEasyOffice(object sender, RoutedEventArgs e)
+    private async void StartSmartOffice(object sender, RoutedEventArgs e)
     {
-        _homeScreen = new HomeScreen();
-        _homeScreen.Show();
-        Close();
+        var userName = SoUsrName.Text;
+        var userPassword = SoUsrPassword.Password;
+
+        try
+        {
+            var user = await _userService.GetUserByUsername(userName);
+
+            {
+                var hashedEnteredPassword = userPassword;
+
+                if (hashedEnteredPassword == user.UserPassword)
+                {
+                    var homescreen = _service.GetRequiredService<HomeScreen>();
+                    homescreen.Show();
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Ungültiger Benutzername oder Passwort.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Fehler beim Abrufen des Benutzers: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
+    
+    /* Example to Check if Password is valid
+     
+    private bool IsPasswordValid(UserModel user, string enteredPassword)
+    {
+        var hashedEnteredPassword = enteredPassword;
+        return hashedEnteredPassword == user.UserPassword;
+    }
+    */
 }

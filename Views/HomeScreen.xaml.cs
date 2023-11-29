@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using Microsoft.Extensions.DependencyInjection;
+using SmartOffice.Services.UserService;
 using SmartOffice.Views.Chat;
 using SmartOffice.Views.FoodOrdering;
 using SmartOffice.Views.MQTT;
@@ -9,11 +11,14 @@ namespace SmartOffice.Views
 {
     public partial class HomeScreen : Window
     {
-        private Login? _login;
+        private readonly IUserService _userService;
+        private readonly IServiceProvider _service;
         
-        public HomeScreen()
+        public HomeScreen(IServiceProvider service)
         {
             InitializeComponent();
+            _service = service;
+            _userService = _service.GetRequiredService<IUserService>();
         }
         
         private void WindowDragMove(object sender, MouseButtonEventArgs e)
@@ -56,8 +61,8 @@ namespace SmartOffice.Views
         
         private void Logout(object sender, RoutedEventArgs e)
         {
-            _login = new Login();
-            _login.Show();
+            var login = _service.GetRequiredService<Login>();
+            login.Show();
             Close();
         }
     }

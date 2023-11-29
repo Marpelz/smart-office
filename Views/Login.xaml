@@ -66,18 +66,18 @@
                     </Image>
                 
                     <materialDesign:PackIcon Grid.Column="0" Grid.Row="2" Kind="User" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" Width="25" Margin="0 0 10 0" />
-                    <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource MaterialDesignFilledTextBox}"
+                    <TextBox x:Name="SoUsrName" Grid.Row="2" Grid.Column="1" Style="{StaticResource MaterialDesignFilledTextBox}"
                              HorizontalContentAlignment="Left"
                              VerticalContentAlignment="Center"
                              materialDesign:HintAssist.Hint="Benutzername" />
                     
                     <materialDesign:PackIcon Grid.Column="0" Grid.Row="4" Kind="Password" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" Width="25" Margin="0 0 10 0" />
-                    <PasswordBox Grid.Row="4" Grid.Column="1" Style="{StaticResource MaterialDesignFilledRevealPasswordBox}"
+                    <PasswordBox x:Name="SoUsrPassword" Grid.Row="4" Grid.Column="1" Style="{StaticResource MaterialDesignFilledRevealPasswordBox}"
                                  HorizontalContentAlignment="Left"
                                  VerticalContentAlignment="Center"
                                  materialDesign:HintAssist.Hint="Passwort" />
                     
-                    <Button Grid.Row="6" Grid.Column="1" Click="StartEasyOffice" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Margin="3">
+                    <Button Grid.Row="6" Grid.Column="1" Click="StartSmartOffice" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Margin="3">
                         <materialDesign:PackIcon Kind="Login" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Button>
                     

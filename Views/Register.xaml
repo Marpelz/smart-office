@@ -63,7 +63,7 @@
                              materialDesign:HintAssist.Hint="Passwort" />
                 
                 <TextBlock Grid.Row="6" Grid.Column="1" Text="PayPal vorhanden?" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" Margin="5" />
-                <ToggleButton x:Name="PaypalToggle" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="3" />
+                <ToggleButton x:Name="SetPaypalToggle" IsChecked="False" Checked="SetPaypalToggle_Checked" Unchecked="SetPaypalToggle_Unchecked" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="3" />
                 
                 <TextBox x:Name="SetUsrPaypal" Grid.Row="8" Grid.Column="1"  Style="{StaticResource MaterialDesignFilledTextBox}"
                          HorizontalContentAlignment="Left"
@@ -71,8 +71,12 @@
                          IsEnabled="False"
                          materialDesign:HintAssist.Hint="PayPal Adresse" />
                 
-                <Button Grid.Row="10" Grid.Column="1" Click="CreateUserAccount" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Margin="5" >
+                <Button Grid.Row="10" Grid.Column="1" x:Name="CreateUsr" Click="CreateUserAccount" VerticalAlignment="Center" HorizontalAlignment="Right" Width="110" Margin="3" >
                     <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Button>
+                
+                <Button Grid.Row="10" Grid.Column="1" x:Name="BackToLogin" Click="BackToUserLogin" ToolTip="Zurück zur Anmeldung" VerticalAlignment="Center" HorizontalAlignment="Left" Width="110" Margin="3" >
+                    <materialDesign:PackIcon Kind="ArrowBack" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Button>
                 
             </Grid>
