@@ -5,6 +5,7 @@ namespace SmartOffice.Models.MenuModels;
 
 public class MenuModel
 {
+    /*
     [ForeignKey("Restaurant")]
     public int RestaurantId { get; set; }
     public virtual RestaurantModel Restaurant { get; set; }
@@ -13,4 +14,5 @@ public class MenuModel
     public string MenuDishName { get; set; }
     public string MenuDishIngredients { get; set; }
     public decimal MenuDishPrice { get; set; }
+    */
 }

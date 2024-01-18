@@ -41,7 +41,6 @@ public partial class App
         services.AddDbContext<SmartOfficeDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("SmartOfficeDB")), ServiceLifetime.Transient);
         
-
         // Services
         services.AddTransient<IUserService, UserService>();
 

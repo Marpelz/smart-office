@@ -47,15 +47,13 @@
                         </Image>
                     </materialDesign:Card>
                     
-                    
-                    
                     <materialDesign:Card Margin="-4 0 0 8" UniformCornerRadius="15" Height="700" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                         
                         <ListView Margin="0 15">
                             
-                            <ListViewItem HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 0 0 0">
-                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadMqtt" HorizontalAlignment="Left">
-                                    <materialDesign:PackIcon Kind="LocalAreaNetwork" />
+                            <ListViewItem HorizontalAlignment="Center" Margin="0 0 0 0">
+                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadFoodOrder" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="Food" />
                                 </Button>
                             </ListViewItem>
                             
@@ -65,13 +63,7 @@
                                 </Button>
                             </ListViewItem>
                             
-                            <ListViewItem HorizontalAlignment="Center" Margin="0 0 0 0">
-                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadFoodOrder" HorizontalAlignment="Left">
-                                        <materialDesign:PackIcon Kind="Food" />
-                                </Button>
-                            </ListViewItem>
-                            
-                            <ListViewItem HorizontalAlignment="Center" Margin="0 140 0 0">
+                            <ListViewItem HorizontalAlignment="Center" Margin="0 175 0 0">
                                 <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadAdminSettings" HorizontalAlignment="Left" IsEnabled="False">
                                     <materialDesign:PackIcon Kind="Administrator" />
                                 </Button>
@@ -84,8 +76,8 @@
                             </ListViewItem>
                             
                             <ListViewItem HorizontalAlignment="Center" Margin="0 0 0 0">
-                                <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Click="Logout" HorizontalAlignment="Left" Height="50" Width="50">
-                                        <materialDesign:PackIcon Kind="ExitToApp" />
+                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="Logout" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="Shutdown" />
                                 </Button>
                             </ListViewItem>
                             

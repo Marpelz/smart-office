@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using SmartOffice.Services.UserService;
 using SmartOffice.Views.Chat;
 using SmartOffice.Views.FoodOrdering;
-using SmartOffice.Views.MQTT;
 using SmartOffice.Views.Settings;
 
 namespace SmartOffice.Views
@@ -27,12 +26,6 @@ namespace SmartOffice.Views
             {
                 DragMove();
             }
-        }
-
-        private void LoadMqtt(object sender, RoutedEventArgs e)
-        {
-            RenderPages.Children.Clear();
-            RenderPages.Children.Add(new MQTTClient());
         }
 
         private void LoadChat(object sender, RoutedEventArgs e)

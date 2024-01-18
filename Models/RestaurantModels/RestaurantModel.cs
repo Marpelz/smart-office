@@ -5,6 +5,7 @@ namespace SmartOffice.Models.RestaurantModels;
 
 public class RestaurantModel
 {
+    /*
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int RestaurantId { get; set; }
@@ -17,4 +18,5 @@ public class RestaurantModel
     public string RestaurantType { get; set; }
     public bool OrderViaAppOrMobile { get; set; }
     public bool DeliveryServiceOrTakeAway { get; set; }
+    */
 }

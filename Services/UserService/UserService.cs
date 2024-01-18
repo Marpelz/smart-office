@@ -9,8 +9,16 @@ public class UserService(SmartOfficeDbContext dbContext) : IUserService
     {
         ArgumentNullException.ThrowIfNull(user);
 
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(plainTextPassword);
+        user.UserPassword = hashedPassword;
+
         dbContext.SoUserTab.Add(user);
         await dbContext.SaveChangesAsync();
+    }
+
+    public bool VerifyPassword(string enteredPassword, string hashedPassword)
+    {
+        return BCrypt.Net.BCrypt.Verify(enteredPassword, hashedPassword);
     }
 
     public async Task<UserModel> GetUserById(int userId)
@@ -27,31 +35,4 @@ public class UserService(SmartOfficeDbContext dbContext) : IUserService
     {
         return await dbContext.SoUserTab.ToListAsync();
     }
-    
-    /* Example to hash and safe entered Password
-     
-    public string HashPassword(string password, byte[] salt)
-    {
-        using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000, HashAlgorithmName.SHA256))
-        {
-            byte[] hash = pbkdf2.GetBytes(32);
-
-            byte[] hashBytes = new byte[48];
-            Array.Copy(salt, 0, hashBytes, 0, 16);
-            Array.Copy(hash, 0, hashBytes, 16, 32);
-
-            return Convert.ToBase64String(hashBytes);
-        }
-    }
-
-    private byte[] GenerateSalt()
-    {
-        var salt = new byte[16];
-        using (var rng = RandomNumberGenerator.Create())
-        {
-            rng.GetBytes(salt);
-        }
-        return salt;
-    }
-    */
 }

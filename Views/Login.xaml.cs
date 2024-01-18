@@ -46,19 +46,15 @@ public partial class Login
         {
             var user = await _userService.GetUserByUsername(userName);
 
+            if (user != null && _userService.VerifyPassword(userPassword, user.UserPassword))
             {
-                var hashedEnteredPassword = userPassword;
-
-                if (hashedEnteredPassword == user.UserPassword)
-                {
-                    var homescreen = _service.GetRequiredService<HomeScreen>();
-                    homescreen.Show();
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("Ungültiger Benutzername oder Passwort.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                var homescreen = _service.GetRequiredService<HomeScreen>();
+                homescreen.Show();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Ungültiger Benutzername oder Passwort.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         catch (Exception ex)
@@ -66,13 +62,4 @@ public partial class Login
             MessageBox.Show($"Fehler beim Abrufen des Benutzers: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-    
-    /* Example to Check if Password is valid
-     
-    private bool IsPasswordValid(UserModel user, string enteredPassword)
-    {
-        var hashedEnteredPassword = enteredPassword;
-        return hashedEnteredPassword == user.UserPassword;
-    }
-    */
 }

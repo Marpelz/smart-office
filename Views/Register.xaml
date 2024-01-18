@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Height="500" 
-        Width="350" 
+        Width="750" 
         WindowState="Normal" 
         WindowStartupLocation="CenterScreen"
         WindowStyle="None" 
@@ -23,16 +23,26 @@
         
         <materialDesign:Card UniformCornerRadius="5" Background="{DynamicResource MaterialDesignPaper}">
             
-            <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" Header="Benutzerkonto erstellen" Margin="4" >
-            
-            <Grid ShowGridLines="False">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                
+                <Image Grid.Row="0" Grid.Column="0"  Source="../Resources/Logos/SmartOfficeLogo.png"
+                       Margin="-5"
+                       Height="350"
+                       Width="350">
+                </Image>
+                
+                <Grid Grid.Column="1" ShowGridLines="False">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="5*" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.6*" />
+                    <RowDefinition Height="0.3*" />
                     <RowDefinition Height="0.1*" />
                     <RowDefinition Height="0.3*" />
                     <RowDefinition Height="0.1*" />
@@ -41,16 +51,15 @@
                     <RowDefinition Height="0.2*" />
                     <RowDefinition Height="0.1*" />
                     <RowDefinition Height="0.3*" />
-                    <RowDefinition Height="0.1*" />
-                    <RowDefinition Height="0.4*" />
+                    <RowDefinition Height="0.2*" />
+                    <RowDefinition Height="0.3*" />
+                    <RowDefinition Height="0.3*" />
                 </Grid.RowDefinitions>
-                
-                <Image Grid.Row="0" Grid.Column="1"  Source="../Resources/Logos/SmartOfficeLogoOnly.png"
-                       Margin="-5"
-                       Height="150"
-                       Width="150">
-                </Image>
-                
+                    
+                    <Button Grid.Row="0" Grid.Column="2" x:Name="BackToLogin" ToolTip="Zurück zur Anmeldung" Click="BackToUserLogin" Style="{StaticResource MaterialDesignIconButton}" 
+                            VerticalAlignment="Top" HorizontalAlignment="Center" Margin="3" >
+                        <materialDesign:PackIcon Kind="ArrowBack" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Button>
                 
                 <TextBox x:Name="SetUsrName" Grid.Row="2" Grid.Column="1"  Style="{StaticResource MaterialDesignFilledTextBox}"
                          HorizontalContentAlignment="Left"
@@ -71,17 +80,16 @@
                          IsEnabled="False"
                          materialDesign:HintAssist.Hint="PayPal Adresse" />
                 
-                <Button Grid.Row="10" Grid.Column="1" x:Name="CreateUsr" Click="CreateUserAccount" VerticalAlignment="Center" HorizontalAlignment="Right" Width="110" Margin="3" >
-                    <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                </Button>
-                
-                <Button Grid.Row="10" Grid.Column="1" x:Name="BackToLogin" Click="BackToUserLogin" ToolTip="Zurück zur Anmeldung" VerticalAlignment="Center" HorizontalAlignment="Left" Width="110" Margin="3" >
-                    <materialDesign:PackIcon Kind="ArrowBack" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <Button Grid.Row="10" Grid.Column="1" x:Name="CreateUsr" Click="CreateUserAccount" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="230" Margin="0" >
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                        <TextBlock Text="Benutzerkonto erstellen" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                    </StackPanel>
                 </Button>
                 
             </Grid>
-            
-        </GroupBox>
+                
+            </Grid>
             
         </materialDesign:Card>
     </Grid>
