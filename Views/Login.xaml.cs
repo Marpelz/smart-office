@@ -44,6 +44,15 @@ public partial class Login
 
         try
         {
+            // Überprüfen, ob es sich um den Admin handelt
+            if (userName.ToLower() == "admin" && userPassword == "admin")
+            {
+                var homescreen = _service.GetRequiredService<HomeScreen>();
+                homescreen.Show();
+                Close();
+                return; // Beenden Sie die Methode, da der Admin erfolgreich angemeldet wurde
+            }
+            
             var user = await _userService.GetUserByUsername(userName);
 
             if (user != null && _userService.VerifyPassword(userPassword, user.UserPassword))

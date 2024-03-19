@@ -1,0 +1,133 @@
+<Window x:Class="SmartOffice.Views.FoodOrdering.AddMenus"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Height="768" Width="1024"
+        WindowState="Normal" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" 
+        ResizeMode="NoResize" 
+        Background="{x:Null}"
+        AllowsTransparency="True"
+        MouseLeftButtonDown="WindowDragMove"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="12"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    
+    <Grid>
+        
+        <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}">
+            
+            <GroupBox Header="Speisekarte hinzufügen / bearbeiten" Style="{StaticResource MaterialDesignCardGroupBox}" Margin="3">
+                
+                <Grid ShowGridLines="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="0.15*" />
+                    </Grid.RowDefinitions>
+                    
+                    <GroupBox Grid.Row="0" Header="Übersicht" Style="{StaticResource MaterialDesignCardGroupBox}" Margin="5" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.15*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            
+                            <Label Grid.Row="0" Content="Restaurantauswahl:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" />
+                            <ComboBox Grid.Row="0" Height="30" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="125, 0, 0, 0" />
+                            
+                            <DataGrid Grid.Row="1" x:Name="RestaurantOverviewDataGrid" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
+                                <DataGrid.Resources>
+                                    <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}" />
+                                </DataGrid.Resources>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Speise-Nr." MinWidth="80" />
+                                    <DataGridTextColumn Header="Art" MinWidth="130" />
+                                    <DataGridTextColumn Header="Bezeichnung" MinWidth="250" />
+                                    <DataGridTextColumn Header="Inhalt" MinWidth="300" />
+                                    <DataGridTextColumn Header="Preis" MinWidth="150" />
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button x:Name="delete" Margin="5,1" >
+                                                    <StackPanel>
+                                                        <materialDesign:PackIcon Kind="Trash" Width="20" Height="20" />
+                                                    </StackPanel>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            
+                        </Grid>
+                        
+                    </GroupBox>
+                    
+                    <GroupBox Grid.Row="1" Header="Neue Speisen erfassen" Style="{StaticResource MaterialDesignCardGroupBox}" Margin="5" >
+                        <Grid ShowGridLines="False">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="0.8*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            
+                            <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 5, 0">
+                                <TextBlock Text="Speisedaten:" TextDecorations="Underline"></TextBlock>
+                            </Label>
+                            
+                            <Label Grid.Column="1" Grid.Row="1" Content="Speise-Nr.:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="2" Grid.Row="1" Height="30" Width="50" Margin="5, 0, 5, 0"
+                                     HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            
+                            <Label Grid.Column="1" Grid.Row="2" Content="Art:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <ComboBox Grid.Column="2" Grid.Row="2" Height="30" Margin="5, 0, 0, 0" 
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            
+                            <Label Grid.Column="1" Grid.Row="3" Content="Bezeichnung:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="2" Grid.Row="3" Height="30" Margin="5, 0, 5, 0"
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            
+                            <Label Grid.Column="1" Grid.Row="4" Content="Inhalt:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" Margin="5, 0, 5, 0" 
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                            
+                            <Label Grid.Column="4" Grid.Row="1" Content="Preis:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="5" Grid.Row="1" Height="30" Width="50" Margin="5, 5, 5, 0" 
+                                     HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            <materialDesign:PackIcon Grid.Column="5" Grid.Row="1" Kind="Euro" Height="20" Width="15" 
+                                                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="55, 5, 5, 5"/>
+                            
+                        </Grid>
+                    </GroupBox>
+                    
+                    
+                    <Button Grid.Row="2" Height="35" Width="200" Content="Hinzufügen / Speichern" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5, 10, 130, 5"></Button>
+                    <Button Grid.Row="2" Height="35" Width="115" Content="Schließen" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5, 10, 10, 5" 
+                            Click="CloseBTN_Click"/>
+                    
+                </Grid>
+            </GroupBox>
+            
+        </materialDesign:Card>
+        
+    </Grid>
+</Window>

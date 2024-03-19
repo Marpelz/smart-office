@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Height="500" 
-        Width="750" 
+        Width="800" 
         WindowState="Normal" 
         WindowStartupLocation="CenterScreen"
         WindowStyle="None" 
@@ -23,74 +23,76 @@
         
         <materialDesign:Card UniformCornerRadius="5" Background="{DynamicResource MaterialDesignPaper}">
             
-            <Grid>
+            <Grid ShowGridLines="False">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.7*" />
                 </Grid.ColumnDefinitions>
                 
-                <Image Grid.Row="0" Grid.Column="0"  Source="../Resources/Logos/SmartOfficeLogo.png"
-                       Margin="-5"
-                       Height="350"
-                       Width="350">
+                <Image Grid.Row="0" Grid.Column="0" Source="../Resources/Logos/SmartOfficeLogo.png"
+                       Margin="-15, 30, 0, 5"
+                       Height="500"
+                       Width="500"
+                       VerticalAlignment="Top">
                 </Image>
                 
-                <Grid Grid.Column="1" ShowGridLines="False">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="5*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.3*" />
-                    <RowDefinition Height="0.1*" />
-                    <RowDefinition Height="0.3*" />
-                    <RowDefinition Height="0.1*" />
-                    <RowDefinition Height="0.3*" />
-                    <RowDefinition Height="0.1*" />
-                    <RowDefinition Height="0.2*" />
-                    <RowDefinition Height="0.1*" />
-                    <RowDefinition Height="0.3*" />
-                    <RowDefinition Height="0.2*" />
-                    <RowDefinition Height="0.3*" />
-                    <RowDefinition Height="0.3*" />
-                </Grid.RowDefinitions>
+                <materialDesign:Card Grid.Column="1" UniformCornerRadius="5" Background="{DynamicResource MaterialDesignPaper}" Margin="5">
                     
-                    <Button Grid.Row="0" Grid.Column="2" x:Name="BackToLogin" ToolTip="Zurück zur Anmeldung" Click="BackToUserLogin" Style="{StaticResource MaterialDesignIconButton}" 
-                            VerticalAlignment="Top" HorizontalAlignment="Center" Margin="3" >
-                        <materialDesign:PackIcon Kind="ArrowBack" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    </Button>
+                    <Grid ShowGridLines="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*" />
+                            <RowDefinition Height="0.1*" />
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.1*" />
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.1*" />
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.1*" />
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.1*" />
+                            <RowDefinition Height="0.3*" />
+                            <RowDefinition Height="0.3*" />
+                        </Grid.RowDefinitions>
+                    
+                        <Button Grid.Row="0" Grid.Column="2" x:Name="BackToLogin" ToolTip="Zurück zur Anmeldung" Click="BackToUserLogin" Style="{StaticResource MaterialDesignIconButton}" 
+                                VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 5 7 0" Height="25" Width="25" >
+                            <materialDesign:PackIcon Kind="ArrowBack" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="25Sty" />
+                        </Button>
                 
-                <TextBox x:Name="SetUsrName" Grid.Row="2" Grid.Column="1"  Style="{StaticResource MaterialDesignFilledTextBox}"
-                         HorizontalContentAlignment="Left"
-                         VerticalContentAlignment="Center"
-                         materialDesign:HintAssist.Hint="Benutzername" />
+                        <TextBox x:Name="SetUsrName" Grid.Row="2" Grid.Column="1"  Style="{StaticResource MaterialDesignFilledTextBox}"
+                                HorizontalContentAlignment="Left"
+                                VerticalContentAlignment="Center"
+                                materialDesign:HintAssist.Hint="Benutzername" />
                 
-                <PasswordBox x:Name="SetUsrPassword" Grid.Row="4" Grid.Column="1" Style="{StaticResource MaterialDesignFilledRevealPasswordBox}"
-                             HorizontalContentAlignment="Left"
-                             VerticalContentAlignment="Center"
-                             materialDesign:HintAssist.Hint="Passwort" />
+                        <PasswordBox x:Name="SetUsrPassword" Grid.Row="4" Grid.Column="1" Style="{StaticResource MaterialDesignFilledRevealPasswordBox}"
+                                    HorizontalContentAlignment="Left"
+                                    VerticalContentAlignment="Center"
+                                    materialDesign:HintAssist.Hint="Passwort" />
                 
-                <TextBlock Grid.Row="6" Grid.Column="1" Text="PayPal vorhanden?" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" Margin="5" />
-                <ToggleButton x:Name="SetPaypalToggle" IsChecked="False" Checked="SetPaypalToggle_Checked" Unchecked="SetPaypalToggle_Unchecked" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="3" />
+                        <TextBlock Grid.Row="6" Grid.Column="1" Text="PayPal vorhanden?" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" Margin="5" />
+                        <ToggleButton x:Name="SetPaypalToggle" IsChecked="False" Checked="SetPaypalToggle_Checked" Unchecked="SetPaypalToggle_Unchecked" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="3" />
                 
-                <TextBox x:Name="SetUsrPaypal" Grid.Row="8" Grid.Column="1"  Style="{StaticResource MaterialDesignFilledTextBox}"
-                         HorizontalContentAlignment="Left"
-                         VerticalContentAlignment="Center"
-                         IsEnabled="False"
-                         materialDesign:HintAssist.Hint="PayPal Adresse" />
+                        <TextBox x:Name="SetUsrPaypal" Grid.Row="8" Grid.Column="1"  Style="{StaticResource MaterialDesignFilledTextBox}"
+                                HorizontalContentAlignment="Left"
+                                VerticalContentAlignment="Center"
+                                IsEnabled="False"
+                                materialDesign:HintAssist.Hint="PayPal Adresse" />
                 
-                <Button Grid.Row="10" Grid.Column="1" x:Name="CreateUsr" Click="CreateUserAccount" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="230" Margin="0" >
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                        <TextBlock Text="Benutzerkonto erstellen" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </Button>
+                        <Button Grid.Row="10" Grid.Column="1" x:Name="CreateUsr" Click="CreateUserAccount" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="200" Margin="0" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                <TextBlock Text="Benutzerkonto erstellen" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0"/>
+                            </StackPanel>
+                        </Button>
                 
+                    </Grid>
+                </materialDesign:Card>
             </Grid>
-                
-            </Grid>
-            
         </materialDesign:Card>
     </Grid>
     

@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Height="500" 
-        Width="750" 
+        Width="800" 
         WindowState="Normal" 
         WindowStartupLocation="CenterScreen"
         WindowStyle="None" 
@@ -23,75 +23,77 @@
         
         <materialDesign:Card UniformCornerRadius="5" Background="{DynamicResource MaterialDesignPaper}">
             
-            <Grid>
+            <Grid ShowGridLines="False">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.7*" />
                 </Grid.ColumnDefinitions>
                 
                 <Image Grid.Row="0" Grid.Column="0" Source="../Resources/Logos/SmartOfficeLogo.png"
-                       Margin="-5"
-                       Height="350"
-                       Width="350">
+                       Margin="-15, 30, 0, 5"
+                       Height="500"
+                       Width="500"
+                       VerticalAlignment="Top">
                 </Image>
                 
-                <Grid Grid.Column="1" ShowGridLines="False">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="5*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="0.1*" />
-                    <RowDefinition Height="0.3*" />
-                    <RowDefinition Height="0.1*" />
-                    <RowDefinition Height="0.3*" />
-                    <RowDefinition Height="0.2*" />
-                    <RowDefinition Height="0.3*" />
-                    <RowDefinition Height="0.2*" />
-                    <RowDefinition Height="0.5*" />
-                </Grid.RowDefinitions>
+                <materialDesign:Card Grid.Column="1" UniformCornerRadius="5" Background="{DynamicResource MaterialDesignPaper}" Margin="5">
                     
-                    <Button Grid.Row="0" Grid.Column="2" ToolTip="SmartOffice schließen" Click="CloseOnClick" Style="{StaticResource MaterialDesignIconButton}" Margin="3"
-                            HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <materialDesign:PackIcon Kind="Shutdown"/>
-                    </Button>
+                    <Grid ShowGridLines="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*" />
+                            <RowDefinition Height="0.1*" />
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.1*" />
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.1*" />
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.1*" />
+                            <RowDefinition Height="0.5*" />
+                        </Grid.RowDefinitions>
+                    
+                            <Button Grid.Row="0" Grid.Column="2" ToolTip="SmartOffice schließen" Click="CloseOnClick" Style="{StaticResource MaterialDesignIconButton}" Margin="0 5 7 0"
+                                    HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="25">
+                                <materialDesign:PackIcon Kind="Shutdown" Height="25" Width="25"/>
+                            </Button>
                 
-                    <materialDesign:PackIcon Grid.Column="0" Grid.Row="2" Kind="User" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" Width="25" Margin="0 0 10 0" />
-                    <TextBox x:Name="SoUsrName" Grid.Row="2" Grid.Column="1" Style="{StaticResource MaterialDesignFilledTextBox}"
-                             HorizontalContentAlignment="Left"
-                             VerticalContentAlignment="Center"
-                             materialDesign:HintAssist.Hint="Benutzername" />
+                            <materialDesign:PackIcon Grid.Column="0" Grid.Row="2" Kind="User" Visibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" Width="25" Margin="0 0 10 0" />
+                            <TextBox x:Name="SoUsrName" Grid.Row="2" Grid.Column="1" Style="{StaticResource MaterialDesignFilledTextBox}"
+                                    HorizontalContentAlignment="Left"
+                                    VerticalContentAlignment="Center"
+                                    materialDesign:HintAssist.Hint="Benutzername" />
                     
-                    <materialDesign:PackIcon Grid.Column="0" Grid.Row="4" Kind="Password" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" Width="25" Margin="0 0 10 0" />
-                    <PasswordBox x:Name="SoUsrPassword" Grid.Row="4" Grid.Column="1" Style="{StaticResource MaterialDesignFilledRevealPasswordBox}"
-                                 HorizontalContentAlignment="Left"
-                                 VerticalContentAlignment="Center"
-                                 materialDesign:HintAssist.Hint="Passwort" />
+                            <materialDesign:PackIcon Grid.Column="0" Grid.Row="4" Kind="Password" Visibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" Width="25" Margin="0 0 10 0" />
+                            <PasswordBox x:Name="SoUsrPassword" Grid.Row="4" Grid.Column="1" Style="{StaticResource MaterialDesignFilledRevealPasswordBox}"
+                                        HorizontalContentAlignment="Left"
+                                        VerticalContentAlignment="Center"
+                                        materialDesign:HintAssist.Hint="Passwort" />
                     
-                    <Button Grid.Row="6" Grid.Column="1" Click="StartSmartOffice" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="200" Margin="0" >
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Login" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                            <TextBlock Text="Anmelden" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
-                        </StackPanel>
-                    </Button>
+                            <Button Grid.Row="6" Grid.Column="1" Click="StartSmartOffice" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="200" Margin="0" >
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Login" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                    <TextBlock Text="Anmelden" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                                </StackPanel>
+                            </Button>
                     
-                    <TextBlock Grid.Row="8" Grid.Column="1" Text="Noch kein Benutzerkonto?" TextAlignment="Center" Height="20" VerticalAlignment="Top" Margin="10" />
-                    <Button Grid.Row="8" Grid.Column="1" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
-                            Click="OpenRegister" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 10 0 0">
-                        <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="5" />
-                            </Style>
-                        </Button.Resources>
-                    </Button>
+                            <TextBlock Grid.Row="8" Grid.Column="1" Text="Noch kein Benutzerkonto?" TextAlignment="Center" Height="20" VerticalAlignment="Top" Margin="0 5 0 0" />
+                            <Button Grid.Row="8" Grid.Column="1" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                                    Click="OpenRegister" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 30 0 0">
+                                <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="5" />
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
                 
-                </Grid>
-                
+                    </Grid>
+                </materialDesign:Card>
             </Grid>
-            
         </materialDesign:Card>
     </Grid>
     

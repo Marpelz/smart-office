@@ -63,6 +63,11 @@ public partial class Register
             await _userService.SetUser(newUser, userPassword);
 
             MessageBox.Show("Benutzerkonto erfolgreich erstellt.", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            var login = _service.GetRequiredService<Login>();
+            login.Show();
+            
+            Close();
         }
         catch (Exception ex)
         {

@@ -52,25 +52,25 @@
                         <ListView Margin="0 15">
                             
                             <ListViewItem HorizontalAlignment="Center" Margin="0 0 0 0">
-                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadFoodOrder" HorizontalAlignment="Left">
+                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="OpenFoodOrderBTN_Click" HorizontalAlignment="Left">
                                         <materialDesign:PackIcon Kind="Food" />
                                 </Button>
                             </ListViewItem>
                             
                             <ListViewItem HorizontalAlignment="Center" Margin="0 0 0 0">
-                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadChat" HorizontalAlignment="Left">
+                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="OpenChatBTN_Click" HorizontalAlignment="Left">
                                     <materialDesign:PackIcon Kind="Chat" />
                                 </Button>
                             </ListViewItem>
                             
                             <ListViewItem HorizontalAlignment="Center" Margin="0 175 0 0">
-                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadAdminSettings" HorizontalAlignment="Left" IsEnabled="False">
+                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="OpenAdminSettingsBTN_Click" HorizontalAlignment="Left" IsEnabled="False">
                                     <materialDesign:PackIcon Kind="Administrator" />
                                 </Button>
                             </ListViewItem>
                             
                             <ListViewItem HorizontalAlignment="Center" Margin="0 0 0 0">
-                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="LoadUserSettings" HorizontalAlignment="Left">
+                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="OpenUserSettingsBTN_Click" HorizontalAlignment="Left">
                                         <materialDesign:PackIcon Kind="Settings"/>
                                 </Button>
                             </ListViewItem>
@@ -91,10 +91,12 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.5*" />
                         <RowDefinition Height="15*" />
-                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="0*" />
                     </Grid.RowDefinitions>
                     
-                    <Grid x:Name="RenderPages" Grid.Row="1" Margin="5"></Grid>
+                    <Grid x:Name="RenderPages" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                        
+                    </Grid>
                     
                 </Grid>
                 

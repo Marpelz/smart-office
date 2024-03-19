@@ -27,26 +27,26 @@ namespace SmartOffice.Views
                 DragMove();
             }
         }
+        
+        private void OpenFoodOrderBTN_Click(object sender, RoutedEventArgs e)
+        {
+            RenderPages.Children.Clear();
+            RenderPages.Children.Add(new FoodOrderHome(_service));
+        }
 
-        private void LoadChat(object sender, RoutedEventArgs e)
+        private void OpenChatBTN_Click(object sender, RoutedEventArgs e)
         {
             RenderPages.Children.Clear();
             RenderPages.Children.Add(new ChatRoom());
         }
 
-        private void LoadFoodOrder(object sender, RoutedEventArgs e)
-        {
-            RenderPages.Children.Clear();
-            RenderPages.Children.Add(new FoodOrder());
-        }
-
-        private void LoadAdminSettings(object sender, RoutedEventArgs e)
+        private void OpenAdminSettingsBTN_Click(object sender, RoutedEventArgs e)
         {
             RenderPages.Children.Clear();
             RenderPages.Children.Add(new AdminSettings());
         }
         
-        private void LoadUserSettings(object sender, RoutedEventArgs e)
+        private void OpenUserSettingsBTN_Click(object sender, RoutedEventArgs e)
         {
             RenderPages.Children.Clear();
             RenderPages.Children.Add(new UserSettings());

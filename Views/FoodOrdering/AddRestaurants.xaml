@@ -1,0 +1,174 @@
+<Window x:Class="SmartOffice.Views.FoodOrdering.AddRestaurants"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:converters="clr-namespace:SmartOffice.Views.Converters"
+        mc:Ignorable="d"
+        Height="768" Width="1024"
+        WindowState="Normal" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" 
+        ResizeMode="NoResize" 
+        Background="{x:Null}"
+        AllowsTransparency="True"
+        MouseLeftButtonDown="WindowDragMove"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="12"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    
+    <Window.Resources>
+        <converters:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
+    </Window.Resources>
+    
+    <Grid>
+        
+        <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}">
+            
+            <GroupBox Header="Restaurant hinzufügen / bearbeiten" Style="{StaticResource MaterialDesignCardGroupBox}" Margin="3">
+                
+                <Grid ShowGridLines="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="0.15*" />
+                    </Grid.RowDefinitions>
+                    
+                    <GroupBox Grid.Row="0" Header="Übersicht" Style="{StaticResource MaterialDesignCardGroupBox}" Margin="5"  >
+                        <DataGrid x:Name="RestaurantDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding RestDataGrid}"
+                                  IsReadOnly="True" VerticalScrollBarVisibility="Auto" SelectionChanged="RestaurantDataGrid_OnSelectionChanged" >
+                            <DataGrid.Resources>
+                                <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}" />
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Res.-ID" MinWidth="50" Binding="{Binding RestaurantId}" />
+                                <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding RestaurantName}" />
+                                <DataGridTextColumn Header="Straße" MinWidth="200" Binding="{Binding RestaurantStreet }" />
+                                <DataGridTextColumn Header="Postleitzahl" MinWidth="50" Binding="{Binding RestaurantZipcode}" />
+                                <DataGridTextColumn Header="Ort" MinWidth="150" Binding="{Binding RestaurantCity }" />
+                                <DataGridTextColumn Header="Art" MinWidth="100" Binding="{Binding RestaurantType}" />
+                                <DataGridTextColumn Header="Lieferung" MinWidth="100" Binding="{Binding RestaurantDelivery}" />
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name="delete" Margin="5,1" Click="Delete_OnClick" >
+                                                <StackPanel>
+                                                    <materialDesign:PackIcon Kind="Trash" Width="20" Height="20" />
+                                                </StackPanel>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                    
+                    <GroupBox Grid.Row="1" Header="Neues Restaurant erfassen" Style="{StaticResource MaterialDesignCardGroupBox}" Margin="5" >
+                        <Grid ShowGridLines="False">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition Width="0.8*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition Width="0.7*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="0.6*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            
+                            <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 5, 0">
+                                <TextBlock Text="Restaurantdaten:" TextDecorations="Underline"></TextBlock>
+                            </Label>
+                            
+                            <Label Grid.Column="1" Grid.Row="1" Content="ID:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="2" Grid.Row="1" Height="30" Width="70" Margin="5, 0, 0, 0" IsReadOnly="False"
+                                     HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     Text="{Binding Path=RestModel.FoodorderRestaurantIdProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            
+                            <Label Grid.Column="1" Grid.Row="2" Content="Name:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="2" Grid.Row="2" Height="30" Margin="5, 0, 5, 0"
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     Text="{Binding Path=RestModel.FoodorderRestaurantNameProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            
+                            <Label Grid.Column="1" Grid.Row="3" Content="Straße + Hausnummer:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="2" Grid.Row="3" Height="30" Margin="5, 0, 5, 0" 
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     Text="{Binding Path=RestModel.FoodorderRestaurantStreetProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            
+                            <Label Grid.Column="1" Grid.Row="4" Content="Postleitzahl:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="2" Grid.Row="4" Height="30" Width="70" Margin="5, 0, 0, 0"
+                                     HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     Text="{Binding Path=RestModel.FoodorderRestaurantZipcodeProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            
+                            <Label Grid.Column="1" Grid.Row="5" Content="Ort:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="2" Grid.Row="5" Height="30" Margin="5, 0, 5, 0" 
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     Text="{Binding Path=RestModel.FoodorderRestaurantCityProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            
+                            <Label Grid.Column="1" Grid.Row="6" Content="Lieferando-Link:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="4" Height="30" Margin="5, 0, 5, 0"
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                                     Text="{Binding Path=RestModel.FoodorderRestaurantLieferandoLinkProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            
+                            <Label Grid.Column="4" Grid.Row="1" Content="Art:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="5" Grid.Row="1" Height="30" Margin="5, 0, 5, 0" 
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     Text="{Binding Path=RestModel.FoodorderRestaurantTypeProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            
+                            <Label Grid.Column="4" Grid.Row="2" Content="Telefon:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="5" Grid.Row="2" Height="30" Margin="5, 0, 5, 0"
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     Text="{Binding Path=RestModel.FoodorderRestaurantPhonenumberProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            
+                            <Label Grid.Column="4" Grid.Row="3" Content="Lieferung:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <StackPanel Grid.Column="5" Grid.Row="3" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <RadioButton Content="Ja" Margin="5, 5, 0, 5"
+                                             IsChecked="{Binding Path=RestModel.FoodorderRestaurantDeliveryYesNoProp, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Yes}"/>
+                                <RadioButton Content="Nein" Margin="50, 5, 5, 5" 
+                                             IsChecked="{Binding Path=RestModel.FoodorderRestaurantDeliveryYesNoProp, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=No}"/>
+                                <RadioButton Content="None" Visibility="Hidden"
+                                             IsChecked="{Binding Path=RestModel.FoodorderRestaurantDeliveryYesNoProp, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=None}"/>
+                            </StackPanel>
+                            
+                            <Label Grid.Column="4" Grid.Row="4" Content="Bestellen per:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <StackPanel Grid.Column="5" Grid.Row="4" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <RadioButton Content="App" Margin="15, 5, 0, 5" 
+                                             IsChecked="{Binding Path=RestModel.FoodorderRestaurantOrdertypeAppTelephoneProp, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=App}"/>
+                                <RadioButton Content="Telefon" Margin="44, 5, 0, 5" 
+                                             IsChecked="{Binding Path=RestModel.FoodorderRestaurantOrdertypeAppTelephoneProp, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Telephone}"/>
+                                <RadioButton Content="None" Visibility="Hidden" 
+                                             IsChecked="{Binding Path=RestModel.FoodorderRestaurantOrdertypeAppTelephoneProp, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=None}"/>
+                            </StackPanel>
+                            
+                            <Label Grid.Column="4" Grid.Row="5" Content="Mindestbestellwert:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="5" Grid.Row="5" Height="30" Width="50" Margin="5, 0, 5, 0"
+                                     HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     Text="{Binding Path=RestModel.FoodorderRestaurantMinimalOrderValueProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            
+                            <materialDesign:PackIcon Grid.Column="5" Grid.Row="5" Kind="Euro" Height="20" Width="15" 
+                                                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="55, 5, 5, 5"/>
+                            
+                        </Grid>
+                    </GroupBox>
+                    
+                    
+                    <Button x:Name="addsavebtn" Grid.Row="2" Height="35" Width="200" Content="Hinzufügen / Speichern" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5, 10, 130, 5"></Button>
+                    <Button x:Name="closebtn" Grid.Row="2" Height="35" Width="115" Content="Schließen" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5, 10, 10, 5" 
+                            Click="Close_OnClick"/>
+                    
+                </Grid>
+            </GroupBox>
+            
+        </materialDesign:Card>
+    </Grid>
+</Window>
