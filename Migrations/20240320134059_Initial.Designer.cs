@@ -10,8 +10,8 @@ using SmartOffice;
 namespace SmartOffice.Migrations
 {
     [DbContext(typeof(SmartOfficeDbContext))]
-    [Migration("20240319135130_SmartOfficeDB")]
-    partial class SmartOfficeDB
+    [Migration("20240320134059_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,16 @@ namespace SmartOffice.Migrations
                         .IsRequired()
                         .HasColumnType("longtext")
                         .HasColumnName("RestCity");
+
+                    b.Property<string>("FoodorderRestaurantDeliveryCostProp")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("RestDeliveryCost");
+
+                    b.Property<string>("FoodorderRestaurantDeliveryTimeProp")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("RestDeliveryTime");
 
                     b.Property<string>("FoodorderRestaurantDeliveryYesNoProp")
                         .IsRequired()

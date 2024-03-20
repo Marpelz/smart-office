@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SmartOffice.Context;
+using SmartOffice.Services.FoodOrderServices.MenuService;
+using SmartOffice.Services.FoodOrderServices.RestaurantService;
 using SmartOffice.Services.UserService;
 using SmartOffice.Views;
 using SmartOffice.Views.FoodOrdering;
@@ -44,8 +47,15 @@ public partial class App
                 new MySqlServerVersion(new Version(11, 3, 2)),
                 builder => builder.MigrationsAssembly(typeof(SmartOfficeDbContext).Assembly.FullName)), ServiceLifetime.Transient);
         
+        services.AddDbContext<SoDbContext>(options =>
+            options.UseMySql(configuration.GetConnectionString("SmartOfficeDB"),
+                new MySqlServerVersion(new Version(11, 3, 2)),
+                builder => builder.MigrationsAssembly(typeof(SoDbContext).Assembly.FullName)), ServiceLifetime.Transient);
+        
         // Services
         services.AddTransient<IUserService, UserService>();
+        services.AddTransient<IRestaurantService, RestaurantService>();
+        services.AddTransient<IMenuService, MenuService>();
 
         // Logger
         services.AddLogging(configure => configure.AddConsole());

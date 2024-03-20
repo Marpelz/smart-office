@@ -29,6 +29,16 @@ namespace SmartOffice.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("RestCity");
 
+                    b.Property<string>("FoodorderRestaurantDeliveryCostProp")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("RestDeliveryCost");
+
+                    b.Property<string>("FoodorderRestaurantDeliveryTimeProp")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("RestDeliveryTime");
+
                     b.Property<string>("FoodorderRestaurantDeliveryYesNoProp")
                         .IsRequired()
                         .HasColumnType("VARCHAR(20)")

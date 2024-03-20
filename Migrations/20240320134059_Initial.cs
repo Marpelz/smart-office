@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmartOffice.Migrations
 {
     /// <inheritdoc />
-    public partial class SmartOfficeDB : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,9 +34,13 @@ namespace SmartOffice.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     RestDelivery = table.Column<string>(type: "VARCHAR(20)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    RestDeliveryTime = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     RestAppTelephone = table.Column<string>(type: "VARCHAR(20)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     RestMinOrderValue = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RestDeliveryCost = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     RestLieferandoLink = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")

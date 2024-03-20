@@ -22,8 +22,10 @@ public class RestaurantViewModel : INotifyPropertyChanged
     private string _foodorderRestaurantType = "";
     private string _foodorderRestaurantPhonenumber = "";
     public string _foodorderRestaurantDeliveryYesNo { get; set; } = ""; // RadioButton
+    private string _foodorderRestaurantDeliveryTime = "";
     public string _foodorderRestaurantOrdertypeAppTelephone { get; set; } = ""; // RadioButton
-    private string _foodorderRestaurantMinimalOrderValue = ""; // decimal
+    private string _foodorderRestaurantMinimalOrderValue = "";
+    private string _foodorderRestaurantDeliveryCost = "";
     private string _foodorderRestaurantLieferandoLink = "";
     
     
@@ -121,6 +123,16 @@ public class RestaurantViewModel : INotifyPropertyChanged
         }
     }
     
+    public string FoodorderRestaurantDeliveryTimeProp
+    {
+        get => _foodorderRestaurantDeliveryTime;
+        set
+        {
+            _foodorderRestaurantDeliveryTime = value;
+            OnPropertyChanged(nameof(FoodorderRestaurantDeliveryTimeProp));
+        }
+    }
+    
     public Ordertype FoodorderRestaurantOrdertypeAppTelephoneProp
     {
         get
@@ -152,6 +164,16 @@ public class RestaurantViewModel : INotifyPropertyChanged
         {
             _foodorderRestaurantMinimalOrderValue = value;
             OnPropertyChanged(nameof(FoodorderRestaurantMinimalOrderValueProp));
+        }
+    }
+    
+    public string FoodorderRestaurantDeliveryCostProp
+    {
+        get => _foodorderRestaurantDeliveryCost;
+        set
+        {
+            _foodorderRestaurantDeliveryCost = value;
+            OnPropertyChanged(nameof(FoodorderRestaurantDeliveryCostProp));
         }
     }
     

@@ -20,7 +20,7 @@
     
     <Grid>
         
-        <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}">
+        <materialDesign:Card UniformCornerRadius="5" Background="{DynamicResource MaterialDesignPaper}">
             
             <GroupBox Header="Speisekarte hinzufügen / bearbeiten" Style="{StaticResource MaterialDesignCardGroupBox}" Margin="3">
                 
@@ -39,25 +39,28 @@
                             </Grid.RowDefinitions>
                             
                             <Label Grid.Row="0" Content="Restaurantauswahl:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" />
-                            <ComboBox Grid.Row="0" Height="30" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="125, 0, 0, 0" />
+                            <ComboBox Grid.Row="0" Height="30" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="125, 0, 0, 0" />
+                            <Button x:Name="loadMenu" Grid.Row="0" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="385, 0, 0, 0"
+                                    Style="{StaticResource MaterialDesignIconButton}">
+                                <materialDesign:PackIcon Kind="Search" Height="25" Width="25" />
+                            </Button>
                             
                             <DataGrid Grid.Row="1" x:Name="RestaurantOverviewDataGrid" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
                                 <DataGrid.Resources>
                                     <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}" />
                                 </DataGrid.Resources>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Speise-Nr." MinWidth="80" />
-                                    <DataGridTextColumn Header="Art" MinWidth="130" />
-                                    <DataGridTextColumn Header="Bezeichnung" MinWidth="250" />
+                                    <DataGridTextColumn Header="Speise-Nr." MinWidth="50" />
+                                    <DataGridTextColumn Header="Kategorie" MinWidth="130" />
+                                    <DataGridTextColumn Header="Bezeichnung" MinWidth="300" />
                                     <DataGridTextColumn Header="Inhalt" MinWidth="300" />
                                     <DataGridTextColumn Header="Preis" MinWidth="150" />
                                     <DataGridTemplateColumn>
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button x:Name="delete" Margin="5,1" >
-                                                    <StackPanel>
-                                                        <materialDesign:PackIcon Kind="Trash" Width="20" Height="20" />
-                                                    </StackPanel>
+                                                <Button x:Name="delete" Height="20" Width="20" Style="{StaticResource MaterialDesignIconButton}"
+                                                        HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                    <materialDesign:PackIcon Kind="Trash" Width="20" Height="20" />
                                                 </Button>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
@@ -95,11 +98,15 @@
                             </Label>
                             
                             <Label Grid.Column="1" Grid.Row="1" Content="Speise-Nr.:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
-                            <TextBox Grid.Column="2" Grid.Row="1" Height="30" Width="50" Margin="5, 0, 5, 0"
+                            <TextBox Grid.Column="2" Grid.Row="1" Height="30" Width="70" Margin="5, 0, 5, 0"
                                      HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            <Button x:Name="addNewMenu" Grid.Column="2" Grid.Row="1" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="80, 0, 0, 0"
+                                    Style="{StaticResource MaterialDesignIconButton}">
+                                <materialDesign:PackIcon Kind="NewBox" Height="25" Width="25" />
+                            </Button>
                             
-                            <Label Grid.Column="1" Grid.Row="2" Content="Art:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
-                            <ComboBox Grid.Column="2" Grid.Row="2" Height="30" Margin="5, 0, 0, 0" 
+                            <Label Grid.Column="1" Grid.Row="2" Content="Kategorie:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="2" Grid.Row="2" Height="30" Margin="5, 0, 5, 0" 
                                      HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                             
                             <Label Grid.Column="1" Grid.Row="3" Content="Bezeichnung:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
@@ -110,11 +117,15 @@
                             <TextBox Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" Margin="5, 0, 5, 0" 
                                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
                             
-                            <Label Grid.Column="4" Grid.Row="1" Content="Preis:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
-                            <TextBox Grid.Column="5" Grid.Row="1" Height="30" Width="50" Margin="5, 5, 5, 0" 
+                            <Label Grid.Column="4" Grid.Row="1" Content="Zusatzauswahl:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" Margin="5, 0, 5, 0" 
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                            
+                            <Label Grid.Column="4" Grid.Row="4" Content="Preis:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="5" Grid.Row="4" Height="30" Width="50" Margin="5, 5, 5, 0" 
                                      HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                            <materialDesign:PackIcon Grid.Column="5" Grid.Row="1" Kind="Euro" Height="20" Width="15" 
-                                                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="55, 5, 5, 5"/>
+                            <materialDesign:PackIcon Grid.Column="5" Grid.Row="4" Kind="Euro" Height="20" Width="15" 
+                                                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="55, 5, 5, 0"/>
                             
                         </Grid>
                     </GroupBox>

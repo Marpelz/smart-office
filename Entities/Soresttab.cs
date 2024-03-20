@@ -21,9 +21,13 @@ public partial class Soresttab
 
     public string RestDelivery { get; set; } = null!;
 
+    public string RestDeliveryTime { get; set; } = null!;
+
     public string RestAppTelephone { get; set; } = null!;
 
     public string RestMinOrderValue { get; set; } = null!;
+
+    public string RestDeliveryCost { get; set; } = null!;
 
     public string RestLieferandoLink { get; set; } = null!;
 }

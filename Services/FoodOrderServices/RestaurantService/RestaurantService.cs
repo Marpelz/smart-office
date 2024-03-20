@@ -58,8 +58,10 @@ public class RestaurantService : IRestaurantService
             FoodorderRestaurantTypeProp = rests.RestType,
             FoodorderRestaurantPhonenumberProp = rests.RestPhonenumber,
             _foodorderRestaurantDeliveryYesNo = rests.RestDelivery,
+            FoodorderRestaurantDeliveryTimeProp = rests.RestDeliveryTime,
             _foodorderRestaurantOrdertypeAppTelephone = rests.RestAppTelephone,
             FoodorderRestaurantMinimalOrderValueProp = rests.RestMinOrderValue,
+            FoodorderRestaurantDeliveryCostProp = rests.RestDeliveryCost,
             FoodorderRestaurantLieferandoLinkProp = rests.RestLieferandoLink
             
         };
@@ -90,8 +92,10 @@ public class RestaurantService : IRestaurantService
             RestType = restmodel.FoodorderRestaurantTypeProp,
             RestPhonenumber = restmodel.FoodorderRestaurantPhonenumberProp,
             RestDelivery = restmodel._foodorderRestaurantDeliveryYesNo,
+            RestDeliveryTime = restmodel.FoodorderRestaurantDeliveryTimeProp,
             RestAppTelephone = restmodel._foodorderRestaurantOrdertypeAppTelephone,
             RestMinOrderValue = restmodel.FoodorderRestaurantMinimalOrderValueProp,
+            RestDeliveryCost = restmodel.FoodorderRestaurantDeliveryCostProp,
             RestLieferandoLink = restmodel.FoodorderRestaurantLieferandoLinkProp
         };
         await SaveRestaurant(modelrest);

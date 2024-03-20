@@ -21,11 +21,13 @@
     
     <Window.Resources>
         <converters:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:BooleanToEnabledConverter x:Key="BooleanToEnabledConverter"/>
     </Window.Resources>
     
     <Grid>
         
-        <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}">
+        <materialDesign:Card UniformCornerRadius="5" Background="{DynamicResource MaterialDesignPaper}">
             
             <GroupBox Header="Restaurant hinzufügen / bearbeiten" Style="{StaticResource MaterialDesignCardGroupBox}" Margin="3">
                 
@@ -43,20 +45,18 @@
                                 <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}" />
                             </DataGrid.Resources>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Res.-ID" MinWidth="50" Binding="{Binding RestaurantId}" />
-                                <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding RestaurantName}" />
-                                <DataGridTextColumn Header="Straße" MinWidth="200" Binding="{Binding RestaurantStreet }" />
+                                <DataGridTextColumn Header="Name" MinWidth="180" Binding="{Binding RestaurantName}" />
+                                <DataGridTextColumn Header="Straße" MinWidth="180" Binding="{Binding RestaurantStreet }" />
                                 <DataGridTextColumn Header="Postleitzahl" MinWidth="50" Binding="{Binding RestaurantZipcode}" />
                                 <DataGridTextColumn Header="Ort" MinWidth="150" Binding="{Binding RestaurantCity }" />
-                                <DataGridTextColumn Header="Art" MinWidth="100" Binding="{Binding RestaurantType}" />
+                                <DataGridTextColumn Header="Art" MinWidth="190" Binding="{Binding RestaurantType}" />
                                 <DataGridTextColumn Header="Lieferung" MinWidth="100" Binding="{Binding RestaurantDelivery}" />
                                 <DataGridTemplateColumn>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button x:Name="delete" Margin="5,1" Click="Delete_OnClick" >
-                                                <StackPanel>
-                                                    <materialDesign:PackIcon Kind="Trash" Width="20" Height="20" />
-                                                </StackPanel>
+                                            <Button x:Name="delete" Height="20" Width="20" Click="Delete_OnClick" Style="{StaticResource MaterialDesignIconButton}"
+                                                    HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="Trash" Width="20" Height="20" />
                                             </Button>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -91,9 +91,13 @@
                             </Label>
                             
                             <Label Grid.Column="1" Grid.Row="1" Content="ID:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
-                            <TextBox Grid.Column="2" Grid.Row="1" Height="30" Width="70" Margin="5, 0, 0, 0" IsReadOnly="False"
+                            <TextBox x:Name="restId" Grid.Column="2" Grid.Row="1" Height="30" Width="70" Margin="5, 0, 0, 0" IsReadOnly="True"
                                      HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                      Text="{Binding Path=RestModel.FoodorderRestaurantIdProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button x:Name="addNewRest" Grid.Column="2" Grid.Row="1" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="80, 0, 0, 0"
+                                    Style="{StaticResource MaterialDesignIconButton}" Click="GetNewRestaurantModel_OnClick">
+                                <materialDesign:PackIcon Kind="NewBox" Height="25" Width="25" />
+                            </Button>
                             
                             <Label Grid.Column="1" Grid.Row="2" Content="Name:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
                             <TextBox Grid.Column="2" Grid.Row="2" Height="30" Margin="5, 0, 5, 0"
@@ -132,19 +136,26 @@
                             
                             <Label Grid.Column="4" Grid.Row="3" Content="Lieferung:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
                             <StackPanel Grid.Column="5" Grid.Row="3" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <RadioButton Content="Ja" Margin="5, 5, 0, 5"
-                                             IsChecked="{Binding Path=RestModel.FoodorderRestaurantDeliveryYesNoProp, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Yes}"/>
+                                <RadioButton x:Name="YesRadioButton" Content="Ja" Margin="5" 
+                                             IsChecked="{Binding Path=RestModel.FoodorderRestaurantDeliveryYesNoProp, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Yes}"/>
                                 <RadioButton Content="Nein" Margin="50, 5, 5, 5" 
-                                             IsChecked="{Binding Path=RestModel.FoodorderRestaurantDeliveryYesNoProp, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=No}"/>
+                                             IsChecked="{Binding Path=RestModel.FoodorderRestaurantDeliveryYesNoProp, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=No}"/>
                                 <RadioButton Content="None" Visibility="Hidden"
                                              IsChecked="{Binding Path=RestModel.FoodorderRestaurantDeliveryYesNoProp, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=None}"/>
                             </StackPanel>
                             
+                            <Label Grid.Column="5" Grid.Row="3" Content="ab" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" />
+                            <TextBox Grid.Column="6" Grid.Row="3" Height="30" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5, 0, 0, 0"
+                                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     IsEnabled="{Binding Path=IsChecked, ElementName=YesRadioButton, Converter={StaticResource BooleanToEnabledConverter}}"
+                                     Text="{Binding RestModel.FoodorderRestaurantDeliveryTimeProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            <materialDesign:PackIcon Grid.Column="6" Grid.Row="3" Kind="Clock" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="60, 5, 0, 0" />
+                            
                             <Label Grid.Column="4" Grid.Row="4" Content="Bestellen per:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
                             <StackPanel Grid.Column="5" Grid.Row="4" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <RadioButton Content="App" Margin="15, 5, 0, 5" 
+                                <RadioButton Content="App" Margin="20, 5, 0, 5" 
                                              IsChecked="{Binding Path=RestModel.FoodorderRestaurantOrdertypeAppTelephoneProp, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=App}"/>
-                                <RadioButton Content="Telefon" Margin="44, 5, 0, 5" 
+                                <RadioButton Content="Telefon" Margin="47, 6, 5, 5" 
                                              IsChecked="{Binding Path=RestModel.FoodorderRestaurantOrdertypeAppTelephoneProp, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Telephone}"/>
                                 <RadioButton Content="None" Visibility="Hidden" 
                                              IsChecked="{Binding Path=RestModel.FoodorderRestaurantOrdertypeAppTelephoneProp, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=None}"/>
@@ -156,15 +167,25 @@
                                      Text="{Binding Path=RestModel.FoodorderRestaurantMinimalOrderValueProp, UpdateSourceTrigger=PropertyChanged}"/>
                             
                             <materialDesign:PackIcon Grid.Column="5" Grid.Row="5" Kind="Euro" Height="20" Width="15" 
-                                                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="55, 5, 5, 5"/>
+                                                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="60, 5, 0, 0"/>
+                            
+                            <Label Grid.Column="5" Grid.Row="5" Content="Lieferkosten:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
+                            <TextBox Grid.Column="6" Grid.Row="5" Height="30" Width="50" Margin="5, 0, 5, 0"
+                                     HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     Text="{Binding Path=RestModel.FoodorderRestaurantDeliveryCostProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            <materialDesign:PackIcon Grid.Column="6" Grid.Row="5" Kind="Euro" Height="20" Width="15" 
+                                                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="60, 5, 0, 0"/>
                             
                         </Grid>
                     </GroupBox>
                     
                     
-                    <Button x:Name="addsavebtn" Grid.Row="2" Height="35" Width="200" Content="Hinzufügen / Speichern" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5, 10, 130, 5"></Button>
-                    <Button x:Name="closebtn" Grid.Row="2" Height="35" Width="115" Content="Schließen" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5, 10, 10, 5" 
-                            Click="Close_OnClick"/>
+                    <Button x:Name="addsavebtn" Grid.Row="2" Height="35" Width="200" Content="Hinzufügen / Speichern" 
+                            VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5, 10, 130, 5"
+                            Click="SaveRestaurant_OnClick" />
+                    <Button x:Name="closebtn" Grid.Row="2" Height="35" Width="115" Content="Schließen" 
+                            VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5, 10, 10, 5" 
+                            Click="Close_OnClick" />
                     
                 </Grid>
             </GroupBox>

@@ -8,7 +8,7 @@ using SmartOffice.Services.FoodOrderServices.RestaurantService;
 
 namespace SmartOffice.Views.FoodOrdering;
 
-public partial class AddRestaurants : Window
+public partial class AddRestaurants : Window, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged; 
     private readonly IServiceProvider _service;
@@ -21,7 +21,11 @@ public partial class AddRestaurants : Window
         InitializeComponent();
         _service = service;
         _restaurantService = _service.GetRequiredService<IRestaurantService>();
-        _restaurantModel = new RestaurantViewModel();
+        Task.Run(async () =>
+        {
+            await InitData();
+        });
+        
         DataContext = this;
     }
     
@@ -63,16 +67,80 @@ public partial class AddRestaurants : Window
         }
     }
 
+    private async Task InitData()
+    {
+        await ReloadDataGrid();
+        await NewRestaurantModel();
+    }
+
     private async Task ReloadDataGrid()
     {
         RestDataGrid = await _restaurantService.ReadAllRestaurantsForGrid();
     }
+
+    private async Task NewRestaurantModel()
+    {
+        RestModel = new RestaurantViewModel();
+
+        var restaurants = await _restaurantService.ReadALlRestaurants();
+        var lastRestaurantIdAsString = restaurants
+            .Where(soresttab => !string.IsNullOrEmpty(soresttab.RestId))
+            .Max(soresttab => soresttab.RestId);
+
+        if (!string.IsNullOrEmpty(lastRestaurantIdAsString) && int.TryParse(lastRestaurantIdAsString, out int lastRestaurantId))
+        {
+            int newId = lastRestaurantId + 1;
+            string newIdString = newId.ToString("D3");
+            restId.Text = newIdString;
+        }
+        else
+        {
+            restId.Text = "001";
+        }
+    }
+
+    private async Task SaveRestaurant()
+    {
+        if (RestModel.FoodorderRestaurantIdProp != "" &&
+            RestModel.FoodorderRestaurantNameProp != "")
+        {
+            await _restaurantService.SaveRestaurant(RestModel);
+            await ReloadDataGrid();
+        }
+        else
+        {
+            MessageBox.Show("Pflichtfelder: Restaurant-ID und Name sind nicht befüllt!");
+        }
+    }
+
+    private async Task DeleteSelectedRestaurant()
+    {
+        var result = MessageBox.Show("Möchten Sie das ausgewählte Restaurant wirklich entfernen?", "Löschen bestätigen",
+            MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            await _restaurantService.DeleteRestaurantById(RestModel.FoodorderRestaurantIdProp);
+            RestModel = new RestaurantViewModel();
+            await ReloadDataGrid();
+        }
+    }
     
     // Click-Events
-    
-    private void Delete_OnClick(object sender, RoutedEventArgs e)
+
+    private void GetNewRestaurantModel_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        NewRestaurantModel();
+    }
+
+    private async void SaveRestaurant_OnClick(object sender, RoutedEventArgs e)
+    {
+        await SaveRestaurant();
+    }
+    
+    private async void Delete_OnClick(object sender, RoutedEventArgs e)
+    {
+        await DeleteSelectedRestaurant();
     }
     
     private void Close_OnClick(object sender, RoutedEventArgs e)

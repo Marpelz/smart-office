@@ -41,9 +41,13 @@ public class SmartOfficeDbContext : DbContext
         modelBuilder.Entity<RestaurantViewModel>()
             .Property(r => r.FoodorderRestaurantDeliveryYesNoProp).HasColumnName("RestDelivery").HasColumnType("VARCHAR(20)");
         modelBuilder.Entity<RestaurantViewModel>()
+            .Property(r => r.FoodorderRestaurantDeliveryTimeProp).HasColumnName("RestDeliveryTime");
+        modelBuilder.Entity<RestaurantViewModel>()
             .Property(r => r.FoodorderRestaurantOrdertypeAppTelephoneProp).HasColumnName("RestAppTelephone").HasColumnType("VARCHAR(20)");
         modelBuilder.Entity<RestaurantViewModel>()
             .Property(r => r.FoodorderRestaurantMinimalOrderValueProp).HasColumnName("RestMinOrderValue");
+        modelBuilder.Entity<RestaurantViewModel>()
+            .Property(r => r.FoodorderRestaurantDeliveryCostProp).HasColumnName("RestDeliveryCost");
         modelBuilder.Entity<RestaurantViewModel>()
             .Property(r => r.FoodorderRestaurantLieferandoLinkProp).HasColumnName("RestLieferandoLink");
         

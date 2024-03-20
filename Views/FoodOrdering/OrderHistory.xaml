@@ -20,7 +20,7 @@
     
     <Grid>
         
-        <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}">
+        <materialDesign:Card UniformCornerRadius="5" Background="{DynamicResource MaterialDesignPaper}">
             
             <GroupBox Header="Bestellverlauf" Style="{StaticResource MaterialDesignCardGroupBox}" Margin="3">
                 

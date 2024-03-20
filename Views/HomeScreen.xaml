@@ -58,7 +58,7 @@
                             </ListViewItem>
                             
                             <ListViewItem HorizontalAlignment="Center" Margin="0 0 0 0">
-                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="OpenChatBTN_Click" HorizontalAlignment="Left">
+                                <Button IsEnabled="False" Style="{StaticResource MaterialDesignIconButton}" Click="OpenChatBTN_Click" HorizontalAlignment="Left">
                                     <materialDesign:PackIcon Kind="Chat" />
                                 </Button>
                             </ListViewItem>
@@ -70,7 +70,7 @@
                             </ListViewItem>
                             
                             <ListViewItem HorizontalAlignment="Center" Margin="0 0 0 0">
-                                <Button Style="{StaticResource MaterialDesignIconButton}" Click="OpenUserSettingsBTN_Click" HorizontalAlignment="Left">
+                                <Button IsEnabled="False" Style="{StaticResource MaterialDesignIconButton}" Click="OpenUserSettingsBTN_Click" HorizontalAlignment="Left">
                                         <materialDesign:PackIcon Kind="Settings"/>
                                 </Button>
                             </ListViewItem>
