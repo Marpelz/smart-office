@@ -4,11 +4,18 @@ namespace SmartOffice.Models.MenuModels;
 
 public class MenuDataGridModel : ReactiveObject
 {
+    private string _foodRestaurantId = "";
     private string _foodNumber = "";
     private string _foodCategory = "";
     private string _foodDesignation = "";
     private string _foodContents = "";
     private string _foodPrice = "";
+    
+    public string FoodRestaurantId
+    {
+        get => _foodRestaurantId;
+        set => this.RaiseAndSetIfChanged(ref _foodRestaurantId, value);
+    }
     
     public string FoodNumber
     {

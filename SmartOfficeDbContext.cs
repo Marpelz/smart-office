@@ -10,7 +10,7 @@ public class SmartOfficeDbContext : DbContext
 {
     public DbSet<UserModel> SoUserTab { get; set; } = null!;
     public DbSet<RestaurantViewModel> SoRestTab { get; set; } = null!;
-    // public DbSet<MenuModel> SoMenuTab { get; set; } = null!;
+    public DbSet<MenuViewModel> SoMenuTab { get; set; } = null!;
     // public DbSet<OrderModel> SoOrderTab { get; set; } = null!;
 
     public SmartOfficeDbContext(DbContextOptions<SmartOfficeDbContext> options) : base(options)
@@ -50,8 +50,30 @@ public class SmartOfficeDbContext : DbContext
             .Property(r => r.FoodorderRestaurantDeliveryCostProp).HasColumnName("RestDeliveryCost");
         modelBuilder.Entity<RestaurantViewModel>()
             .Property(r => r.FoodorderRestaurantLieferandoLinkProp).HasColumnName("RestLieferandoLink");
-        
-        // modelBuilder.Entity<MenuModel>().ToTable("SoMenuTab");
+
+        modelBuilder.Entity<MenuViewModel>().ToTable("SoMenuTab")
+            .HasKey(r => r.FoodorderFoodMenuIdProp);
+        modelBuilder.Entity<MenuViewModel>()
+            .Property(r => r.FoodorderFoodMenuIdProp).HasColumnName("MenuId");
+        modelBuilder.Entity<MenuViewModel>()
+            .Property(r => r.FoodorderFoodRestaurantIdProp).HasColumnName("MenuRestId");
+        modelBuilder.Entity<MenuViewModel>().Ignore(r => r.FoodorderFoodRestaurantIdPropObj);
+        modelBuilder.Entity<MenuViewModel>()
+            .Property(r => r.FoodorderFoodNumberProp).HasColumnName("MenuFoodNumber");
+        modelBuilder.Entity<MenuViewModel>()
+            .Property(r => r.FoodorderFoodCategoryProp).HasColumnName("MenuFoodCategory");
+        modelBuilder.Entity<MenuViewModel>()
+            .Property(r => r.FoodorderFoodDesignationProp).HasColumnName("MenuFoodDesignation");
+        modelBuilder.Entity<MenuViewModel>()
+            .Property(r => r.FoodorderFoodContentsProp).HasColumnName("MenuFoodContents");
+        modelBuilder.Entity<MenuViewModel>()
+            .Property(r => r.FoodorderFoodAdditionalSelectionProp).HasColumnName("MenuFoodAdditionalSelection");
+        modelBuilder.Entity<MenuViewModel>()
+            .Property(r => r.FoodorderFoodPriceProp).HasColumnName("MenuFoodPrice");
+
+
+
+
         // modelBuilder.Entity<OrderModel>().ToTable("SoOrderTab");
     }
 }

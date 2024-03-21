@@ -1,5 +1,6 @@
 using SmartOffice.Entities;
 using SmartOffice.Models.RestaurantModels;
+using SmartOffice.Models.Settings;
 
 namespace SmartOffice.Services.FoodOrderServices.RestaurantService;
 
@@ -7,6 +8,7 @@ public interface IRestaurantService
 {
     // Read
     Task<List<Soresttab>> ReadALlRestaurants();
+    Task<List<IdentSchluessel>> ReadAllRestaurants();
     Task<List<RestaurantDataGridModel>> ReadAllRestaurantsForGrid();
     Task<RestaurantViewModel> ReadRestaurantById(string restaurantId);
     

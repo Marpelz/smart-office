@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartOffice.Context;
 using SmartOffice.Entities;
 using SmartOffice.Models.RestaurantModels;
+using SmartOffice.Models.Settings;
 
 namespace SmartOffice.Services.FoodOrderServices.RestaurantService;
 
@@ -19,6 +20,23 @@ public class RestaurantService : IRestaurantService
     public Task<List<Soresttab>> ReadALlRestaurants()
     {
         return _dbContext.Soresttabs.ToListAsync();
+    }
+
+    public async Task<List<IdentSchluessel>> ReadAllRestaurants()
+    {
+        var rests = await _dbContext.Soresttabs.ToListAsync();
+
+        List<IdentSchluessel> identschluessel = new List<IdentSchluessel>();
+        foreach (var rest in rests)
+        {
+            identschluessel.Add(new IdentSchluessel
+            {
+                Key = rest.RestId,
+                Bezeichnung = rest.RestName
+            });
+        }
+
+        return identschluessel;
     }
 
     private List<RestaurantDataGridModel> DbToScreen(List<Soresttab> rests)

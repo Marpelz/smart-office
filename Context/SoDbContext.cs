@@ -14,6 +14,8 @@ public partial class SoDbContext : DbContext
 
     public virtual DbSet<Efmigrationshistory> Efmigrationshistories { get; set; }
 
+    public virtual DbSet<Somenutab> Somenutabs { get; set; }
+
     public virtual DbSet<Soresttab> Soresttabs { get; set; }
 
     public virtual DbSet<Sousertab> Sousertabs { get; set; }
@@ -32,6 +34,13 @@ public partial class SoDbContext : DbContext
 
             entity.Property(e => e.MigrationId).HasMaxLength(150);
             entity.Property(e => e.ProductVersion).HasMaxLength(32);
+        });
+
+        modelBuilder.Entity<Somenutab>(entity =>
+        {
+            entity.HasKey(e => e.MenuId).HasName("PRIMARY");
+
+            entity.ToTable("somenutab");
         });
 
         modelBuilder.Entity<Soresttab>(entity =>

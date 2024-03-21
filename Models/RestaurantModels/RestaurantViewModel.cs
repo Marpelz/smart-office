@@ -21,9 +21,9 @@ public class RestaurantViewModel : INotifyPropertyChanged
     private string _foodorderRestaurantCity = "";
     private string _foodorderRestaurantType = "";
     private string _foodorderRestaurantPhonenumber = "";
-    public string _foodorderRestaurantDeliveryYesNo { get; set; } = ""; // RadioButton
+    public string _foodorderRestaurantDeliveryYesNo { get; set; } = "";
     private string _foodorderRestaurantDeliveryTime = "";
-    public string _foodorderRestaurantOrdertypeAppTelephone { get; set; } = ""; // RadioButton
+    public string _foodorderRestaurantOrdertypeAppTelephone { get; set; } = "";
     private string _foodorderRestaurantMinimalOrderValue = "";
     private string _foodorderRestaurantDeliveryCost = "";
     private string _foodorderRestaurantLieferandoLink = "";

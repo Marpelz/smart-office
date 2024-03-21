@@ -10,7 +10,7 @@ using SmartOffice;
 namespace SmartOffice.Migrations
 {
     [DbContext(typeof(SmartOfficeDbContext))]
-    [Migration("20240320134059_Initial")]
+    [Migration("20240321121306_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,6 +20,52 @@ namespace SmartOffice.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("SmartOffice.Models.MenuModels.MenuViewModel", b =>
+                {
+                    b.Property<string>("FoodorderFoodMenuIdProp")
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("MenuId");
+
+                    b.Property<string>("FoodorderFoodAdditionalSelectionProp")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("MenuFoodAdditionalSelection");
+
+                    b.Property<string>("FoodorderFoodCategoryProp")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("MenuFoodCategory");
+
+                    b.Property<string>("FoodorderFoodContentsProp")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("MenuFoodContents");
+
+                    b.Property<string>("FoodorderFoodDesignationProp")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("MenuFoodDesignation");
+
+                    b.Property<string>("FoodorderFoodNumberProp")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("MenuFoodNumber");
+
+                    b.Property<string>("FoodorderFoodPriceProp")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("MenuFoodPrice");
+
+                    b.Property<string>("FoodorderFoodRestaurantIdProp")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("MenuRestId");
+
+                    b.HasKey("FoodorderFoodMenuIdProp");
+
+                    b.ToTable("SoMenuTab", (string)null);
+                });
 
             modelBuilder.Entity("SmartOffice.Models.RestaurantModels.RestaurantViewModel", b =>
                 {

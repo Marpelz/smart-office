@@ -128,9 +128,9 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
     
     // Click-Events
 
-    private void GetNewRestaurantModel_OnClick(object sender, RoutedEventArgs e)
+    private async void GetNewRestaurantModel_OnClick(object sender, RoutedEventArgs e)
     {
-        NewRestaurantModel();
+        await NewRestaurantModel();
     }
 
     private async void SaveRestaurant_OnClick(object sender, RoutedEventArgs e)
@@ -148,7 +148,7 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
         Close();
     }
     
-    // Helper
+    // Basics
     
     private void OnPropertyChanged(string info = "")
     {

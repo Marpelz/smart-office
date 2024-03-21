@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using SmartOffice.Models.RestaurantModels;
+using SmartOffice.Models.Settings;
 
 namespace SmartOffice.Models.MenuModels;
 
@@ -14,7 +15,8 @@ public class MenuViewModel : INotifyPropertyChanged
         if (handler != null) handler(this, new PropertyChangedEventArgs(info));
     }
 
-    private string _foodorderRestaurantId = "";
+    private string _foodorderFoodMenuId = ""; // RestaurantId + FoodNumber 
+    private string _foodorderFoodRestaurantId = ""; 
     private string _foodorderFoodNumber = "";
     private string _foodorderFoodCategory = "";
     private string _foodorderFoodDesignation = "";
@@ -23,13 +25,38 @@ public class MenuViewModel : INotifyPropertyChanged
     private string _foodorderFoodPrice = "";
     
     
-    public string FoodorderRestaurantIdProp
+    public string FoodorderFoodMenuIdProp
     {
-        get => _foodorderRestaurantId;
+        get => _foodorderFoodMenuId;
         set
         {
-            _foodorderRestaurantId = value;
-            OnPropertyChanged(nameof(FoodorderRestaurantIdProp));
+            _foodorderFoodMenuId = value;
+            OnPropertyChanged(nameof(FoodorderFoodMenuIdProp));
+        }
+    }
+    
+    public string FoodorderFoodRestaurantIdProp
+    {
+        get => _foodorderFoodRestaurantId;
+        set
+        {
+            _foodorderFoodRestaurantId = value;
+            OnPropertyChanged(nameof(FoodorderFoodRestaurantIdProp));
+        }
+    }
+
+    public IdentSchluessel FoodorderFoodRestaurantIdPropObj
+    {
+        get
+        {
+            var idk = new IdentSchluessel();
+            idk.Key = _foodorderFoodRestaurantId;
+            return idk;
+        }
+        set
+        {
+            _foodorderFoodRestaurantId = value.Key;
+            OnPropertyChanged(nameof(FoodorderFoodRestaurantIdProp));
         }
     }
     
