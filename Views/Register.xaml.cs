@@ -55,9 +55,7 @@ public partial class Register
             var newUser = new UserModel
             {
                 UserName = userName,
-                UserPassword = userPassword,
-                ActivePaypal = paypalEnabled,
-                PaypalEmail = paypalAddress
+                UserPassword = userPassword
             };
 
             await _userService.SetUser(newUser, userPassword);

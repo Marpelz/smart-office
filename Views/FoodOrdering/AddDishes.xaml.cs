@@ -12,17 +12,17 @@ using SmartOffice.Services.FoodOrderServices.RestaurantService;
 
 namespace SmartOffice.Views.FoodOrdering;
 
-public partial class AddMenus : Window, INotifyPropertyChanged
+public partial class AddDishes : Window, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged; 
     private readonly IServiceProvider _service;
     private readonly IMenuService _menuService;
     private readonly IRestaurantService _restaurantService;
     private MenuViewModel _menuModel;
-    private List<MenuDataGridModel> _menuDataGrid;
+    private List<DishDataGridModel> _menuDataGrid;
     private List<IdentSchluessel> _restaurantCmbx;
     
-    public AddMenus(IServiceProvider service)
+    public AddDishes(IServiceProvider service)
     {
         InitializeComponent();
         _service = service;
@@ -49,7 +49,7 @@ public partial class AddMenus : Window, INotifyPropertyChanged
         }
     }
     
-    public List<MenuDataGridModel> MenuDataGrid
+    public List<DishDataGridModel> MenuDataGrid
     {
         get => _menuDataGrid;
         set
@@ -82,7 +82,7 @@ public partial class AddMenus : Window, INotifyPropertyChanged
         var menuRepo = _service.GetRequiredService<IMenuService>();
         var dataGrid = (DataGrid)sender;
 
-        var selected = dataGrid.SelectedItem as MenuDataGridModel;
+        var selected = dataGrid.SelectedItem as DishDataGridModel;
 
         if (selected != null)
         {

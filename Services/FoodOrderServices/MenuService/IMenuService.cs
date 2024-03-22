@@ -9,7 +9,7 @@ public interface IMenuService
 {
     // Read
     Task<List<Somenutab>> ReadAllMenus();
-    Task<List<MenuDataGridModel>> ReadAllMenusForGridById(string restaurantId);
+    Task<List<DishDataGridModel>> ReadAllMenusForGridById(string restaurantId);
     Task<MenuViewModel> ReadMenuById(string restaurantId, string foodNumber);
     
     // Save

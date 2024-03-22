@@ -29,7 +29,7 @@ public partial class FoodOrderHome : UserControl
     
     private void OpenAddMenusBTN_Click(object sender, RoutedEventArgs e)
     {
-        var addMenus = _service.GetRequiredService<AddMenus>();
+        var addMenus = _service.GetRequiredService<AddDishes>();
         addMenus.Show();
     }
     

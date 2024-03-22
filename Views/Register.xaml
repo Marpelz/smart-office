@@ -61,7 +61,7 @@
                     
                         <Button Grid.Row="0" Grid.Column="2" x:Name="BackToLogin" ToolTip="Zurück zur Anmeldung" Click="BackToUserLogin" Style="{StaticResource MaterialDesignIconButton}" 
                                 VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 5 7 0" Height="25" Width="25" >
-                            <materialDesign:PackIcon Kind="ArrowBack" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="25Sty" />
+                            <materialDesign:PackIcon Kind="ArrowBack" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="25" />
                         </Button>
                 
                         <TextBox x:Name="SetUsrName" Grid.Row="2" Grid.Column="1"  Style="{StaticResource MaterialDesignFilledTextBox}"

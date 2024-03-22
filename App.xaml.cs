@@ -67,7 +67,7 @@ public partial class App
         services.AddTransient<FoodOrderHome>();
         services.AddTransient<OrderStart>();
         services.AddTransient<AddRestaurants>();
-        services.AddTransient<AddMenus>();
+        services.AddTransient<AddDishes>();
         services.AddTransient<OrderHistory>();
     }
 }

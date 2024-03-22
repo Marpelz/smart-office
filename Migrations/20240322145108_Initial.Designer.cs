@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartOffice;
 
@@ -10,9 +11,11 @@ using SmartOffice;
 namespace SmartOffice.Migrations
 {
     [DbContext(typeof(SmartOfficeDbContext))]
-    partial class SmartOfficeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240322145108_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

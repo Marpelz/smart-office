@@ -2,7 +2,7 @@ using ReactiveUI;
 
 namespace SmartOffice.Models.MenuModels;
 
-public class MenuDataGridModel : ReactiveObject
+public class DishDataGridModel : ReactiveObject
 {
     private string _foodRestaurantId = "";
     private string _foodNumber = "";

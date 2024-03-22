@@ -21,12 +21,12 @@ public class MenuService : IMenuService
         return _dbContext.Somenutabs.ToListAsync();
     }
 
-    private List<MenuDataGridModel> DbToScreen(List<Somenutab> menus)
+    private List<DishDataGridModel> DbToScreen(List<Somenutab> menus)
     {
-        var menuDataGrid = new List<MenuDataGridModel>();
+        var menuDataGrid = new List<DishDataGridModel>();
 
         foreach (var menu in menus)
-            menuDataGrid.Add(new MenuDataGridModel
+            menuDataGrid.Add(new DishDataGridModel
             {
                 FoodRestaurantId = menu.MenuRestId,
                 FoodNumber = menu.MenuFoodNumber,
@@ -38,7 +38,7 @@ public class MenuService : IMenuService
         return menuDataGrid;
     }
 
-    public async Task<List<MenuDataGridModel>> ReadAllMenusForGridById(string restaurantId)
+    public async Task<List<DishDataGridModel>> ReadAllMenusForGridById(string restaurantId)
     {
         return DbToScreen(await _dbContext.Somenutabs.Where(menu => menu.MenuRestId == restaurantId).ToListAsync());
     }

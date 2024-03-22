@@ -1,8 +1,8 @@
 using System.ComponentModel;
 
-namespace SmartOffice.Models.OrderModels;
+namespace SmartOffice.Models.UserModels;
 
-public class OrderModel : INotifyPropertyChanged
+public class PaymentMethodModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -12,9 +12,9 @@ public class OrderModel : INotifyPropertyChanged
         if (handler != null) handler(this, new PropertyChangedEventArgs(info));
     }
     
+    public int PaymentMethodId { get; set; }
+    public string PaymentMethod { get; set; }
     
-    public int OrderId { get; set; }
-    public DateTime OrderDate { get; set; }
-
-    public List<OrderDetailsModel> OrderDetails { get; set; }
+    
+    public List<UserPaymentMethodModel> UserPaymentMethods { get; set; }
 }
