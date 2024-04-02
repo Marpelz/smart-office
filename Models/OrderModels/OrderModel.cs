@@ -11,10 +11,5 @@ public class OrderModel : INotifyPropertyChanged
         var handler = PropertyChanged;
         if (handler != null) handler(this, new PropertyChangedEventArgs(info));
     }
-    
-    
-    public int OrderId { get; set; }
-    public DateTime OrderDate { get; set; }
 
-    public List<OrderDetailsModel> OrderDetails { get; set; }
 }

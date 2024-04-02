@@ -4,46 +4,46 @@ namespace SmartOffice.Models.MenuModels;
 
 public class DishDataGridModel : ReactiveObject
 {
-    private string _foodRestaurantId = "";
-    private string _foodNumber = "";
-    private string _foodCategory = "";
-    private string _foodDesignation = "";
-    private string _foodContents = "";
-    private string _foodPrice = "";
+    private string _dishRestaurantId = "";
+    private string _dishNumber = "";
+    private string _dishCategory = "";
+    private string _dishDesignation = "";
+    private string _dishContents = "";
+    private string _dishPrice = "";
     
-    public string FoodRestaurantId
+    public string DishRestaurantId
     {
-        get => _foodRestaurantId;
-        set => this.RaiseAndSetIfChanged(ref _foodRestaurantId, value);
+        get => _dishRestaurantId;
+        set => this.RaiseAndSetIfChanged(ref _dishRestaurantId, value);
     }
     
-    public string FoodNumber
+    public string DishNumber
     {
-        get => _foodNumber;
-        set => this.RaiseAndSetIfChanged(ref _foodNumber, value);
+        get => _dishNumber;
+        set => this.RaiseAndSetIfChanged(ref _dishNumber, value);
     }
     
-    public string FoodCategory
+    public string DishCategory
     {
-        get => _foodCategory;
-        set => this.RaiseAndSetIfChanged(ref _foodCategory, value);
+        get => _dishCategory;
+        set => this.RaiseAndSetIfChanged(ref _dishCategory, value);
     }
     
-    public string FoodDesignation
+    public string DishDesignation
     {
-        get => _foodDesignation;
-        set => this.RaiseAndSetIfChanged(ref _foodDesignation, value);
+        get => _dishDesignation;
+        set => this.RaiseAndSetIfChanged(ref _dishDesignation, value);
     }
     
-    public string FoodContents
+    public string DishContents
     {
-        get => _foodContents;
-        set => this.RaiseAndSetIfChanged(ref _foodContents, value);
+        get => _dishContents;
+        set => this.RaiseAndSetIfChanged(ref _dishContents, value);
     }
     
-    public string FoodPrice
+    public string DishPrice
     {
-        get => _foodPrice;
-        set => this.RaiseAndSetIfChanged(ref _foodPrice, value);
+        get => _dishPrice;
+        set => this.RaiseAndSetIfChanged(ref _dishPrice, value);
     }
 }

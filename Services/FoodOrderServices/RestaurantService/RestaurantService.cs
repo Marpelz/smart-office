@@ -17,9 +17,9 @@ public class RestaurantService : IRestaurantService
         _service = service;
     }
 
-    public Task<List<Soresttab>> ReadALlRestaurants()
+    public async Task<List<Soresttab>> ReadALlRestaurants()
     {
-        return _dbContext.Soresttabs.ToListAsync();
+        return await _dbContext.Soresttabs.ToListAsync();
     }
 
     public async Task<List<IdentSchluessel>> ReadAllRestaurants()
@@ -74,7 +74,7 @@ public class RestaurantService : IRestaurantService
             FoodorderRestaurantZipcodeProp = rests.RestZipcode,
             FoodorderRestaurantCityProp = rests.RestCity,
             FoodorderRestaurantTypeProp = rests.RestType,
-            FoodorderRestaurantPhonenumberProp = rests.RestPhonenumber,
+            FoodorderRestaurantPhonenumberProp = rests.RestPhonenumber, 
             _foodorderRestaurantDeliveryYesNo = rests.RestDelivery,
             FoodorderRestaurantDeliveryTimeProp = rests.RestDeliveryTime,
             _foodorderRestaurantOrdertypeAppTelephone = rests.RestAppTelephone,

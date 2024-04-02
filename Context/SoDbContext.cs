@@ -14,7 +14,7 @@ public partial class SoDbContext : DbContext
 
     public virtual DbSet<Efmigrationshistory> Efmigrationshistories { get; set; }
 
-    public virtual DbSet<Somenutab> Somenutabs { get; set; }
+    public virtual DbSet<Sodishtab> Sodishtabs { get; set; }
 
     public virtual DbSet<Soresttab> Soresttabs { get; set; }
 
@@ -36,11 +36,17 @@ public partial class SoDbContext : DbContext
             entity.Property(e => e.ProductVersion).HasMaxLength(32);
         });
 
-        modelBuilder.Entity<Somenutab>(entity =>
+        modelBuilder.Entity<Sodishtab>(entity =>
         {
-            entity.HasKey(e => e.MenuId).HasName("PRIMARY");
+            entity.HasKey(e => e.DishId).HasName("PRIMARY");
 
-            entity.ToTable("somenutab");
+            entity.ToTable("sodishtab");
+
+            entity.HasIndex(e => e.DishRestId, "IX_SoDishTab_DishRestId");
+
+            entity.HasOne(d => d.DishRest).WithMany(p => p.Sodishtabs)
+                .HasForeignKey(d => d.DishRestId)
+                .HasConstraintName("FK_SoDishTab_SoRestTab_DishRestId");
         });
 
         modelBuilder.Entity<Soresttab>(entity =>

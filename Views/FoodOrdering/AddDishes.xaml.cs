@@ -16,19 +16,19 @@ public partial class AddDishes : Window, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged; 
     private readonly IServiceProvider _service;
-    private readonly IMenuService _menuService;
+    private readonly IDishService _dishService;
     private readonly IRestaurantService _restaurantService;
-    private MenuViewModel _menuModel;
-    private List<DishDataGridModel> _menuDataGrid;
+    private DishViewModel _dishModel;
+    private List<DishDataGridModel> _dishDataGrid;
     private List<IdentSchluessel> _restaurantCmbx;
     
     public AddDishes(IServiceProvider service)
     {
         InitializeComponent();
         _service = service;
-        _menuService = _service.GetRequiredService<IMenuService>();
+        _dishService = _service.GetRequiredService<IDishService>();
         _restaurantService = _service.GetRequiredService<IRestaurantService>();
-        _menuModel = new MenuViewModel();
+        _dishModel = new DishViewModel();
         Task.Run(async () =>
         {
             await InitData();
@@ -39,23 +39,23 @@ public partial class AddDishes : Window, INotifyPropertyChanged
     
     // Propertys
 
-    public MenuViewModel MenuModel
+    public DishViewModel DishModel
     {
-        get => _menuModel;
+        get => _dishModel;
         set
         {
-            _menuModel = value;
-            OnPropertyChanged(nameof(MenuModel));
+            _dishModel = value;
+            OnPropertyChanged(nameof(DishModel));
         }
     }
     
-    public List<DishDataGridModel> MenuDataGrid
+    public List<DishDataGridModel> DishDataGrid
     {
-        get => _menuDataGrid;
+        get => _dishDataGrid;
         set
         {
-            _menuDataGrid = value;
-            OnPropertyChanged(nameof(MenuDataGrid));
+            _dishDataGrid = value;
+            OnPropertyChanged(nameof(DishDataGrid));
         }
     }
     
@@ -73,21 +73,21 @@ public partial class AddDishes : Window, INotifyPropertyChanged
     
     private async Task LoadGridForSelectedRestaurant()
     {
-        var restaurantId = MenuModel.FoodorderFoodRestaurantIdProp;
-        MenuDataGrid = await _menuService.ReadAllMenusForGridById(restaurantId);
+        var restaurantId = DishModel.FoodorderDishRestaurantIdProp;
+        DishDataGrid = await _dishService.ReadAllMenusForGridById(restaurantId);
     }
     
-    private async void MenuDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void DishDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var menuRepo = _service.GetRequiredService<IMenuService>();
+        var dishRepo = _service.GetRequiredService<IDishService>();
         var dataGrid = (DataGrid)sender;
 
         var selected = dataGrid.SelectedItem as DishDataGridModel;
 
         if (selected != null)
         {
-            var menu = await menuRepo.ReadMenuById(selected.FoodRestaurantId, selected.FoodNumber);
-            MenuModel = menu;
+            var dish = await dishRepo.ReadMenuById(selected.DishRestaurantId, selected.DishNumber);
+            DishModel = dish;
         }
     }
 
@@ -96,43 +96,43 @@ public partial class AddDishes : Window, INotifyPropertyChanged
         Restaurants = await _restaurantService.ReadAllRestaurants() ?? new List<IdentSchluessel>();
     }
     
-    private async Task NewMenuModel()
+    private async Task NewDishModel()
     {
-        foodcategory.Text = "";
-        fooddesignation.Text = "";
-        foodcontents.Text = "";
-        foodadditionals.Text = "";
-        foodprice.Text = "";
+        dishcategory.Text = "";
+        dishdesignation.Text = "";
+        dishcontents.Text = "";
+        dishadditionals.Text = "";
+        dishprice.Text = "";
 
         await LoadGridForSelectedRestaurant();
 
-        if (MenuDataGrid != null && MenuDataGrid.Any())
+        if (DishDataGrid != null && DishDataGrid.Any())
         {
-            List<int> foodNumbers = MenuDataGrid.Select(menu => int.Parse(menu.FoodNumber)).ToList();
+            List<int> dishNumbers = DishDataGrid.Select(dish => int.Parse(dish.DishNumber)).ToList();
 
-            int maxFoodNumber = foodNumbers.Max();
+            int maxDishNumber = dishNumbers.Max();
 
-            int newFoodNumber = maxFoodNumber + 1;
+            int newDishNumber = maxDishNumber + 1;
 
-            string newFoodNumberString = newFoodNumber.ToString("D3");
+            string newDishNumberString = newDishNumber.ToString("D3");
 
-            foodnumber.Text = newFoodNumberString;
+            dishnumber.Text = newDishNumberString;
         }
         else
         {
-            foodnumber.Text = "001";
+            dishnumber.Text = "001";
         }
     }
     
-    private async Task SaveMenu()
+    private async Task SaveDish()
     {
-        Debug.WriteLine($"FoodorderFoodNumberProp: {MenuModel?.FoodorderFoodNumberProp}");
-        Debug.WriteLine($"FoodorderFoodDesignationProp: {MenuModel?.FoodorderFoodDesignationProp}");
+        Debug.WriteLine($"FoodorderFoodNumberProp: {DishModel?.FoodorderDishNumberProp}");
+        Debug.WriteLine($"FoodorderFoodDesignationProp: {DishModel?.FoodorderDishDesignationProp}");
         
-        if (MenuModel?.FoodorderFoodNumberProp != "" && 
-            MenuModel?.FoodorderFoodDesignationProp != "")
+        if (DishModel?.FoodorderDishNumberProp != "" && 
+            DishModel?.FoodorderDishDesignationProp != "")
         {
-            await _menuService.SaveMenu(MenuModel);
+            await _dishService.SaveMenu(DishModel);
             await LoadGridForSelectedRestaurant();
         }
         else
@@ -141,15 +141,15 @@ public partial class AddDishes : Window, INotifyPropertyChanged
         }
     }
 
-    private async Task DeleteSelectedMenu()
+    private async Task DeleteSelectedDish()
     {
         var result = MessageBox.Show("Möchten Sie die ausgewählte Speise wirklich entfernen?", "Löschen bestätigen",
             MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (result == MessageBoxResult.Yes)
         {
-            await _menuService.DeleteMenuById(MenuModel.FoodorderFoodRestaurantIdProp, MenuModel.FoodorderFoodNumberProp);
-            await NewMenuModel();
+            await _dishService.DeleteMenuById(DishModel.FoodorderDishRestaurantIdProp, DishModel.FoodorderDishNumberProp);
+            await NewDishModel();
             await LoadGridForSelectedRestaurant();
         }
     }
@@ -157,24 +157,24 @@ public partial class AddDishes : Window, INotifyPropertyChanged
     
     // Click-Events
 
-    private async void SearchMenuForRestaurant_OnClick(object sender, RoutedEventArgs e)
+    private async void SearchDishForRestaurant_OnClick(object sender, RoutedEventArgs e)
     {
         await LoadGridForSelectedRestaurant();
     }
 
-    private async void GetNewMenuModel_OnClick(object sender, RoutedEventArgs e)
+    private async void GetNewDishModel_OnClick(object sender, RoutedEventArgs e)
     {
-        await NewMenuModel();
+        await NewDishModel();
     }
     
-    private async void SaveMenu_OnClick(object sender, RoutedEventArgs e)
+    private async void SaveDish_OnClick(object sender, RoutedEventArgs e)
     {
-        await SaveMenu();
+        await SaveDish();
     }
     
     private async void Delete_OnClick(object sender, RoutedEventArgs e)
     {
-        await DeleteSelectedMenu();
+        await DeleteSelectedDish();
     }
     
     private void Close_OnClick(object sender, RoutedEventArgs e)

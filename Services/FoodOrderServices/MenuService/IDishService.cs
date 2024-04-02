@@ -5,16 +5,16 @@ using SmartOffice.Models.Settings;
 
 namespace SmartOffice.Services.FoodOrderServices.MenuService;
 
-public interface IMenuService
+public interface IDishService
 {
     // Read
-    Task<List<Somenutab>> ReadAllMenus();
+    Task<List<Sodishtab>> ReadAllMenus();
     Task<List<DishDataGridModel>> ReadAllMenusForGridById(string restaurantId);
-    Task<MenuViewModel> ReadMenuById(string restaurantId, string foodNumber);
+    Task<DishViewModel> ReadMenuById(string restaurantId, string foodNumber);
     
     // Save
-    Task SaveMenu(Somenutab menu);
-    Task SaveMenu(MenuViewModel menumodel);
+    Task SaveMenu(Sodishtab menu);
+    Task SaveMenu(DishViewModel menumodel);
     
     // Delete
     Task DeleteMenuById(string restaurantId, string foodNumber);

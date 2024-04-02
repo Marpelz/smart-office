@@ -42,23 +42,23 @@
                             <ComboBox x:Name="selectrestaurant" Grid.Row="0" Height="30" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="125, 0, 0, 0" 
                                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                       DisplayMemberPath="Bezeichnung" SelectedValuePath="Key" ItemsSource="{Binding Restaurants}"
-                                      SelectedValue="{Binding Path=MenuModel.FoodorderFoodRestaurantIdProp, UpdateSourceTrigger=PropertyChanged}">
+                                      SelectedValue="{Binding Path=DishModel.FoodorderDishRestaurantIdProp, UpdateSourceTrigger=PropertyChanged}">
                             </ComboBox>
                             <Button x:Name="loadMenu" Grid.Row="0" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="385, 0, 0, 0"
-                                    Style="{StaticResource MaterialDesignIconButton}" Click="SearchMenuForRestaurant_OnClick">
+                                    Style="{StaticResource MaterialDesignIconButton}" Click="SearchDishForRestaurant_OnClick">
                                 <materialDesign:PackIcon Kind="Search" Height="25" Width="25" />
                             </Button>
                             
-                            <DataGrid Grid.Row="1" x:Name="MenuOverviewDataGrid" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Auto"
-                                      ItemsSource="{Binding MenuDataGrid }" SelectionChanged="MenuDataGrid_OnSelectionChanged">
+                            <DataGrid Grid.Row="1" x:Name="DishOverviewDataGrid" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Auto"
+                                      ItemsSource="{Binding MenuDataGrid }" SelectionChanged="DishDataGrid_OnSelectionChanged">
                                 <DataGrid.Resources>
                                     <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}" />
                                 </DataGrid.Resources>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Kategorie" MinWidth="130" Binding="{Binding FoodCategory}" />
-                                    <DataGridTextColumn Header="Bezeichnung" MinWidth="300" Binding="{Binding FoodDesignation}" />
-                                    <DataGridTextColumn Header="Inhalt" MinWidth="300" Binding="{Binding FoodContents}" />
-                                    <DataGridTextColumn Header="Preis" MinWidth="150" Binding="{Binding FoodPrice}" />
+                                    <DataGridTextColumn Header="Kategorie" MinWidth="130" Binding="{Binding DishCategory}" />
+                                    <DataGridTextColumn Header="Bezeichnung" MinWidth="300" Binding="{Binding DishDesignation}" />
+                                    <DataGridTextColumn Header="Inhalt" MinWidth="300" Binding="{Binding DishContents}" />
+                                    <DataGridTextColumn Header="Preis" MinWidth="150" Binding="{Binding DishPrice}" />
                                     <DataGridTemplateColumn>
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
@@ -102,38 +102,38 @@
                             </Label>
                             
                             <Label Grid.Column="1" Grid.Row="1" Content="Speise-Nr.:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
-                            <TextBox x:Name="foodnumber" Grid.Column="2" Grid.Row="1" Height="30" Width="70" Margin="5, 0, 5, 0"
+                            <TextBox x:Name="dishnumber" Grid.Column="2" Grid.Row="1" Height="30" Width="70" Margin="5, 0, 5, 0"
                                      HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                     Text="{Binding Path=MenuModel.FoodorderFoodNumberProp, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Button x:Name="addNewMenu" Grid.Column="2" Grid.Row="1" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="80, 0, 0, 0"
-                                    Style="{StaticResource MaterialDesignIconButton}" Click="GetNewMenuModel_OnClick">
+                                     Text="{Binding Path=DishModel.FoodorderDishNumberProp, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button x:Name="addNewDish" Grid.Column="2" Grid.Row="1" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="80, 0, 0, 0"
+                                    Style="{StaticResource MaterialDesignIconButton}" Click="GetNewDishModel_OnClick">
                                 <materialDesign:PackIcon Kind="NewBox" Height="25" Width="25" />
                             </Button>
                             
                             <Label Grid.Column="1" Grid.Row="2" Content="Kategorie:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
-                            <TextBox x:Name="foodcategory" Grid.Column="2" Grid.Row="2" Height="30" Margin="5, 0, 5, 0" 
+                            <TextBox x:Name="dishcategory" Grid.Column="2" Grid.Row="2" Height="30" Margin="5, 0, 5, 0" 
                                      HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                     Text="{Binding Path=MenuModel.FoodorderFoodCategoryProp, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding Path=DishModel.FoodorderDishCategoryProp, UpdateSourceTrigger=PropertyChanged}"/>
                             
                             <Label Grid.Column="1" Grid.Row="3" Content="Bezeichnung:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
-                            <TextBox x:Name="fooddesignation" Grid.Column="2" Grid.Row="3" Height="30" Margin="5, 0, 5, 0"
+                            <TextBox x:Name="dishdesignation" Grid.Column="2" Grid.Row="3" Height="30" Margin="5, 0, 5, 0"
                                      HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                     Text="{Binding Path=MenuModel.FoodorderFoodDesignationProp, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding Path=DishModel.FoodorderDishDesignationProp, UpdateSourceTrigger=PropertyChanged}"/>
                             
                             <Label Grid.Column="1" Grid.Row="4" Content="Inhalt:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
-                            <TextBox x:Name="foodcontents" Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" Margin="5, 0, 5, 0" 
+                            <TextBox x:Name="dishcontents" Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" Margin="5, 0, 5, 0" 
                                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
-                                     Text="{Binding Path=MenuModel.FoodorderFoodContentsProp, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding Path=DishModel.FoodorderDishContentsProp, UpdateSourceTrigger=PropertyChanged}"/>
                             
                             <Label Grid.Column="4" Grid.Row="1" Content="Zusatzauswahl:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
-                            <TextBox x:Name="foodadditionals" Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" Margin="5, 0, 5, 0" 
+                            <TextBox x:Name="dishadditionals" Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" Margin="5, 0, 5, 0" 
                                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
-                                     Text="{Binding Path=MenuModel.FoodorderFoodAdditionalSelectionProp, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding Path=DishModel.FoodorderDishAdditionalSelectionProp, UpdateSourceTrigger=PropertyChanged}"/>
                             
                             <Label Grid.Column="4" Grid.Row="4" Content="Preis:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
-                            <TextBox x:Name="foodprice" Grid.Column="5" Grid.Row="4" Height="30" Width="50" Margin="5, 5, 5, 0" 
+                            <TextBox x:Name="dishprice" Grid.Column="5" Grid.Row="4" Height="30" Width="50" Margin="5, 5, 5, 0" 
                                      HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                     Text="{Binding Path=MenuModel.FoodorderFoodPriceProp, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding Path=DishModel.FoodorderDishPriceProp, UpdateSourceTrigger=PropertyChanged}"/>
                             <materialDesign:PackIcon Grid.Column="5" Grid.Row="4" Kind="Euro" Height="20" Width="15" 
                                                      HorizontalAlignment="Left" VerticalAlignment="Center" Margin="55, 5, 5, 0"/>
                             
@@ -142,7 +142,7 @@
                     
                     
                     <Button Grid.Row="2" Height="35" Width="200" Content="Hinzufügen / Speichern" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5, 10, 130, 5" 
-                            Click="SaveMenu_OnClick"/>
+                            Click="SaveDish_OnClick"/>
                     <Button Grid.Row="2" Height="35" Width="115" Content="Schließen" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5, 10, 10, 5" 
                             Click="Close_OnClick"/>
                     

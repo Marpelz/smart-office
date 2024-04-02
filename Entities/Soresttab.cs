@@ -30,4 +30,6 @@ public partial class Soresttab
     public string RestDeliveryCost { get; set; } = null!;
 
     public string RestLieferandoLink { get; set; } = null!;
+
+    public virtual ICollection<Sodishtab> Sodishtabs { get; set; } = new List<Sodishtab>();
 }

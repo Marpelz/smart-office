@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
+             xmlns:converters="clr-namespace:SmartOffice.Views.Converters"
              mc:Ignorable="d"
-             Height="768" Width="1024"
+             Height="768" Width="1152"
              WindowState="Normal" 
              WindowStartupLocation="CenterScreen"
              WindowStyle="None" 
@@ -18,6 +19,11 @@
              TextElement.FontWeight="Medium"
              TextElement.FontSize="12"
              FontFamily="{DynamicResource MaterialDesignFont}">
+    
+    <Window.Resources>
+        <converters:AddressConverter x:Key="AddressConverter" />
+    </Window.Resources>
+    
     <Grid>
         
         <materialDesign:Card UniformCornerRadius="5">
@@ -30,8 +36,71 @@
                         
                         <TabItem Header="Restaurant auswählen">
                             <StackPanel Margin="5">
-                                <ListView>
-                                    
+                                <ListView x:Name="restlistview" ItemsSource="{Binding Path=Restaurants}" SelectionMode="Single">
+                                    <ListView.HorizontalAlignment>
+                                        <HorizontalAlignment>Stretch</HorizontalAlignment>
+                                    </ListView.HorizontalAlignment>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Name" Width="160" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding FoodorderRestaurantNameProp}" TextAlignment="Left" HorizontalAlignment="Left" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Addresse" Width="190" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap">
+                                                            <TextBlock.Text>
+                                                                <MultiBinding Converter="{StaticResource AddressConverter}">
+                                                                    <Binding Path="FoodorderRestaurantStreetProp" />
+                                                                    <Binding Path="FoodorderRestaurantZipcodeProp" />
+                                                                    <Binding Path="FoodorderRestaurantCityProp" />
+                                                                </MultiBinding>
+                                                            </TextBlock.Text>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Art" Width="180" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding FoodorderRestaurantTypeProp}" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Mindestbestellwert" Width="180" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding FoodorderRestaurantMinimalOrderValueProp}" TextAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Lieferung" Width="120" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding _foodorderRestaurantDeliveryYesNo}" TextAlignment="Center" HorizontalAlignment="Center" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Lieferkosten" Width="140" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding FoodorderRestaurantDeliveryCostProp}" TextAlignment="Center" HorizontalAlignment="Center" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Bestellung" Width="130" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate >
+                                                        <TextBlock Text="{Binding FoodorderRestaurantOrdertypeAppTelephoneProp}" TextAlignment="Center" HorizontalAlignment="Center" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
                                 </ListView>
                                 <mde:StepButtonBar Cancel="Abbrechen" Continue="Weiter" HorizontalAlignment="Right" VerticalAlignment="Center" />
                             </StackPanel>

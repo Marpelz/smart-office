@@ -55,7 +55,7 @@ public partial class App
         // Services
         services.AddTransient<IUserService, UserService>();
         services.AddTransient<IRestaurantService, RestaurantService>();
-        services.AddTransient<IMenuService, MenuService>();
+        services.AddTransient<IDishService, DishService>();
 
         // Logger
         services.AddLogging(configure => configure.AddConsole());
