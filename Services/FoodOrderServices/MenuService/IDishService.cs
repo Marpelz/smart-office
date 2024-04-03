@@ -8,14 +8,14 @@ namespace SmartOffice.Services.FoodOrderServices.MenuService;
 public interface IDishService
 {
     // Read
-    Task<List<Sodishtab>> ReadAllMenus();
-    Task<List<DishDataGridModel>> ReadAllMenusForGridById(string restaurantId);
-    Task<DishViewModel> ReadMenuById(string restaurantId, string foodNumber);
+    Task<List<Sodishtab>> ReadAllDishes();
+    Task<List<DishDataGridModel>> ReadAllDishesForGridById(string restaurantId);
+    Task<DishViewModel> ReadDishById(string restaurantId, string foodNumber);
     
     // Save
-    Task SaveMenu(Sodishtab menu);
-    Task SaveMenu(DishViewModel menumodel);
+    Task SaveDish(Sodishtab menu);
+    Task SaveDish(DishViewModel menumodel);
     
     // Delete
-    Task DeleteMenuById(string restaurantId, string foodNumber);
+    Task DeleteDishById(string restaurantId, string foodNumber);
 }

@@ -17,12 +17,12 @@ public class RestaurantService : IRestaurantService
         _service = service;
     }
 
-    public async Task<List<Soresttab>> ReadALlRestaurants()
+    public async Task<List<Soresttab>> ReadAllRestaurants()
     {
         return await _dbContext.Soresttabs.ToListAsync();
     }
 
-    public async Task<List<IdentSchluessel>> ReadAllRestaurants()
+    public async Task<List<IdentSchluessel>> ReadAllRestaurantsById()
     {
         var rests = await _dbContext.Soresttabs.ToListAsync();
 

@@ -74,7 +74,7 @@ public partial class AddDishes : Window, INotifyPropertyChanged
     private async Task LoadGridForSelectedRestaurant()
     {
         var restaurantId = DishModel.FoodorderDishRestaurantIdProp;
-        DishDataGrid = await _dishService.ReadAllMenusForGridById(restaurantId);
+        DishDataGrid = await _dishService.ReadAllDishesForGridById(restaurantId);
     }
     
     private async void DishDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -86,14 +86,14 @@ public partial class AddDishes : Window, INotifyPropertyChanged
 
         if (selected != null)
         {
-            var dish = await dishRepo.ReadMenuById(selected.DishRestaurantId, selected.DishNumber);
+            var dish = await dishRepo.ReadDishById(selected.DishRestaurantId, selected.DishNumber);
             DishModel = dish;
         }
     }
 
     public async Task InitData()
     {
-        Restaurants = await _restaurantService.ReadAllRestaurants() ?? new List<IdentSchluessel>();
+        Restaurants = await _restaurantService.ReadAllRestaurantsById() ?? new List<IdentSchluessel>();
     }
     
     private async Task NewDishModel()
@@ -132,7 +132,7 @@ public partial class AddDishes : Window, INotifyPropertyChanged
         if (DishModel?.FoodorderDishNumberProp != "" && 
             DishModel?.FoodorderDishDesignationProp != "")
         {
-            await _dishService.SaveMenu(DishModel);
+            await _dishService.SaveDish(DishModel);
             await LoadGridForSelectedRestaurant();
         }
         else
@@ -148,7 +148,7 @@ public partial class AddDishes : Window, INotifyPropertyChanged
 
         if (result == MessageBoxResult.Yes)
         {
-            await _dishService.DeleteMenuById(DishModel.FoodorderDishRestaurantIdProp, DishModel.FoodorderDishNumberProp);
+            await _dishService.DeleteDishById(DishModel.FoodorderDishRestaurantIdProp, DishModel.FoodorderDishNumberProp);
             await NewDishModel();
             await LoadGridForSelectedRestaurant();
         }

@@ -52,20 +52,6 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
     }
     
     // Functions
-    
-    private async void RestaurantDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var restRepo = _service.GetRequiredService<IRestaurantService>();
-        var dataGrid = (DataGrid)sender;
-
-        var selected = dataGrid.SelectedItem as RestaurantDataGridModel;
-
-        if (selected != null)
-        {
-            var rest = await restRepo.ReadRestaurantById(selected.RestaurantId);
-            RestModel = rest;
-        }
-    }
 
     private async Task InitData()
     {
@@ -82,7 +68,7 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
     {
         RestModel = new RestaurantViewModel();
 
-        var restaurants = await _restaurantService.ReadALlRestaurants();
+        var restaurants = await _restaurantService.ReadAllRestaurants();
         var lastRestaurantIdAsString = restaurants
             .Where(soresttab => !string.IsNullOrEmpty(soresttab.RestId))
             .Max(soresttab => soresttab.RestId);
@@ -154,6 +140,20 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
     {
         var handler = PropertyChanged;
         if (handler != null) handler(this, new PropertyChangedEventArgs(info));
+    }
+    
+    private async void RestaurantDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var restRepo = _service.GetRequiredService<IRestaurantService>();
+        var dataGrid = (DataGrid)sender;
+
+        var selected = dataGrid.SelectedItem as RestaurantDataGridModel;
+
+        if (selected != null)
+        {
+            var rest = await restRepo.ReadRestaurantById(selected.RestaurantId);
+            RestModel = rest;
+        }
     }
     
     private void WindowDragMove(object sender, MouseButtonEventArgs e)

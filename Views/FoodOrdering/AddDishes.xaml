@@ -50,15 +50,21 @@
                             </Button>
                             
                             <DataGrid Grid.Row="1" x:Name="DishOverviewDataGrid" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Auto"
-                                      ItemsSource="{Binding MenuDataGrid }" SelectionChanged="DishDataGrid_OnSelectionChanged">
+                                      ItemsSource="{Binding DishDataGrid }" SelectionChanged="DishDataGrid_OnSelectionChanged" >
                                 <DataGrid.Resources>
                                     <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}" />
                                 </DataGrid.Resources>
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Kategorie" MinWidth="130" Binding="{Binding DishCategory}" />
-                                    <DataGridTextColumn Header="Bezeichnung" MinWidth="300" Binding="{Binding DishDesignation}" />
-                                    <DataGridTextColumn Header="Inhalt" MinWidth="300" Binding="{Binding DishContents}" />
-                                    <DataGridTextColumn Header="Preis" MinWidth="150" Binding="{Binding DishPrice}" />
+                                    <DataGridTextColumn Header="Bezeichnung" MinWidth="250" Binding="{Binding DishDesignation}" />
+                                    <DataGridTemplateColumn Header="Inhalt" Width="450">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding DishContents}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Preis" MinWidth="80" Binding="{Binding DishPrice}" />
                                     <DataGridTemplateColumn>
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>

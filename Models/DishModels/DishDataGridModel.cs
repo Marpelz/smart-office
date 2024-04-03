@@ -9,6 +9,7 @@ public class DishDataGridModel : ReactiveObject
     private string _dishCategory = "";
     private string _dishDesignation = "";
     private string _dishContents = "";
+    private string _dishAdditionalSelection = "";
     private string _dishPrice = "";
     
     public string DishRestaurantId
@@ -39,6 +40,12 @@ public class DishDataGridModel : ReactiveObject
     {
         get => _dishContents;
         set => this.RaiseAndSetIfChanged(ref _dishContents, value);
+    }
+    
+    public string DishAdditionalSelection
+    {
+        get => _dishAdditionalSelection;
+        set => this.RaiseAndSetIfChanged(ref _dishAdditionalSelection, value);
     }
     
     public string DishPrice

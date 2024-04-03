@@ -32,16 +32,21 @@
                 
                 <Grid>
                     
-                    <mde:TabControlStepper IsLinear="False" Layout="Horizontal">
+                    <mde:TabControlStepper x:Name="stepper" IsLinear="False" Layout="Horizontal">
                         
                         <TabItem Header="Restaurant auswählen">
                             <StackPanel Margin="5">
-                                <ListView x:Name="restlistview" ItemsSource="{Binding Path=Restaurants}" SelectionMode="Single">
-                                    <ListView.HorizontalAlignment>
-                                        <HorizontalAlignment>Stretch</HorizontalAlignment>
-                                    </ListView.HorizontalAlignment>
+                                <ListView x:Name="restlistview" Height="545" Width="1120" SelectionMode="Single"
+                                          ItemsSource="{Binding Path=Restaurants}"
+                                          SelectedItem="{Binding Path=SelectedRestaurant, Mode=TwoWay}"
+                                          SelectionChanged="RestListView_OnSelectionChanged">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
                                     <ListView.View>
-                                        <GridView>
+                                        <GridView AllowsColumnReorder="False">
                                             <GridViewColumn Header="Name" Width="160" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
@@ -67,7 +72,7 @@
                                             <GridViewColumn Header="Art" Width="180" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding FoodorderRestaurantTypeProp}" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+                                                        <TextBlock Text="{Binding FoodorderRestaurantTypeProp}" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
@@ -102,28 +107,73 @@
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                <mde:StepButtonBar Cancel="Abbrechen" Continue="Weiter" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <StackPanel Height="40" Width="250" Orientation="Horizontal" 
+                                            HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                            Margin="5, 25, 0, 5">
+                                    <Button Height="30" Content="Abbrechen" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Click="Close_OnClick" />
+                                    <Button Height="30" Content="Weiter" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Click="LoadStepTwo_OnClick"/>
+                                </StackPanel>
                             </StackPanel>
                         </TabItem>
                         
-                        <TabItem Header="Speise auswählen">
+                        <TabItem Header="Speise und Zahlungsmethode auswählen">
                             <StackPanel Margin="5">
-                                <ListView>
-                                    
+                                <ListView x:Name="dishlistview" Height="545" Width="1120" SelectionMode="Single"
+                                          ItemsSource="{Binding Path=Dishes}"
+                                          >
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.View>
+                                        <GridView AllowsColumnReorder="False">
+                                            <GridViewColumn Header="Bezeichnung" Width="250" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding FoodorderDishDesignationProp}" TextAlignment="Left" HorizontalAlignment="Left" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Inhalt" Width="375" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding FoodorderDishContentsProp}" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Zusatzauswahl" Width="375" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding FoodorderDishAdditionalSelectionProp}" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Preis" Width="100" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding FoodorderDishPriceProp}" TextAlignment="Center" HorizontalAlignment="Center" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
                                 </ListView>
-                                <mde:StepButtonBar Continue="Weiter" HorizontalAlignment="Right" VerticalAlignment="Center" />
-                            </StackPanel>
-                        </TabItem>
-                        
-                        <TabItem Header="Zahlungsmethode auswählen">
-                            <StackPanel Margin="5">
-                                <mde:StepButtonBar Continue="Weiter" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <StackPanel Height="40" Width="250" Orientation="Horizontal" 
+                                            HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                            Margin="5, 25, 0, 5">
+                                    <Button Height="30" Content="Zurück" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Click="Back_OnClick" />
+                                    <Button Height="30" Content="Weiter" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                </StackPanel>
                             </StackPanel>
                         </TabItem>
                         
                         <TabItem Header="Übersicht">
                             <StackPanel Margin="5">
-                                <mde:StepButtonBar Continue="Schließen" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <mde:StepButtonBar Cancel="Schließen" CancelCommand="{Binding CancelCommand}" HorizontalAlignment="Right" VerticalAlignment="Center" />
                             </StackPanel>
                         </TabItem>
                         

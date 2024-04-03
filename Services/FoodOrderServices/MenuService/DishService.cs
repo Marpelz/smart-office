@@ -16,7 +16,7 @@ public class DishService : IDishService
         _service = service;
     }
 
-    public Task<List<Sodishtab>> ReadAllMenus()
+    public Task<List<Sodishtab>> ReadAllDishes()
     {
         return _dbContext.Sodishtabs.ToListAsync();
     }
@@ -33,17 +33,18 @@ public class DishService : IDishService
                 DishCategory = dish.DishCategory,
                 DishDesignation = dish.DishDesignation,
                 DishContents = dish.DishContents,
+                DishAdditionalSelection = dish.DishAdditionalSelection,
                 DishPrice = dish.DishPrice
             });
         return dishDataGrid;
     }
 
-    public async Task<List<DishDataGridModel>> ReadAllMenusForGridById(string restaurantId)
+    public async Task<List<DishDataGridModel>> ReadAllDishesForGridById(string restaurantId)
     {
         return DbToScreen(await _dbContext.Sodishtabs.Where(dish => dish.DishRestId == restaurantId).ToListAsync());
     }
     
-    public async Task<DishViewModel> ReadMenuById(string restaurantId, string foodNumber)
+    public async Task<DishViewModel> ReadDishById(string restaurantId, string foodNumber)
     {
         var dishes = await _dbContext.Sodishtabs.Where(dish => dish.DishId == restaurantId + foodNumber).FirstOrDefaultAsync() ?? new Sodishtab();
 
@@ -61,7 +62,7 @@ public class DishService : IDishService
         return dishModel;
     }
 
-    public async Task SaveMenu(Sodishtab dish)
+    public async Task SaveDish(Sodishtab dish)
     {
         var existingDish = await _dbContext.Sodishtabs.FindAsync(dish.DishId);
 
@@ -73,7 +74,7 @@ public class DishService : IDishService
         await _dbContext.SaveChangesAsync();
     }
     
-    public async Task SaveMenu(DishViewModel menumodel)
+    public async Task SaveDish(DishViewModel menumodel)
     {
         var menuId = menumodel.FoodorderDishRestaurantIdProp + menumodel.FoodorderDishNumberProp;
         
@@ -89,10 +90,10 @@ public class DishService : IDishService
             DishPrice = menumodel.FoodorderDishPriceProp
             
         };
-        await SaveMenu(modelmenu);
+        await SaveDish(modelmenu);
     }
     
-    public async Task DeleteMenuById(string restaurantId, string foodNumber)
+    public async Task DeleteDishById(string restaurantId, string foodNumber)
     {
         await _dbContext.Sodishtabs.Where(dish => dish.DishId == restaurantId + foodNumber).ExecuteDeleteAsync();
     }

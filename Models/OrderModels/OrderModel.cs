@@ -12,4 +12,5 @@ public class OrderModel : INotifyPropertyChanged
         if (handler != null) handler(this, new PropertyChangedEventArgs(info));
     }
 
+    
 }
