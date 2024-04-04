@@ -62,11 +62,11 @@ public class RestaurantService : IRestaurantService
         return DbToScreen(await _dbContext.Soresttabs.ToListAsync());
     }
     
-    public async Task<RestaurantViewModel> ReadRestaurantById(string restaurantId)
+    public async Task<RestaurantModel> ReadRestaurantById(string restaurantId)
     {
         var rests = await _dbContext.Soresttabs.FindAsync(restaurantId) ?? new Soresttab();
 
-        var restModel = new RestaurantViewModel
+        var restModel = new RestaurantModel
         {
             FoodorderRestaurantIdProp = rests.RestId,
             FoodorderRestaurantNameProp = rests.RestName,
@@ -98,7 +98,7 @@ public class RestaurantService : IRestaurantService
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task SaveRestaurant(RestaurantViewModel restmodel)
+    public async Task SaveRestaurant(RestaurantModel restmodel)
     {
         var modelrest = new Soresttab
         {

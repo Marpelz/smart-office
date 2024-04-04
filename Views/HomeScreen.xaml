@@ -89,10 +89,22 @@
                 
                 <Grid Grid.Column="1" Margin="10" ShowGridLines="False">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="0.8*" />
                         <RowDefinition Height="15*" />
                         <RowDefinition Height="0*" />
                     </Grid.RowDefinitions>
+                    
+                    <StackPanel Grid.Row="0" Width="200" Orientation="Horizontal" Margin="3"
+                                HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Label Content="Moin," />
+                        <Label x:Name="username" />
+                    </StackPanel>
+                    
+                    <Button Grid.Row="0" Height="25" Width="25" Style="{StaticResource MaterialDesignIconButton}"
+                            ToolTip="SmartOffice minimieren" Click="MinimizeBTN_Click"
+                            HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">
+                        <materialDesign:PackIcon Kind="Minus" Height="25" Width="25"/>
+                    </Button>
                     
                     <Grid x:Name="RenderPages" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                         

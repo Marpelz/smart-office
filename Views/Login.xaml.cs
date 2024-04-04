@@ -47,6 +47,7 @@ public partial class Login
             if (userName.ToLower() == "admin" && userPassword == "admin")
             {
                 var homescreen = _service.GetRequiredService<HomeScreen>();
+                homescreen.username.Content = SoUsrName.Text;
                 homescreen.Show();
                 Close();
                 return;
@@ -57,6 +58,7 @@ public partial class Login
             if (user != null && _userService.VerifyPassword(userPassword, user.UserPassword))
             {
                 var homescreen = _service.GetRequiredService<HomeScreen>();
+                homescreen.username.Content = SoUsrName.Text;
                 homescreen.Show();
                 Close();
             }

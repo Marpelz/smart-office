@@ -35,8 +35,15 @@
                     <mde:TabControlStepper x:Name="stepper" IsLinear="False" Layout="Horizontal">
                         
                         <TabItem Header="Restaurant auswählen">
-                            <StackPanel Margin="5">
-                                <ListView x:Name="restlistview" Height="545" Width="1120" SelectionMode="Single"
+                            
+                            <Grid Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="0.12*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top">
+                                <ListView x:Name="restlistview" Height="525" Width="1120" SelectionMode="Single"
                                           ItemsSource="{Binding Path=Restaurants}"
                                           SelectedItem="{Binding Path=SelectedRestaurant, Mode=TwoWay}"
                                           SelectionChanged="RestListView_OnSelectionChanged">
@@ -107,7 +114,9 @@
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                <StackPanel Height="40" Width="250" Orientation="Horizontal" 
+                            </StackPanel>
+                                
+                                <StackPanel Grid.Row="1" Height="40" Width="250" Orientation="Horizontal" 
                                             HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                             Margin="5, 25, 0, 5">
                                     <Button Height="30" Content="Abbrechen" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
@@ -115,14 +124,22 @@
                                     <Button Height="30" Content="Weiter" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Click="LoadStepTwo_OnClick"/>
                                 </StackPanel>
-                            </StackPanel>
+                                
+                            </Grid>
+                            
                         </TabItem>
                         
                         <TabItem Header="Speise und Zahlungsmethode auswählen">
-                            <StackPanel Margin="5">
-                                <ListView x:Name="dishlistview" Height="545" Width="1120" SelectionMode="Single"
-                                          ItemsSource="{Binding Path=Dishes}"
-                                          >
+                            
+                            <Grid Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="0.12*" />
+                                </Grid.RowDefinitions>
+                                
+                                <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top">
+                                <ListView x:Name="dishlistview" Height="525" Width="1120" SelectionMode="Single"
+                                          ItemsSource="{Binding Path=Dishes}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
                                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -130,7 +147,14 @@
                                     </ListView.ItemContainerStyle>
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
-                                            <GridViewColumn Header="Bezeichnung" Width="250" >
+                                            <GridViewColumn Width="50">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Bezeichnung" Width="215" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding FoodorderDishDesignationProp}" TextAlignment="Left" HorizontalAlignment="Left" />
@@ -144,7 +168,7 @@
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
-                                            <GridViewColumn Header="Zusatzauswahl" Width="375" >
+                                            <GridViewColumn Header="Zusatzauswahl" Width="360" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding FoodorderDishAdditionalSelectionProp}" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap" />
@@ -161,20 +185,50 @@
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                <StackPanel Height="40" Width="250" Orientation="Horizontal" 
+                            </StackPanel>
+                                
+                                <StackPanel Grid.Row="1" Height="40" Width="250" Orientation="Horizontal" 
                                             HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                             Margin="5, 25, 0, 5">
                                     <Button Height="30" Content="Zurück" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Click="Back_OnClick" />
-                                    <Button Height="30" Content="Weiter" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                    <Button Height="30" Content="Weiter" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Click="LoadStepThree_OnClick"/>
                                 </StackPanel>
-                            </StackPanel>
+                                
+                                <StackPanel Grid.Row="1" Height="40" Width="400" Orientation="Horizontal"
+                                            HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                            Margin="5, 25, 0, 5">
+                                    <Label Content="Zahlungsmethode auswählen:" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                    <ComboBox Height="30" Width="200" Margin="10, 5, 5, 5" >
+                                        <ComboBoxItem Content="PayPal" />
+                                        <ComboBoxItem Content="Bar" />
+                                    </ComboBox>
+                                </StackPanel>
+                                
+                            </Grid>
+                            
                         </TabItem>
                         
                         <TabItem Header="Übersicht">
-                            <StackPanel Margin="5">
-                                <mde:StepButtonBar Cancel="Schließen" CancelCommand="{Binding CancelCommand}" HorizontalAlignment="Right" VerticalAlignment="Center" />
-                            </StackPanel>
+                            
+                            <Grid Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="0.12*" />
+                                </Grid.RowDefinitions>
+                                
+                                
+                                
+                                <StackPanel Grid.Row="1" Height="40" Width="104" Orientation="Horizontal" 
+                                            HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                            Margin="5, 25, 0, 5">
+                                    <Button Height="30" Content="Schließen" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Click="Close_OnClick" />
+                                </StackPanel>
+                                
+                            </Grid>
+                            
                         </TabItem>
                         
                     </mde:TabControlStepper>

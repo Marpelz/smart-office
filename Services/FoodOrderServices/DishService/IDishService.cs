@@ -10,11 +10,11 @@ public interface IDishService
     // Read
     Task<List<Sodishtab>> ReadAllDishes();
     Task<List<DishDataGridModel>> ReadAllDishesForGridById(string restaurantId);
-    Task<DishViewModel> ReadDishById(string restaurantId, string foodNumber);
+    Task<DishModel> ReadDishById(string restaurantId, string foodNumber);
     
     // Save
     Task SaveDish(Sodishtab menu);
-    Task SaveDish(DishViewModel menumodel);
+    Task SaveDish(DishModel menumodel);
     
     // Delete
     Task DeleteDishById(string restaurantId, string foodNumber);

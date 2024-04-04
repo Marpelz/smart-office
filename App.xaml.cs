@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmartOffice.Context;
 using SmartOffice.Services.FoodOrderServices.MenuService;
+using SmartOffice.Services.FoodOrderServices.OrderService;
 using SmartOffice.Services.FoodOrderServices.RestaurantService;
 using SmartOffice.Services.UserService;
 using SmartOffice.Views;
@@ -56,6 +57,7 @@ public partial class App
         services.AddTransient<IUserService, UserService>();
         services.AddTransient<IRestaurantService, RestaurantService>();
         services.AddTransient<IDishService, DishService>();
+        services.AddTransient<IOrderService, OrderService>();
 
         // Logger
         services.AddLogging(configure => configure.AddConsole());

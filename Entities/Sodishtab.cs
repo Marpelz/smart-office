@@ -22,4 +22,6 @@ public partial class Sodishtab
     public string DishPrice { get; set; } = null!;
 
     public virtual Soresttab DishRest { get; set; } = null!;
+
+    public virtual ICollection<Soorderdetailstab> Soorderdetailstabs { get; set; } = new List<Soorderdetailstab>();
 }

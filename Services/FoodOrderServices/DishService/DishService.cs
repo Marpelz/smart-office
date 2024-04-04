@@ -44,11 +44,11 @@ public class DishService : IDishService
         return DbToScreen(await _dbContext.Sodishtabs.Where(dish => dish.DishRestId == restaurantId).ToListAsync());
     }
     
-    public async Task<DishViewModel> ReadDishById(string restaurantId, string foodNumber)
+    public async Task<DishModel> ReadDishById(string restaurantId, string foodNumber)
     {
         var dishes = await _dbContext.Sodishtabs.Where(dish => dish.DishId == restaurantId + foodNumber).FirstOrDefaultAsync() ?? new Sodishtab();
 
-        var dishModel = new DishViewModel
+        var dishModel = new DishModel
         {
             FoodorderDishIdProp = dishes.DishId,
             FoodorderDishRestaurantIdProp = dishes.DishRestId,
@@ -74,7 +74,7 @@ public class DishService : IDishService
         await _dbContext.SaveChangesAsync();
     }
     
-    public async Task SaveDish(DishViewModel menumodel)
+    public async Task SaveDish(DishModel menumodel)
     {
         var menuId = menumodel.FoodorderDishRestaurantIdProp + menumodel.FoodorderDishNumberProp;
         

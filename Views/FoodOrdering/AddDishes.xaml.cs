@@ -18,7 +18,7 @@ public partial class AddDishes : Window, INotifyPropertyChanged
     private readonly IServiceProvider _service;
     private readonly IDishService _dishService;
     private readonly IRestaurantService _restaurantService;
-    private DishViewModel _dishModel;
+    private DishModel _dishModel;
     private List<DishDataGridModel> _dishDataGrid;
     private List<IdentSchluessel> _restaurantCmbx;
     
@@ -28,7 +28,7 @@ public partial class AddDishes : Window, INotifyPropertyChanged
         _service = service;
         _dishService = _service.GetRequiredService<IDishService>();
         _restaurantService = _service.GetRequiredService<IRestaurantService>();
-        _dishModel = new DishViewModel();
+        _dishModel = new DishModel();
         Task.Run(async () =>
         {
             await InitData();
@@ -39,7 +39,7 @@ public partial class AddDishes : Window, INotifyPropertyChanged
     
     // Propertys
 
-    public DishViewModel DishModel
+    public DishModel DishModel
     {
         get => _dishModel;
         set

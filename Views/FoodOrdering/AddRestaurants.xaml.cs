@@ -13,7 +13,7 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged; 
     private readonly IServiceProvider _service;
     private readonly IRestaurantService _restaurantService;
-    private RestaurantViewModel _restaurantModel;
+    private RestaurantModel _restaurantModel;
     private List<RestaurantDataGridModel> _restaurantDataGrid;
     
     public AddRestaurants(IServiceProvider service)
@@ -21,6 +21,9 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
         InitializeComponent();
         _service = service;
         _restaurantService = _service.GetRequiredService<IRestaurantService>();
+        _restaurantModel = new RestaurantModel();
+        _restaurantDataGrid = new List<RestaurantDataGridModel>();
+        
         Task.Run(async () =>
         {
             await InitData();
@@ -31,7 +34,7 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
     
     //Propertys
 
-    public RestaurantViewModel RestModel
+    public RestaurantModel RestModel
     {
         get => _restaurantModel;
         set
@@ -66,7 +69,7 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
 
     private async Task NewRestaurantModel()
     {
-        RestModel = new RestaurantViewModel();
+        RestModel = new RestaurantModel();
 
         var restaurants = await _restaurantService.ReadAllRestaurants();
         var lastRestaurantIdAsString = restaurants
@@ -107,7 +110,7 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
         if (result == MessageBoxResult.Yes)
         {
             await _restaurantService.DeleteRestaurantById(RestModel.FoodorderRestaurantIdProp);
-            RestModel = new RestaurantViewModel();
+            RestModel = new RestaurantModel();
             await ReloadDataGrid();
         }
     }

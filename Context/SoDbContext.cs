@@ -16,6 +16,10 @@ public partial class SoDbContext : DbContext
 
     public virtual DbSet<Sodishtab> Sodishtabs { get; set; }
 
+    public virtual DbSet<Soorderdetailstab> Soorderdetailstabs { get; set; }
+
+    public virtual DbSet<Soordertab> Soordertabs { get; set; }
+
     public virtual DbSet<Soresttab> Soresttabs { get; set; }
 
     public virtual DbSet<Sousertab> Sousertabs { get; set; }
@@ -47,6 +51,54 @@ public partial class SoDbContext : DbContext
             entity.HasOne(d => d.DishRest).WithMany(p => p.Sodishtabs)
                 .HasForeignKey(d => d.DishRestId)
                 .HasConstraintName("FK_SoDishTab_SoRestTab_DishRestId");
+        });
+
+        modelBuilder.Entity<Soorderdetailstab>(entity =>
+        {
+            entity.HasKey(e => e.OrderDetailsId).HasName("PRIMARY");
+
+            entity.ToTable("soorderdetailstab");
+
+            entity.HasIndex(e => e.DishId, "IX_SoOrderDetailsTab_DishId");
+
+            entity.HasIndex(e => e.OrderId, "IX_SoOrderDetailsTab_OrderId");
+
+            entity.HasIndex(e => e.UserId, "IX_SoOrderDetailsTab_UserId");
+
+            entity.Property(e => e.UserId).HasColumnType("int(11)");
+
+            entity.HasOne(d => d.Dish).WithMany(p => p.Soorderdetailstabs)
+                .HasForeignKey(d => d.DishId)
+                .HasConstraintName("FK_SoOrderDetailsTab_SoDishTab_DishId");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.Soorderdetailstabs)
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("FK_SoOrderDetailsTab_SoOrderTab_OrderId");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Soorderdetailstabs)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_SoOrderDetailsTab_SoUserTab_UserId");
+        });
+
+        modelBuilder.Entity<Soordertab>(entity =>
+        {
+            entity.HasKey(e => e.OrderId).HasName("PRIMARY");
+
+            entity.ToTable("soordertab");
+
+            entity.HasIndex(e => e.RestaurantId, "IX_SoOrderTab_RestaurantId");
+
+            entity.HasIndex(e => e.UserId, "IX_SoOrderTab_UserId");
+
+            entity.Property(e => e.UserId).HasColumnType("int(11)");
+
+            entity.HasOne(d => d.Restaurant).WithMany(p => p.Soordertabs)
+                .HasForeignKey(d => d.RestaurantId)
+                .HasConstraintName("FK_SoOrderTab_SoRestTab_RestaurantId");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Soordertabs)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_SoOrderTab_SoUserTab_UserId");
         });
 
         modelBuilder.Entity<Soresttab>(entity =>

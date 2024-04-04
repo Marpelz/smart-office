@@ -9,9 +9,10 @@ namespace SmartOffice;
 public class SmartOfficeDbContext : DbContext
 {
     public DbSet<UserModel> SoUserTab { get; set; } = null!;
-    public DbSet<RestaurantViewModel> SoRestTab { get; set; } = null!;
-    public DbSet<DishViewModel> SoDishTab { get; set; } = null!;
-    // public DbSet<OrderModel> SoOrdersTab { get; set; } = null!;
+    public DbSet<RestaurantModel> SoRestTab { get; set; } = null!;
+    public DbSet<DishModel> SoDishTab { get; set; } = null!;
+    public DbSet<OrderModel> SoOrderTab { get; set; } = null!;
+    public DbSet<OrderDetailsModel> SoOrderDetailsTab { get; set; } = null!;
 
 
     public SmartOfficeDbContext(DbContextOptions<SmartOfficeDbContext> options) : base(options)
@@ -24,105 +25,176 @@ public class SmartOfficeDbContext : DbContext
         modelBuilder.Entity<UserModel>().ToTable("SoUserTab");
         
         // Restaurant-Model
-        modelBuilder.Entity<RestaurantViewModel>().ToTable("SoRestTab")
-            .HasKey(r => r.FoodorderRestaurantIdProp);
+        modelBuilder.Entity<RestaurantModel>().ToTable("SoRestTab")
+            .HasKey(rm => rm.FoodorderRestaurantIdProp);
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantIdProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantIdProp)
             .HasColumnName("RestId");
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantNameProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantNameProp)
             .HasColumnName("RestName");
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantStreetProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantStreetProp)
             .HasColumnName("RestStreet");
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantZipcodeProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantZipcodeProp)
             .HasColumnName("RestZipcode");
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantCityProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantCityProp)
             .HasColumnName("RestCity");
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantTypeProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantTypeProp)
             .HasColumnName("RestType");
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantPhonenumberProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantPhonenumberProp)
             .HasColumnName("RestPhonenumber");
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantDeliveryYesNoProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantDeliveryYesNoProp)
             .HasColumnName("RestDelivery")
             .HasColumnType("VARCHAR(20)");
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantDeliveryTimeProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantDeliveryTimeProp)
             .HasColumnName("RestDeliveryTime");
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantOrdertypeAppTelephoneProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantOrdertypeAppTelephoneProp)
             .HasColumnName("RestAppTelephone")
             .HasColumnType("VARCHAR(20)");
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantMinimalOrderValueProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantMinimalOrderValueProp)
             .HasColumnName("RestMinOrderValue");
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantDeliveryCostProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantDeliveryCostProp)
             .HasColumnName("RestDeliveryCost");
         
-        modelBuilder.Entity<RestaurantViewModel>()
-            .Property(r => r.FoodorderRestaurantLieferandoLinkProp)
+        modelBuilder.Entity<RestaurantModel>()
+            .Property(rm => rm.FoodorderRestaurantLieferandoLinkProp)
             .HasColumnName("RestLieferandoLink");
         
         // Dish-Model
-        modelBuilder.Entity<DishViewModel>().ToTable("SoDishTab")
-            .HasKey(r => r.FoodorderDishIdProp);
+        modelBuilder.Entity<DishModel>().ToTable("SoDishTab")
+            .HasKey(dm => dm.FoodorderDishIdProp);
         
-        modelBuilder.Entity<DishViewModel>()
-            .Property(r => r.FoodorderDishIdProp)
+        modelBuilder.Entity<DishModel>()
+            .Property(dm => dm.FoodorderDishIdProp)
             .HasColumnName("DishId");
         
-        modelBuilder.Entity<DishViewModel>()
-            .Property(r => r.FoodorderDishRestaurantIdProp)
+        modelBuilder.Entity<DishModel>()
+            .Property(dm => dm.FoodorderDishRestaurantIdProp)
             .HasColumnName("DishRestId");
         
-        modelBuilder.Entity<DishViewModel>().Ignore(r => r.FoodorderDishRestaurantIdPropObj);
+        modelBuilder.Entity<DishModel>().Ignore(dm => dm.FoodorderDishRestaurantIdPropObj);
         
-        modelBuilder.Entity<DishViewModel>()
-            .Property(r => r.FoodorderDishNumberProp)
+        modelBuilder.Entity<DishModel>()
+            .Property(dm => dm.FoodorderDishNumberProp)
             .HasColumnName("DishNumber");
         
-        modelBuilder.Entity<DishViewModel>()
-            .Property(r => r.FoodorderDishCategoryProp)
+        modelBuilder.Entity<DishModel>()
+            .Property(dm => dm.FoodorderDishCategoryProp)
             .HasColumnName("DishCategory");
         
-        modelBuilder.Entity<DishViewModel>()
-            .Property(r => r.FoodorderDishDesignationProp)
+        modelBuilder.Entity<DishModel>()
+            .Property(dm => dm.FoodorderDishDesignationProp)
             .HasColumnName("DishDesignation");
         
-        modelBuilder.Entity<DishViewModel>()
-            .Property(r => r.FoodorderDishContentsProp)
+        modelBuilder.Entity<DishModel>()
+            .Property(dm => dm.FoodorderDishContentsProp)
             .HasColumnName("DishContents");
         
-        modelBuilder.Entity<DishViewModel>()
-            .Property(r => r.FoodorderDishAdditionalSelectionProp)
+        modelBuilder.Entity<DishModel>()
+            .Property(dm => dm.FoodorderDishAdditionalSelectionProp)
             .HasColumnName("DishAdditionalSelection");
         
-        modelBuilder.Entity<DishViewModel>()
-            .Property(r => r.FoodorderDishPriceProp)
+        modelBuilder.Entity<DishModel>()
+            .Property(dm => dm.FoodorderDishPriceProp)
             .HasColumnName("DishPrice");
         
+        // Order-Model
+
+        modelBuilder.Entity<OrderModel>().ToTable("SoOrderTab")
+            .HasKey(om => om.FoodorderOrderIdProp);
+           
+        modelBuilder.Entity<OrderModel>()
+            .Property(om => om.FoodorderOrderIdProp)
+            .HasColumnName("OrderId");
+        
+        modelBuilder.Entity<OrderModel>()
+            .Property(om => om.FoodorderRestaurantIdProp)
+            .HasColumnName("RestaurantId");
+        
+        modelBuilder.Entity<OrderModel>()
+            .Property(om => om.FoodorderUserIdProp)
+            .HasColumnName("UserId");
+        
+        modelBuilder.Entity<OrderModel>()
+            .Property(om => om.FoodorderOrderDateProp)
+            .HasColumnName("OrderDate");
+        
+        // OrderDetails-Model
+        
+        modelBuilder.Entity<OrderDetailsModel>().ToTable("SoOrderDetailsTab")
+            .HasKey(odm => odm.FoodorderOrderDetailsIdProp);
+        
+        modelBuilder.Entity<OrderDetailsModel>()
+            .Property(odm => odm.FoodorderOrderDetailsIdProp)
+            .HasColumnName("OrderDetailsId");
+        
+        modelBuilder.Entity<OrderDetailsModel>()
+            .Property(odm => odm.FoodorderOrderIdProp)
+            .HasColumnName("OrderId");
+        
+        modelBuilder.Entity<OrderDetailsModel>()
+            .Property(odm => odm.FoodorderUserIdProp)
+            .HasColumnName("UserId");
+        
+        modelBuilder.Entity<OrderDetailsModel>()
+            .Property(odm => odm.FoodorderDishIdProp)
+            .HasColumnName("DishId");
+        
+        modelBuilder.Entity<OrderDetailsModel>()
+            .Property(odm => odm.FoodorderPaymentMethodProp)
+            .HasColumnName("PaymentMethod");
+        
         // Relationships
-        modelBuilder.Entity<DishViewModel>()
-            .HasOne(d => d.Restaurant)
-            .WithMany(r => r.Dishes)
-            .HasForeignKey(d => d.FoodorderDishRestaurantIdProp);
+        modelBuilder.Entity<DishModel>()
+            .HasOne(dm => dm.Restaurant)
+            .WithMany(rm => rm.Dishes)
+            .HasForeignKey(dm => dm.FoodorderDishRestaurantIdProp);
+        
+        modelBuilder.Entity<OrderModel>()
+            .HasOne(om => om.Restaurant)
+            .WithMany(rm => rm.Orders)
+            .HasForeignKey(om => om.FoodorderRestaurantIdProp);
+        
+        modelBuilder.Entity<OrderModel>()
+            .HasOne(om => om.User)
+            .WithMany(rm => rm.Orders)
+            .HasForeignKey(om => om.FoodorderUserIdProp);
+        
+        modelBuilder.Entity<OrderDetailsModel>()
+            .HasOne(odm => odm.Order)
+            .WithMany(om => om.OrderDetails)
+            .HasForeignKey(om => om.FoodorderOrderIdProp);
+        
+        modelBuilder.Entity<OrderDetailsModel>()
+            .HasOne(odm => odm.User)
+            .WithMany(um => um.OrderDetails)
+            .HasForeignKey(om => om.FoodorderUserIdProp);
+        
+        modelBuilder.Entity<OrderDetailsModel>()
+            .HasOne(odm => odm.Dish)
+            .WithMany(dm => dm.OrderDetails)
+            .HasForeignKey(odm => odm.FoodorderDishIdProp);
     }
 }

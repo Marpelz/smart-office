@@ -6,6 +6,9 @@ namespace SmartOffice.Models.UserModels
 {
     public class UserModel
     {
+        public List<OrderModel> Orders { get; set; }
+        public List<OrderDetailsModel> OrderDetails { get; set; }
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }

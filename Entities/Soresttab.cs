@@ -32,4 +32,6 @@ public partial class Soresttab
     public string RestLieferandoLink { get; set; } = null!;
 
     public virtual ICollection<Sodishtab> Sodishtabs { get; set; } = new List<Sodishtab>();
+
+    public virtual ICollection<Soordertab> Soordertabs { get; set; } = new List<Soordertab>();
 }

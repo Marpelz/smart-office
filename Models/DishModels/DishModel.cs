@@ -1,11 +1,12 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using SmartOffice.Models.OrderModels;
 using SmartOffice.Models.RestaurantModels;
 using SmartOffice.Models.Settings;
 
 namespace SmartOffice.Models.MenuModels;
 
-public class DishViewModel : INotifyPropertyChanged
+public class DishModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -15,10 +16,11 @@ public class DishViewModel : INotifyPropertyChanged
         if (handler != null) handler(this, new PropertyChangedEventArgs(info));
     }
     
-    public RestaurantViewModel Restaurant { get; set; }
+    public RestaurantModel Restaurant { get; set; } // FK
+    public List<OrderDetailsModel> OrderDetails { get; set; }
 
     private string _foodorderDishId = ""; // RestaurantId + FoodNumber 
-    private string _foodorderDishRestaurantId = ""; 
+    private string _foodorderDishRestaurantId = ""; // FK
     private string _foodorderDishNumber = "";
     private string _foodorderDishCategory = "";
     private string _foodorderDishDesignation = "";

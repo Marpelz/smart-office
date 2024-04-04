@@ -14,4 +14,8 @@ public partial class Sousertab
     public bool ActivePaypal { get; set; }
 
     public string? PaypalEmail { get; set; }
+
+    public virtual ICollection<Soorderdetailstab> Soorderdetailstabs { get; set; } = new List<Soorderdetailstab>();
+
+    public virtual ICollection<Soordertab> Soordertabs { get; set; } = new List<Soordertab>();
 }

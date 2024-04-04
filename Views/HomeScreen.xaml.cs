@@ -51,6 +51,11 @@ namespace SmartOffice.Views
             RenderPages.Children.Clear();
             RenderPages.Children.Add(new UserSettings());
         }
+
+        private void MinimizeBTN_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
         
         private void Logout(object sender, RoutedEventArgs e)
         {

@@ -10,11 +10,11 @@ public interface IRestaurantService
     Task<List<Soresttab>> ReadAllRestaurants();
     Task<List<IdentSchluessel>> ReadAllRestaurantsById();
     Task<List<RestaurantDataGridModel>> ReadAllRestaurantsForGrid();
-    Task<RestaurantViewModel> ReadRestaurantById(string restaurantId);
+    Task<RestaurantModel> ReadRestaurantById(string restaurantId);
     
     // Save
     Task SaveRestaurant(Soresttab rest);
-    Task SaveRestaurant(RestaurantViewModel restmodel);
+    Task SaveRestaurant(RestaurantModel restmodel);
     
     // Delete
     Task DeleteRestaurantById(string restaurantId);

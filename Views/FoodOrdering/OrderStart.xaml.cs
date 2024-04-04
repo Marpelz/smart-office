@@ -21,7 +21,7 @@ public partial class OrderStart : Window, INotifyPropertyChanged
     private readonly IServiceProvider _service;
     private readonly IRestaurantService _restaurantService;
     private readonly IDishService _dishService;
-    private RestaurantViewModel _selectedRestaurant;
+    private RestaurantModel _selectedRestaurant;
     
     public OrderStart(IServiceProvider service)
     {
@@ -29,6 +29,10 @@ public partial class OrderStart : Window, INotifyPropertyChanged
         _service = service;
         _restaurantService = _service.GetRequiredService<IRestaurantService>();
         _dishService = _service.GetRequiredService<IDishService>();
+        _selectedRestaurant = new RestaurantModel();
+        Restaurants = new List<RestaurantModel>();
+        Dishes = new List<DishModel>();
+        
         Task.Run(async () =>
         {
             await LoadRestaurants();
@@ -43,10 +47,10 @@ public partial class OrderStart : Window, INotifyPropertyChanged
     
     // Propertys
     
-    public List<RestaurantViewModel> Restaurants { get; set; }
-    public List<DishViewModel> Dishes { get; set; }
+    public List<RestaurantModel> Restaurants { get; set; }
+    public List<DishModel> Dishes { get; set; }
     
-    public RestaurantViewModel SelectedRestaurant
+    public RestaurantModel SelectedRestaurant
     {
         get => _selectedRestaurant;
         set
@@ -61,7 +65,7 @@ public partial class OrderStart : Window, INotifyPropertyChanged
     private async Task LoadRestaurants()
     {
         var soresttabs = await _restaurantService.ReadAllRestaurants();
-        Restaurants = soresttabs.Select(rest => new RestaurantViewModel
+        Restaurants = soresttabs.Select(rest => new RestaurantModel
         {
             FoodorderRestaurantIdProp = rest.RestId,
             FoodorderRestaurantNameProp = rest.RestName,
@@ -89,7 +93,7 @@ public partial class OrderStart : Window, INotifyPropertyChanged
 
         var dishes = await _dishService.ReadAllDishesForGridById(SelectedRestaurant.FoodorderRestaurantIdProp);
 
-        Dishes = dishes.Select(dish => new DishViewModel
+        Dishes = dishes.Select(dish => new DishModel
         {
             FoodorderDishRestaurantIdProp = dish.DishRestaurantId,
             FoodorderDishNumberProp = dish.DishNumber,
@@ -107,14 +111,13 @@ public partial class OrderStart : Window, INotifyPropertyChanged
 
     private async void LoadStepTwo_OnClick(object sender, RoutedEventArgs e)
     {
-        if (SelectedRestaurant == null)
-        {
-            MessageBox.Show("Bitte wählen Sie zuerst ein Restaurant aus.");
-            return;
-        }
-
         stepper.SelectedIndex++;
         await LoadDishes();
+    }
+
+    private async void LoadStepThree_OnClick(object sender, RoutedEventArgs e)
+    {
+        stepper.SelectedIndex++;
     }
 
     private void Back_OnClick(object sender, RoutedEventArgs e)
@@ -135,12 +138,11 @@ public partial class OrderStart : Window, INotifyPropertyChanged
         if (handler != null) handler(this, new PropertyChangedEventArgs(info));
     }
     
-    private async void RestListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void RestListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (sender is ListView listView && listView.SelectedItem is RestaurantViewModel selectedRestaurant)
+        if (sender is ListView listView && listView.SelectedItem is RestaurantModel selectedRestaurant)
         {
             SelectedRestaurant = selectedRestaurant;
-            // await LoadDishes();
         }
     }
     

@@ -2,10 +2,11 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SmartOffice.Models.MenuModels;
+using SmartOffice.Models.OrderModels;
 
 namespace SmartOffice.Models.RestaurantModels;
 
-public class RestaurantViewModel : INotifyPropertyChanged
+public class RestaurantModel : INotifyPropertyChanged
 { 
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -15,7 +16,8 @@ public class RestaurantViewModel : INotifyPropertyChanged
         if (handler != null) handler(this, new PropertyChangedEventArgs(info));
     }
     
-    public List<DishViewModel> Dishes { get; set; }
+    public List<DishModel> Dishes { get; set; }
+    public List<OrderModel> Orders { get; set; }
 
     private string _foodorderRestaurantId = ""; // 3-stellige ID (z.B. 001)
     private string _foodorderRestaurantName = ""; 
