@@ -48,6 +48,7 @@ public partial class Login
             {
                 var homescreen = _service.GetRequiredService<HomeScreen>();
                 homescreen.username.Content = SoUsrName.Text;
+                AppSettings.Username = SoUsrName.Text;
                 homescreen.Show();
                 Close();
                 return;
@@ -59,6 +60,7 @@ public partial class Login
             {
                 var homescreen = _service.GetRequiredService<HomeScreen>();
                 homescreen.username.Content = SoUsrName.Text;
+                AppSettings.Username = SoUsrName.Text;
                 homescreen.Show();
                 Close();
             }

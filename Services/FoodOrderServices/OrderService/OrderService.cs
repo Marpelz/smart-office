@@ -27,6 +27,20 @@ public class OrderService : IOrderService
         return await _dbContext.Soorderdetailstabs.ToListAsync();
     }
     
+    public async Task<List<Soorderdetailstab>> ReadOrderDetailsByOrderId(string orderId)
+    {
+        return await _dbContext.Soorderdetailstabs
+            .Where(od => od.OrderId == orderId)
+            .ToListAsync();
+    }
+    
+    public async Task<List<Soorderdetailstab>> ReadOrderDetailsByOrderIdAndUserId(string orderId, int userId)
+    {
+        return await _dbContext.Soorderdetailstabs
+            .Where(od => od.OrderId == orderId && od.UserId == userId)
+            .ToListAsync();
+    }
+    
     public async Task<OrderModel> ReadOrderById(string orderId)
     {
         var orders = await _dbContext.Soordertabs.FindAsync(orderId) ?? new Soordertab();

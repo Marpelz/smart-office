@@ -17,7 +17,7 @@ public partial class FoodOrderHome : UserControl
 
     private void OpenFoodOrderStartBTN_Click(object sender, RoutedEventArgs e)
     {
-        var orderStart = _service.GetRequiredService<OrderStart>();
+        var orderStart = _service.GetRequiredService<OrderStart>(); 
         orderStart.Show();
     }
     

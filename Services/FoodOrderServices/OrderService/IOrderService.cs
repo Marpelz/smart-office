@@ -8,6 +8,8 @@ public interface IOrderService
     // Read
     Task<List<Soordertab>> ReadAllOrders();
     Task<List<Soorderdetailstab>> ReadAllOrderDetails();
+    Task<List<Soorderdetailstab>> ReadOrderDetailsByOrderId(string orderId);
+    Task<List<Soorderdetailstab>> ReadOrderDetailsByOrderIdAndUserId(string orderId, int userId);
     Task<OrderModel> ReadOrderById(string orderId);
     Task<OrderDetailsModel> ReadOrderDetailsById(string orderDetailId);
 

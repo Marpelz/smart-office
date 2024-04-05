@@ -39,6 +39,26 @@ public class UserService : IUserService
     {
         return await _dbContext.SoUserTab.FirstOrDefaultAsync(u => u.UserName == username) ?? throw new InvalidOperationException();
     }
+    
+    public async Task<int> GetUserIdByUsername(string username)
+    {
+        var user = await _dbContext.SoUserTab.FirstOrDefaultAsync(u => u.UserName == username);
+        return user?.UserId ?? throw new InvalidOperationException("Benutzer nicht gefunden");
+    }
+    
+    public async Task<string> GetUsernameById(int userId)
+    {
+        try
+        {
+            var user = await _dbContext.SoUserTab.FindAsync(userId);
+            return user?.UserName ?? throw new InvalidOperationException("Benutzer nicht gefunden"); // Falls das UserId nicht existiert, wird null zurückgegeben
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions appropriately
+            throw new Exception("Fehler beim Abrufen des Benutzernamens nach Benutzer-ID", ex);
+        }
+    }
 
     public async Task<IEnumerable<UserModel>> GetAllUser()
     {

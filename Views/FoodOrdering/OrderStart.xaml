@@ -139,7 +139,8 @@
                                 
                                 <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top">
                                 <ListView x:Name="dishlistview" Height="525" Width="1120" SelectionMode="Single"
-                                          ItemsSource="{Binding Path=Dishes}">
+                                          ItemsSource="{Binding Path=Dishes}"
+                                          SelectedItem="{Binding Path=SelectedDish, Mode=TwoWay}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
                                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -150,7 +151,7 @@
                                             <GridViewColumn Width="50">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <CheckBox />
+                                                        <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
@@ -191,7 +192,7 @@
                                             HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                             Margin="5, 25, 0, 5">
                                     <Button Height="30" Content="Zurück" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                            Click="Back_OnClick" />
+                                            Click="BackToStepOne_OnClick" />
                                     <Button Height="30" Content="Weiter" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Click="LoadStepThree_OnClick"/>
                                 </StackPanel>
@@ -200,7 +201,7 @@
                                             HorizontalAlignment="Left" VerticalAlignment="Bottom"
                                             Margin="5, 25, 0, 5">
                                     <Label Content="Zahlungsmethode auswählen:" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                    <ComboBox Height="30" Width="200" Margin="10, 5, 5, 5" >
+                                    <ComboBox x:Name="paymentmethod" Height="30" Width="200" Margin="10, 5, 5, 5" >
                                         <ComboBoxItem Content="PayPal" />
                                         <ComboBoxItem Content="Bar" />
                                     </ComboBox>
@@ -218,13 +219,56 @@
                                     <RowDefinition Height="0.12*" />
                                 </Grid.RowDefinitions>
                                 
+                                <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top">
+                                <ListView x:Name="orderdetailslistview" Height="525" Width="1120" SelectionMode="Single"
+                                          ItemsSource="{Binding Path=OrderDetails}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.View>
+                                        <GridView AllowsColumnReorder="False">
+                                            <GridViewColumn Header="Benutzername" Width="200" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding OrderdetailsUsernameProp}" TextAlignment="Left" HorizontalAlignment="Left" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Speisebezeichnung" Width="350" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding OrderdetailsDishDesignationProp}" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Preis" Width="100" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding OrderdetailsDishPriceProp}" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Zahlungsmethode" Width="200" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding OrderdetailsUserPaymentMethodProp}" TextAlignment="Center" HorizontalAlignment="Center" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </StackPanel>
                                 
-                                
-                                <StackPanel Grid.Row="1" Height="40" Width="104" Orientation="Horizontal" 
+                                <StackPanel Grid.Row="1" Height="40" Width="250" Orientation="Horizontal" 
                                             HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                             Margin="5, 25, 0, 5">
+                                    <Button Height="30" Content="Zurück" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Click="BackToStepTwo_OnClick" />
                                     <Button Height="30" Content="Schließen" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                            Click="Close_OnClick" />
+                                            Click="Close_OnClick"/>
                                 </StackPanel>
                                 
                             </Grid>

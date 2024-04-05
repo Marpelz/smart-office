@@ -19,6 +19,7 @@ public class DishModel : INotifyPropertyChanged
     public RestaurantModel Restaurant { get; set; } // FK
     public List<OrderDetailsModel> OrderDetails { get; set; }
 
+    private bool _isSelected;
     private string _foodorderDishId = ""; // RestaurantId + FoodNumber 
     private string _foodorderDishRestaurantId = ""; // FK
     private string _foodorderDishNumber = "";
@@ -28,6 +29,19 @@ public class DishModel : INotifyPropertyChanged
     private string _foodorderDishAdditionalSelection = "";
     private string _foodorderDishPrice = "";
     
+    
+    public bool IsSelected
+    {
+        get { return _isSelected; }
+        set
+        {
+            if (_isSelected != value)
+            {
+                _isSelected = value;
+                OnPropertyChanged(nameof(IsSelected));
+            }
+        }
+    }
     
     public string FoodorderDishIdProp
     {

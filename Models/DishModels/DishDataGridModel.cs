@@ -4,6 +4,7 @@ namespace SmartOffice.Models.MenuModels;
 
 public class DishDataGridModel : ReactiveObject
 {
+    private string _dishId = "";
     private string _dishRestaurantId = "";
     private string _dishNumber = "";
     private string _dishCategory = "";
@@ -11,6 +12,12 @@ public class DishDataGridModel : ReactiveObject
     private string _dishContents = "";
     private string _dishAdditionalSelection = "";
     private string _dishPrice = "";
+    
+    public string DishId
+    {
+        get => _dishId;
+        set => this.RaiseAndSetIfChanged(ref _dishId, value);
+    }
     
     public string DishRestaurantId
     {
