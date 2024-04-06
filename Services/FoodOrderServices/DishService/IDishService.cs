@@ -1,5 +1,5 @@
 using SmartOffice.Entities;
-using SmartOffice.Models.MenuModels;
+using SmartOffice.Models.DishModels;
 using SmartOffice.Models.RestaurantModels;
 using SmartOffice.Models.Settings;
 
@@ -11,6 +11,8 @@ public interface IDishService
     Task<List<Sodishtab>> ReadAllDishes();
     Task<List<DishDataGridModel>> ReadAllDishesForGridById(string restaurantId);
     Task<DishModel> ReadDishById(string restaurantId, string foodNumber);
+    Task<string> ReadDishDesignationById(string dishId);
+    Task<string> ReadDishPriceById(string dishId);
     
     // Save
     Task SaveDish(Sodishtab menu);

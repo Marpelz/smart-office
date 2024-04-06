@@ -1,6 +1,6 @@
 using ReactiveUI;
 
-namespace SmartOffice.Models.MenuModels;
+namespace SmartOffice.Models.DishModels;
 
 public class DishDataGridModel : ReactiveObject
 {

@@ -4,11 +4,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData;
 using MaterialDesignExtensions.Controls;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
-using SmartOffice.Models.MenuModels;
+using SmartOffice.Models.DishModels;
 using SmartOffice.Models.OrderModels;
 using SmartOffice.Models.RestaurantModels;
 using SmartOffice.Services.FoodOrderServices.MenuService;
@@ -41,7 +42,9 @@ public partial class OrderStart : Window, INotifyPropertyChanged
         _selectedDish = new DishModel();
         Restaurants = new List<RestaurantModel>();
         Dishes = new List<DishModel>();
-        
+        OrderDetails = new List<OrderDetailsModel>();
+        OrderViewDetails = new List<OrderDetailsViewModel>();
+
         stepper.SelectedIndex = 0;
 
         Task.Run(async () =>
@@ -60,8 +63,8 @@ public partial class OrderStart : Window, INotifyPropertyChanged
 
     public List<RestaurantModel> Restaurants { get; set; }
     public List<DishModel> Dishes { get; set; }
-
     public List<OrderDetailsModel> OrderDetails { get; set; }
+    public List<OrderDetailsViewModel> OrderViewDetails { get; set; }
 
     public RestaurantModel SelectedRestaurant
     {
@@ -133,57 +136,61 @@ public partial class OrderStart : Window, INotifyPropertyChanged
     }
 
     private async Task LoadOrderDetails()
+{
+    try
     {
-        try
+        // Get last OrderId
+        string lastOrderId = (await _orderService.ReadAllOrders()).LastOrDefault()?.OrderId;
+
+        if (lastOrderId != null)
         {
-            // Get last OrderId
-            string lastOrderId = (await _orderService.ReadAllOrders()).LastOrDefault()?.OrderId;
+            // Load all order details for the last created order
+            var orderDetails = await _orderService.ReadOrderDetailsByOrderId(lastOrderId);
 
-            if (lastOrderId != null)
+            // Create a list to store the formatted order details view models
+            var formattedOrderDetails = new List<OrderDetailsViewModel>();
+
+            // Iterate through each order detail and format the data
+            foreach (var orderDetail in orderDetails)
             {
-                // Load all order details for the last created order
-                var orderDetails = await _orderService.ReadOrderDetailsByOrderId(lastOrderId);
+                // Retrieve additional information such as username, dish details, payment method, etc.
+                var username = await _userService.GetUsernameById(orderDetail.UserId);
+                var dishDesignation = await _dishService.ReadDishDesignationById(orderDetail.DishId);
+                var paymentMethod = orderDetail.PaymentMethod;
+                var price = await _dishService.ReadDishPriceById(orderDetail.DishId);
 
-                // Create a list to store the formatted order details
-                var formattedOrderDetails = new List<OrderDetailsViewModel>();
-
-                // Iterate through each order detail and format the data
-                foreach (var orderDetail in orderDetails)
+                // Create a view model object to hold the formatted data
+                var orderDetailViewModel = new OrderDetailsViewModel
                 {
-                    // Retrieve additional information such as username, dish details, payment method, etc.
-                    string username = await _userService.GetUsernameById(orderDetail.User.UserId);
-                    string dishName = orderDetail.Dish.DishDesignation;
-                    string paymentMethod = orderDetail.PaymentMethod;
-                    string price = orderDetail.Dish.DishPrice;
+                    OrderdetailsUsernameProp = username,
+                    OrderdetailsDishDesignationProp = dishDesignation,
+                    OrderdetailsUserPaymentMethodProp = paymentMethod,
+                    OrderdetailsDishPriceProp = price
+                };
 
-                    // Create a view model object to hold the formatted data
-                    var orderDetailViewModel = new OrderDetailsViewModel
-                    {
-                        OrderdetailsUsernameProp = username,
-                        OrderdetailsDishDesignationProp = dishName,
-                        OrderdetailsUserPaymentMethodProp = paymentMethod,
-                        OrderdetailsDishPriceProp = price
-                    };
-
-                    // Add the formatted order detail to the list
-                    formattedOrderDetails.Add(orderDetailViewModel);
-                }
-
-                // Bind the formatted order details to the ListView
-                orderdetailslistview.ItemsSource = formattedOrderDetails;
+                // Add the formatted order detail view model to the list
+                formattedOrderDetails.Add(orderDetailViewModel);
             }
-            else
-            {
-                MessageBox.Show("Es gibt keine Bestellung, um Bestelldetails zu laden.", "Info", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-            }
+
+            // Update the OrderViewDetails property with the formatted order details view models
+            OrderViewDetails = formattedOrderDetails;
+
+            // Notify that the OrderViewDetails property has changed
+            OnPropertyChanged(nameof(OrderViewDetails));
         }
-        catch (Exception ex)
+        else
         {
-            MessageBox.Show($"Fehler beim Laden der Bestelldetails: {ex.Message}", "Fehler", MessageBoxButton.OK,
-                MessageBoxImage.Error);
+            MessageBox.Show("Es gibt keine Bestellung, um Bestelldetails zu laden.", "Info", MessageBoxButton.OK,
+                MessageBoxImage.Information);
         }
     }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Fehler beim Laden der Bestelldetails: {ex.Message}", "Fehler", MessageBoxButton.OK,
+            MessageBoxImage.Error);
+        Console.WriteLine($"Fehler beim Laden der Bestelldetails: {ex.Message}");
+    }
+}
 
     private async Task CreateNewOrder()
     {
@@ -239,7 +246,8 @@ public partial class OrderStart : Window, INotifyPropertyChanged
 
             if (selectedDishes.Count == 0)
             {
-                MessageBox.Show("Bitte wählen Sie mindestens ein Gericht aus.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Bitte wählen Sie mindestens ein Gericht aus.", "Info", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
                 return;
             }
 
@@ -247,7 +255,8 @@ public partial class OrderStart : Window, INotifyPropertyChanged
             string paymentMethod = ((ComboBoxItem)paymentmethod.SelectedItem)?.Content.ToString();
             if (string.IsNullOrEmpty(paymentMethod))
             {
-                MessageBox.Show("Bitte wählen Sie eine Zahlungsmethode aus.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Bitte wählen Sie eine Zahlungsmethode aus.", "Info", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
                 return;
             }
 

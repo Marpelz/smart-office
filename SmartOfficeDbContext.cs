@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SmartOffice.Models.MenuModels;
+using SmartOffice.Models.DishModels;
 using SmartOffice.Models.OrderModels;
 using SmartOffice.Models.RestaurantModels;
 using SmartOffice.Models.UserModels;

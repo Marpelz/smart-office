@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using SmartOffice.Models.MenuModels;
+using SmartOffice.Models.DishModels;
 using SmartOffice.Models.UserModels;
 
 namespace SmartOffice.Models.OrderModels;

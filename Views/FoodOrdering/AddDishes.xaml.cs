@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
-using SmartOffice.Models.MenuModels;
+using SmartOffice.Models.DishModels;
 using SmartOffice.Models.RestaurantModels;
 using SmartOffice.Models.Settings;
 using SmartOffice.Services.FoodOrderServices.MenuService;

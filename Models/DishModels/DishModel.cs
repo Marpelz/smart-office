@@ -1,10 +1,9 @@
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using SmartOffice.Models.OrderModels;
 using SmartOffice.Models.RestaurantModels;
 using SmartOffice.Models.Settings;
 
-namespace SmartOffice.Models.MenuModels;
+namespace SmartOffice.Models.DishModels;
 
 public class DishModel : INotifyPropertyChanged
 {

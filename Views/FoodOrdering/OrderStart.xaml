@@ -221,7 +221,7 @@
                                 
                                 <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top">
                                 <ListView x:Name="orderdetailslistview" Height="525" Width="1120" SelectionMode="Single"
-                                          ItemsSource="{Binding Path=OrderDetails}">
+                                          ItemsSource="{Binding Path=OrderViewDetails}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
                                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SmartOffice.Context;
 using SmartOffice.Entities;
-using SmartOffice.Models.MenuModels;
+using SmartOffice.Models.DishModels;
 
 namespace SmartOffice.Services.FoodOrderServices.MenuService;
 
@@ -28,6 +28,7 @@ public class DishService : IDishService
         foreach (var dish in dishes)
             dishDataGrid.Add(new DishDataGridModel
             {
+                DishId = dish.DishId,
                 DishRestaurantId = dish.DishRestId,
                 DishNumber = dish.DishNumber,
                 DishCategory = dish.DishCategory,
@@ -60,6 +61,18 @@ public class DishService : IDishService
             FoodorderDishPriceProp = dishes.DishPrice
         };
         return dishModel;
+    }
+
+    public async Task<string> ReadDishDesignationById(string dishId)
+    {
+        var designation = await _dbContext.Sodishtabs.FindAsync(dishId);
+        return designation?.DishDesignation ?? throw new InvalidOperationException("Speisebezeichnung nicht gefunden");
+    }
+
+    public async Task<string> ReadDishPriceById(string dishId)
+    {
+        var price = await _dbContext.Sodishtabs.FindAsync(dishId);
+        return price?.DishPrice ?? throw new InvalidOperationException("Speisepreis nicht gefunden");
     }
 
     public async Task SaveDish(Sodishtab dish)
