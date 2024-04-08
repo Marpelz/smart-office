@@ -61,6 +61,19 @@ public class UserService : IUserService
         }
     }
 
+    public async Task<string> GetUserPaypalEmailById(int userId)
+    {
+        try
+        {
+            var user = await _dbContext.SoUserTab.FindAsync(userId);
+            return user?.PaypalEmail ?? throw new InvalidOperationException("Paypal Adresse nicht gefunden"); 
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Fehler beim Abrufen der Paypal Adresse nach Benutzer-ID", ex);
+        }
+    }
+
     public async Task<IEnumerable<UserModel>> GetAllUser()
     {
         return await _dbContext.SoUserTab.ToListAsync();

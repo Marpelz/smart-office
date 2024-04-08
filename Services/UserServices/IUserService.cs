@@ -10,6 +10,7 @@ public interface IUserService
     Task<UserModel> GetUserByUsername(string username);
     Task<int> GetUserIdByUsername(string username);
     Task<string> GetUsernameById(int userId);
+    Task<string> GetUserPaypalEmailById(int userId);
     Task<IEnumerable<UserModel>> GetAllUser();
     
 }

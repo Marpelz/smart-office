@@ -233,21 +233,21 @@
                                             <GridViewColumn Header="Benutzername" Width="200" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding OrderdetailsUsernameProp}" TextAlignment="Left" HorizontalAlignment="Left" />
+                                                        <TextBlock Text="{Binding OrderdetailsUsernameProp}" TextAlignment="Center" HorizontalAlignment="Center" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
                                             <GridViewColumn Header="Speisebezeichnung" Width="350" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding OrderdetailsDishDesignationProp}" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                                                        <TextBlock Text="{Binding OrderdetailsDishDesignationProp}" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
                                             <GridViewColumn Header="Preis" Width="100" >
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding OrderdetailsDishPriceProp}" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                                                        <TextBlock Text="{Binding OrderdetailsDishPriceProp}" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
@@ -258,10 +258,39 @@
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
+                                            <GridViewColumn Width="50">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button x:Name="deleteorderdetail" Height="20" Width="20" Style="{StaticResource MaterialDesignIconButton}"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                            <materialDesign:PackIcon Kind="Trash" Width="20" Height="20" />
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Hat bezahlt" Width="150">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox  />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
                             </StackPanel>
+                                
+                                <StackPanel x:Name="orderinguserinformation" Grid.Row="1" Height="40" Width="700" Orientation="Horizontal"
+                                            HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                            Margin="5, 25, 0, 5">
+                                    <materialDesign:PackIcon Kind="InformationBox" Height="30" Width="30" VerticalAlignment="Center" Background="Cyan" />
+                                    <Label Content="Bitte zahlen Sie:" VerticalAlignment="Center"/>
+                                    <Label x:Name="userdetailsum" VerticalAlignment="Center" />
+                                    <Label Content="an:" VerticalAlignment="Center" />
+                                    <Label x:Name="orderingusername" VerticalAlignment="Center" />
+                                    <Label Content="wenn Paypal:" VerticalAlignment="Center" />
+                                    <Label x:Name="orderinguserpaypal" VerticalAlignment="Center" />
+                                </StackPanel>
                                 
                                 <StackPanel Grid.Row="1" Height="40" Width="250" Orientation="Horizontal" 
                                             HorizontalAlignment="Right" VerticalAlignment="Bottom"
