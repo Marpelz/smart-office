@@ -21,7 +21,7 @@ namespace SmartOffice.Migrations
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("SmartOffice.Models.MenuModels.DishModel", b =>
+            modelBuilder.Entity("SmartOffice.Models.DishModels.DishModel", b =>
                 {
                     b.Property<string>("FoodorderDishIdProp")
                         .HasColumnType("varchar(255)")
@@ -228,7 +228,7 @@ namespace SmartOffice.Migrations
                     b.ToTable("SoUserTab", (string)null);
                 });
 
-            modelBuilder.Entity("SmartOffice.Models.MenuModels.DishModel", b =>
+            modelBuilder.Entity("SmartOffice.Models.DishModels.DishModel", b =>
                 {
                     b.HasOne("SmartOffice.Models.RestaurantModels.RestaurantModel", "Restaurant")
                         .WithMany("Dishes")
@@ -241,7 +241,7 @@ namespace SmartOffice.Migrations
 
             modelBuilder.Entity("SmartOffice.Models.OrderModels.OrderDetailsModel", b =>
                 {
-                    b.HasOne("SmartOffice.Models.MenuModels.DishModel", "Dish")
+                    b.HasOne("SmartOffice.Models.DishModels.DishModel", "Dish")
                         .WithMany("OrderDetails")
                         .HasForeignKey("FoodorderDishIdProp")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -285,7 +285,7 @@ namespace SmartOffice.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SmartOffice.Models.MenuModels.DishModel", b =>
+            modelBuilder.Entity("SmartOffice.Models.DishModels.DishModel", b =>
                 {
                     b.Navigation("OrderDetails");
                 });

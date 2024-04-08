@@ -5,12 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmartOffice.Context;
-using SmartOffice.Services.FoodOrderServices.MenuService;
-using SmartOffice.Services.FoodOrderServices.OrderService;
+using SmartOffice.Services.FoodOrderServices.DishServices;
+using SmartOffice.Services.FoodOrderServices.OrderServices;
 using SmartOffice.Services.FoodOrderServices.RestaurantService;
 using SmartOffice.Services.MQTTServices;
-using SmartOffice.Services.NotificationService;
-using SmartOffice.Services.UserService;
+using SmartOffice.Services.UserServices;
 using SmartOffice.Views;
 using SmartOffice.Views.FoodOrdering;
 
@@ -60,8 +59,7 @@ public partial class App
         services.AddTransient<IRestaurantService, RestaurantService>();
         services.AddTransient<IDishService, DishService>();
         services.AddTransient<IOrderService, OrderService>();
-        services.AddTransient<IMqttService, MqttService>();
-        services.AddTransient<INotificationService, NotificationService>();
+        services.AddSingleton<IMqttService, MqttService>();
 
         // Logger
         services.AddLogging(configure => configure.AddConsole());

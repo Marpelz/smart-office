@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SmartOffice.Models.UserModels;
 
-namespace SmartOffice.Services.UserService;
+namespace SmartOffice.Services.UserServices;
 
 public class UserService : IUserService
 {

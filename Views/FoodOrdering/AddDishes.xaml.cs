@@ -5,9 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SmartOffice.Models.DishModels;
-using SmartOffice.Models.RestaurantModels;
 using SmartOffice.Models.Settings;
-using SmartOffice.Services.FoodOrderServices.MenuService;
+using SmartOffice.Services.FoodOrderServices.DishServices;
 using SmartOffice.Services.FoodOrderServices.RestaurantService;
 
 namespace SmartOffice.Views.FoodOrdering;

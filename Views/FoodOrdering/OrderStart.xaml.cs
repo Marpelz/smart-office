@@ -2,20 +2,18 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using CommunityToolkit.Mvvm.Input;
-using DynamicData;
-using MaterialDesignExtensions.Controls;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
-using ReactiveUI;
+using MQTTnet.Extensions.ManagedClient;
+using Newtonsoft.Json;
+using Notification.Wpf;
 using SmartOffice.Models.DishModels;
 using SmartOffice.Models.OrderModels;
 using SmartOffice.Models.RestaurantModels;
-using SmartOffice.Services.FoodOrderServices.MenuService;
-using SmartOffice.Services.FoodOrderServices.OrderService;
+using SmartOffice.Services.FoodOrderServices.DishServices;
+using SmartOffice.Services.FoodOrderServices.OrderServices;
 using SmartOffice.Services.FoodOrderServices.RestaurantService;
-using SmartOffice.Services.UserService;
+using SmartOffice.Services.MQTTServices;
+using SmartOffice.Services.UserServices;
 
 namespace SmartOffice.Views.FoodOrdering;
 
@@ -27,6 +25,10 @@ public partial class OrderStart : Window, INotifyPropertyChanged
     private readonly IDishService _dishService;
     private readonly IOrderService _orderService;
     private readonly IUserService _userService;
+    private readonly IMqttService _mqttService;
+    private readonly MqttService _mqttServiceInstance;
+    private readonly NotificationManager _notification;
+    private IManagedMqttClient _mqttClient;
     private RestaurantModel _selectedRestaurant;
     private DishModel _selectedDish;
 
@@ -38,6 +40,9 @@ public partial class OrderStart : Window, INotifyPropertyChanged
         _dishService = _service.GetRequiredService<IDishService>();
         _orderService = _service.GetRequiredService<IOrderService>();
         _userService = _service.GetRequiredService<IUserService>();
+        _mqttService = _service.GetRequiredService<IMqttService>();
+        _mqttServiceInstance = (MqttService)_mqttService;
+        _mqttClient = _mqttServiceInstance.GetMqttClient();
         _selectedRestaurant = new RestaurantModel();
         _selectedDish = new DishModel();
         Restaurants = new List<RestaurantModel>();
@@ -133,6 +138,46 @@ public partial class OrderStart : Window, INotifyPropertyChanged
         }).ToList();
 
         OnPropertyChanged(nameof(Dishes));
+    }
+
+    public async Task LoadDishesFromLastOrder()
+    {
+        try
+        {
+            // Get last Order
+            var lastOrder = (await _orderService.ReadAllOrders()).LastOrDefault();
+
+            if (lastOrder != null)
+            {
+                // Get RestaurantId from last Order
+                var restaurantId = lastOrder.RestaurantId;
+
+                // Load Dishes
+                var dishes = await _dishService.ReadAllDishesForGridById(restaurantId);
+                
+                Dishes = dishes.Select(dish => new DishModel
+                {
+                    FoodorderDishIdProp = dish.DishId,
+                    FoodorderDishRestaurantIdProp = dish.DishRestaurantId,
+                    FoodorderDishNumberProp = dish.DishNumber,
+                    FoodorderDishCategoryProp = dish.DishCategory,
+                    FoodorderDishDesignationProp = dish.DishDesignation,
+                    FoodorderDishContentsProp = dish.DishContents,
+                    FoodorderDishAdditionalSelectionProp = dish.DishAdditionalSelection,
+                    FoodorderDishPriceProp = dish.DishPrice
+                }).ToList();
+
+                OnPropertyChanged(nameof(Dishes));
+            }
+            else
+            {
+                MessageBox.Show("Es gibt keine vorherige Bestellung.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Fehler beim Laden der Speisen: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private async Task LoadOrderDetails()
@@ -313,8 +358,7 @@ public partial class OrderStart : Window, INotifyPropertyChanged
         try
         {
             // Get UserId
-            var usrnamelabel = _service.GetRequiredService<HomeScreen>();
-            string username = usrnamelabel.username.Content.ToString()!;
+            var username = AppSettings.Username;
             int userId = await _userService.GetUserIdByUsername(username);
 
             // Get last OrderId
@@ -355,6 +399,21 @@ public partial class OrderStart : Window, INotifyPropertyChanged
                 "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+    
+    private async Task PublishFoodOrderMessage()
+    {
+        try
+        {
+            string json = JsonConvert.SerializeObject(new { message = "Bestellung gestartet", sent = DateTimeOffset.UtcNow });
+
+            await _mqttClient.PublishAsync("smartoffice/foodorder", json);
+            
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fehler beim Publishen der Nachricht: {ex.Message}");
+        }
+    }
 
     // Click-Events
 
@@ -363,6 +422,7 @@ public partial class OrderStart : Window, INotifyPropertyChanged
         stepper.SelectedIndex++;
         await CreateNewOrder();
         await LoadDishes();
+        await PublishFoodOrderMessage();
     }
 
     private async void LoadStepThree_OnClick(object sender, RoutedEventArgs e)
@@ -370,17 +430,6 @@ public partial class OrderStart : Window, INotifyPropertyChanged
         stepper.SelectedIndex++;
         await CreateNewOrderDetails();
         await LoadOrderDetails();
-    }
-
-    private void Back_OnClick(object sender, RoutedEventArgs e)
-    {
-        stepper.SelectedIndex--;
-    }
-
-    private async void BackToStepOne_OnClick(object sender, RoutedEventArgs e)
-    {
-        stepper.SelectedIndex--;
-        await LoadRestaurants();
     }
 
     private async void BackToStepTwo_OnClick(object sender, RoutedEventArgs e)
@@ -408,6 +457,14 @@ public partial class OrderStart : Window, INotifyPropertyChanged
         if (sender is ListView listView && listView.SelectedItem is RestaurantModel selectedRestaurant)
         {
             SelectedRestaurant = selectedRestaurant;
+        }
+    }
+
+    private void DishListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is ListView listView && listView.SelectedItem is DishModel selectedDish)
+        {
+            SelectedDish = selectedDish;
         }
     }
 

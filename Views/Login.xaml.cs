@@ -1,20 +1,23 @@
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
-using SmartOffice.Services.UserService;
+using SmartOffice.Services.MQTTServices;
+using SmartOffice.Services.UserServices;
 
 namespace SmartOffice.Views;
 
 public partial class Login
 {
-    private readonly IUserService _userService;
     private readonly IServiceProvider _service;
+    private readonly IUserService _userService;
+    private readonly IMqttService _mqttService;
     
     public Login(IServiceProvider service)
     {
         InitializeComponent();
         _service = service;
         _userService = _service.GetRequiredService<IUserService>();
+        _mqttService = _service.GetRequiredService<IMqttService>();
     }
     
     private void WindowDragMove(object sender, MouseButtonEventArgs e)
@@ -63,6 +66,8 @@ public partial class Login
                 AppSettings.Username = SoUsrName.Text;
                 homescreen.Show();
                 Close();
+
+                await _mqttService.CreateAndConnectMqttClient();
             }
             else
             {

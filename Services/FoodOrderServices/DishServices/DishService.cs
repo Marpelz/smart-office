@@ -3,7 +3,7 @@ using SmartOffice.Context;
 using SmartOffice.Entities;
 using SmartOffice.Models.DishModels;
 
-namespace SmartOffice.Services.FoodOrderServices.MenuService;
+namespace SmartOffice.Services.FoodOrderServices.DishServices;
 
 public class DishService : IDishService
 {

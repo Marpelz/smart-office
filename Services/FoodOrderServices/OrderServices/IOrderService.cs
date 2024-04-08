@@ -1,7 +1,7 @@
 using SmartOffice.Entities;
 using SmartOffice.Models.OrderModels;
 
-namespace SmartOffice.Services.FoodOrderServices.OrderService;
+namespace SmartOffice.Services.FoodOrderServices.OrderServices;
 
 public interface IOrderService
 {

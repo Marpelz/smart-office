@@ -21,7 +21,7 @@ namespace SmartOffice.Migrations
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("SmartOffice.Models.MenuModels.DishViewModel", b =>
+            modelBuilder.Entity("SmartOffice.Models.DishModels.DishViewModel", b =>
                 {
                     b.Property<string>("FoodorderDishIdProp")
                         .HasColumnType("varchar(255)")
@@ -163,7 +163,7 @@ namespace SmartOffice.Migrations
                     b.ToTable("SoUserTab", (string)null);
                 });
 
-            modelBuilder.Entity("SmartOffice.Models.MenuModels.DishViewModel", b =>
+            modelBuilder.Entity("SmartOffice.Models.DishModels.DishViewModel", b =>
                 {
                     b.HasOne("SmartOffice.Models.RestaurantModels.RestaurantViewModel", "Restaurant")
                         .WithMany("Dishes")

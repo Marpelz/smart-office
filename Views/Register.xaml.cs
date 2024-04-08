@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SmartOffice.Models.UserModels;
-using SmartOffice.Services.UserService;
+using SmartOffice.Services.UserServices;
 
 namespace SmartOffice.Views;
 

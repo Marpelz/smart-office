@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
-using SmartOffice.Services.UserService;
+using MQTTnet.Extensions.ManagedClient;
+using SmartOffice.Services.MQTTServices;
+using SmartOffice.Services.UserServices;
 using SmartOffice.Views.Chat;
 using SmartOffice.Views.FoodOrdering;
 using SmartOffice.Views.Settings;
@@ -10,14 +12,21 @@ namespace SmartOffice.Views
 {
     public partial class HomeScreen : Window
     {
-        private readonly IUserService _userService;
         private readonly IServiceProvider _service;
+        private readonly IUserService _userService;
+        private readonly IMqttService _mqttService;
+        private readonly MqttService _mqttServiceInstance;
+        private IManagedMqttClient _mqttClient;
+        
         
         public HomeScreen(IServiceProvider service)
         {
             InitializeComponent();
             _service = service;
             _userService = _service.GetRequiredService<IUserService>();
+            _mqttService = _service.GetRequiredService<IMqttService>();
+            _mqttServiceInstance = (MqttService)_mqttService;
+            _mqttClient = _mqttServiceInstance.GetMqttClient();
         }
         
         private void WindowDragMove(object sender, MouseButtonEventArgs e)
@@ -57,9 +66,10 @@ namespace SmartOffice.Views
             WindowState = WindowState.Minimized;
         }
         
-        private void Logout(object sender, RoutedEventArgs e)
+        private async void Logout(object sender, RoutedEventArgs e)
         {
             var login = _service.GetRequiredService<Login>();
+            await _mqttServiceInstance.DisconnectMqttClient();
             login.Show();
             Close();
         }

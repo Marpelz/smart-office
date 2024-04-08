@@ -2,9 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using SmartOffice.Context;
 using SmartOffice.Entities;
 using SmartOffice.Models.OrderModels;
-using SmartOffice.Models.RestaurantModels;
 
-namespace SmartOffice.Services.FoodOrderServices.OrderService;
+namespace SmartOffice.Services.FoodOrderServices.OrderServices;
 
 public class OrderService : IOrderService
 {

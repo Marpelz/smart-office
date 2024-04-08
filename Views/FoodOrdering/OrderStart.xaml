@@ -140,7 +140,8 @@
                                 <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top">
                                 <ListView x:Name="dishlistview" Height="525" Width="1120" SelectionMode="Single"
                                           ItemsSource="{Binding Path=Dishes}"
-                                          SelectedItem="{Binding Path=SelectedDish, Mode=TwoWay}">
+                                          SelectedItem="{Binding Path=SelectedDish, Mode=TwoWay}"
+                                          SelectionChanged="DishListView_OnSelectionChanged">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
                                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -191,8 +192,8 @@
                                 <StackPanel Grid.Row="1" Height="40" Width="250" Orientation="Horizontal" 
                                             HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                             Margin="5, 25, 0, 5">
-                                    <Button Height="30" Content="Zurück" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                            Click="BackToStepOne_OnClick" />
+                                    <Button Height="30" Content="Abbrechen" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Click="Close_OnClick" />
                                     <Button Height="30" Content="Weiter" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Click="LoadStepThree_OnClick"/>
                                 </StackPanel>

@@ -1,9 +1,7 @@
 using SmartOffice.Entities;
 using SmartOffice.Models.DishModels;
-using SmartOffice.Models.RestaurantModels;
-using SmartOffice.Models.Settings;
 
-namespace SmartOffice.Services.FoodOrderServices.MenuService;
+namespace SmartOffice.Services.FoodOrderServices.DishServices;
 
 public interface IDishService
 {
