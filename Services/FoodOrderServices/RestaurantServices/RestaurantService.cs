@@ -4,7 +4,7 @@ using SmartOffice.Entities;
 using SmartOffice.Models.RestaurantModels;
 using SmartOffice.Models.Settings;
 
-namespace SmartOffice.Services.FoodOrderServices.RestaurantService;
+namespace SmartOffice.Services.FoodOrderServices.RestaurantServices;
 
 public class RestaurantService : IRestaurantService
 {
@@ -17,14 +17,14 @@ public class RestaurantService : IRestaurantService
         _service = service;
     }
 
-    public async Task<List<Soresttab>> ReadAllRestaurants()
+    public async Task<List<SoRestTab>> ReadAllRestaurants()
     {
-        return await _dbContext.Soresttabs.ToListAsync();
+        return await _dbContext.SoRestTabs.ToListAsync();
     }
 
     public async Task<List<IdentSchluessel>> ReadAllRestaurantsById()
     {
-        var rests = await _dbContext.Soresttabs.ToListAsync();
+        var rests = await _dbContext.SoRestTabs.ToListAsync();
 
         List<IdentSchluessel> identschluessel = new List<IdentSchluessel>();
         foreach (var rest in rests)
@@ -39,7 +39,7 @@ public class RestaurantService : IRestaurantService
         return identschluessel;
     }
 
-    private List<RestaurantDataGridModel> DbToScreen(List<Soresttab> rests)
+    private List<RestaurantDataGridModel> DbToScreen(List<SoRestTab> rests)
     {
         var restaurantDataGrid = new List<RestaurantDataGridModel>();
 
@@ -59,12 +59,12 @@ public class RestaurantService : IRestaurantService
     
     public async Task<List<RestaurantDataGridModel>> ReadAllRestaurantsForGrid()
     {
-        return DbToScreen(await _dbContext.Soresttabs.ToListAsync());
+        return DbToScreen(await _dbContext.SoRestTabs.ToListAsync());
     }
     
     public async Task<RestaurantModel> ReadRestaurantById(string restaurantId)
     {
-        var rests = await _dbContext.Soresttabs.FindAsync(restaurantId) ?? new Soresttab();
+        var rests = await _dbContext.SoRestTabs.FindAsync(restaurantId) ?? new SoRestTab();
 
         var restModel = new RestaurantModel
         {
@@ -86,21 +86,21 @@ public class RestaurantService : IRestaurantService
         return restModel;
     }
 
-    public async Task SaveRestaurant(Soresttab rest)
+    public async Task SaveRestaurant(SoRestTab rest)
     {
-        var existingRest = await _dbContext.Soresttabs.FindAsync(rest.RestId);
+        var existingRest = await _dbContext.SoRestTabs.FindAsync(rest.RestId);
 
         if (existingRest != null)
             _dbContext.Entry(existingRest).CurrentValues.SetValues(rest);
         else
-            await _dbContext.Soresttabs.AddAsync(rest);
+            await _dbContext.SoRestTabs.AddAsync(rest);
 
         await _dbContext.SaveChangesAsync();
     }
 
     public async Task SaveRestaurant(RestaurantModel restmodel)
     {
-        var modelrest = new Soresttab
+        var modelrest = new SoRestTab
         {
             RestId = restmodel.FoodorderRestaurantIdProp,
             RestName = restmodel.FoodorderRestaurantNameProp,
@@ -121,6 +121,6 @@ public class RestaurantService : IRestaurantService
 
     public async Task DeleteRestaurantById(string restaurantId)
     {
-        await _dbContext.Soresttabs.Where(rest => rest.RestId == restaurantId).ExecuteDeleteAsync();
+        await _dbContext.SoRestTabs.Where(rest => rest.RestId == restaurantId).ExecuteDeleteAsync();
     }
 }

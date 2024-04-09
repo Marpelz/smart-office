@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using SmartOffice.Context;
 using SmartOffice.Services.FoodOrderServices.DishServices;
 using SmartOffice.Services.FoodOrderServices.OrderServices;
-using SmartOffice.Services.FoodOrderServices.RestaurantService;
+using SmartOffice.Services.FoodOrderServices.RestaurantServices;
 using SmartOffice.Services.MQTTServices;
 using SmartOffice.Services.UserServices;
 using SmartOffice.Views;
@@ -47,12 +47,15 @@ public partial class App
         services.AddDbContext<SmartOfficeDbContext>(options =>
             options.UseMySql(configuration.GetConnectionString("SmartOfficeDB"),
                 new MySqlServerVersion(new Version(11, 3, 2)),
-                builder => builder.MigrationsAssembly(typeof(SmartOfficeDbContext).Assembly.FullName)), ServiceLifetime.Transient);
-        
+                builder => builder.MigrationsAssembly(typeof(SmartOfficeDbContext).Assembly.FullName)), ServiceLifetime.Singleton);
+
+
         services.AddDbContext<SoDbContext>(options =>
             options.UseMySql(configuration.GetConnectionString("SmartOfficeDB"),
                 new MySqlServerVersion(new Version(11, 3, 2)),
-                builder => builder.MigrationsAssembly(typeof(SoDbContext).Assembly.FullName)), ServiceLifetime.Transient);
+                builder => builder.MigrationsAssembly(typeof(SoDbContext).Assembly.FullName)), ServiceLifetime.Singleton);
+        
+        
         
         // Services
         services.AddTransient<IUserService, UserService>();

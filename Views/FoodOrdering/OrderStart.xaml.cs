@@ -11,7 +11,7 @@ using SmartOffice.Models.OrderModels;
 using SmartOffice.Models.RestaurantModels;
 using SmartOffice.Services.FoodOrderServices.DishServices;
 using SmartOffice.Services.FoodOrderServices.OrderServices;
-using SmartOffice.Services.FoodOrderServices.RestaurantService;
+using SmartOffice.Services.FoodOrderServices.RestaurantServices;
 using SmartOffice.Services.MQTTServices;
 using SmartOffice.Services.UserServices;
 
@@ -436,6 +436,23 @@ public partial class OrderStart : Window, INotifyPropertyChanged
             return "Fehler";
         }
     }
+    
+    private async Task<string> CalculateOrderDetailsSum()
+    {
+        try
+        {
+            decimal sum = OrderViewDetails
+                .Sum(detail => decimal.Parse(detail.OrderdetailsDishPriceProp));
+
+            return $"{sum:C}";
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Fehler beim Berechnen der Bestellsumme: {ex.Message}", "Fehler",
+                MessageBoxButton.OK, MessageBoxImage.Error);
+            return "Fehler";
+        }
+    }
 
     private async Task GetOrderingUserInformation()
     {
@@ -469,6 +486,39 @@ public partial class OrderStart : Window, INotifyPropertyChanged
         }
     }
 
+    private async Task GetOrderingRestInformation()
+    {
+        try
+        {
+            // Get last Order
+            var lastOrder = (await _orderService.ReadAllOrders()).LastOrDefault();
+
+            if (lastOrder != null)
+            {
+                // Get Restaurantname
+                var restdata = await _restaurantService.ReadRestaurantById(lastOrder.RestaurantId);
+                string restname = restdata.FoodorderRestaurantNameProp;
+
+                // Get Restaurant Deliver Costs
+                string restdeliverycost = restdata.FoodorderRestaurantDeliveryCostProp;
+
+                // Update the labels with Restaurant information
+                orderingrestname.Content = restname;
+                orderingrestdeliverycost.Content = restdeliverycost;
+            }
+            else
+            {
+                MessageBox.Show("Es gibt keine vorherige Bestellung.", "Info",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Fehler beim Laden der Restaurantinformationen: {ex.Message}", "Fehler",
+                MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
     // Click-Events
 
     private async void LoadStepTwo_OnClick(object sender, RoutedEventArgs e)
@@ -481,19 +531,50 @@ public partial class OrderStart : Window, INotifyPropertyChanged
 
     private async void LoadStepThree_OnClick(object sender, RoutedEventArgs e)
     {
+        var userId = await _userService.GetUserIdByUsername(AppSettings.Username);
+        var lastOrder = (await _orderService.ReadAllOrders()).LastOrDefault();
+        
         stepper.SelectedIndex++;
         await CreateNewOrderDetails();
         await LoadOrderDetails();
-        string sumAsString = await CalculateUserOrderDetailsSum();
-        userdetailsum.Content = sumAsString;
-        await GetOrderingUserInformation();
+
+        if (lastOrder != null && userId == lastOrder.UserId)
+        {
+            string orderSumAsString = await CalculateOrderDetailsSum();
+            orderingdetailsum.Content = orderSumAsString;
+            await GetOrderingRestInformation();
+            restorderinginformation.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            string userSumAsString = await CalculateUserOrderDetailsSum();
+            userdetailsum.Content = userSumAsString;
+            await GetOrderingUserInformation();
+            userorderinginformation.Visibility = Visibility.Visible;
+        }
     }
 
-    private async void BackToStepTwo_OnClick(object sender, RoutedEventArgs e)
+    private async void ReloadOrderDetails_OnClick(object sender, RoutedEventArgs e)
     {
-        stepper.SelectedIndex--;
-        await DeleteLastOrderDetails();
-        await LoadDishes();
+        await LoadOrderDetails();
+        
+        var userId = await _userService.GetUserIdByUsername(AppSettings.Username);
+        var lastOrder = (await _orderService.ReadAllOrders()).LastOrDefault();
+        
+        if (lastOrder != null && userId == lastOrder.UserId)
+        {
+            string orderSumAsString = await CalculateOrderDetailsSum();
+            orderingdetailsum.Content = orderSumAsString;
+            await GetOrderingRestInformation();
+            restorderinginformation.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            string userSumAsString = await CalculateUserOrderDetailsSum();
+            userdetailsum.Content = userSumAsString;
+            await GetOrderingUserInformation();
+            userorderinginformation.Visibility = Visibility.Visible;
+        }
     }
 
     private void Close_OnClick(object sender, RoutedEventArgs e)

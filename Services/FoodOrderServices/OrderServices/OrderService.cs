@@ -9,40 +9,40 @@ public class OrderService : IOrderService
 {
     private readonly SoDbContext _dbContext;
     private readonly IServiceProvider _service;
-    
+
     public OrderService(SoDbContext dbContext, IServiceProvider service)
     {
         _dbContext = dbContext;
         _service = service;
     }
-    
-    public async Task<List<Soordertab>> ReadAllOrders()
+
+    public async Task<List<SoOrderTab>> ReadAllOrders()
     {
-        return await _dbContext.Soordertabs.ToListAsync();
+        return await _dbContext.SoOrderTabs.ToListAsync();
     }
-    
-    public async Task<List<Soorderdetailstab>> ReadAllOrderDetails()
+
+    public async Task<List<SoOrderDetailsTab>> ReadAllOrderDetails()
     {
-        return await _dbContext.Soorderdetailstabs.ToListAsync();
+        return await _dbContext.SoOrderDetailsTabs.ToListAsync();
     }
-    
-    public async Task<List<Soorderdetailstab>> ReadOrderDetailsByOrderId(string orderId)
+
+    public async Task<List<SoOrderDetailsTab>> ReadOrderDetailsByOrderId(string orderId)
     {
-        return await _dbContext.Soorderdetailstabs
+        return await _dbContext.SoOrderDetailsTabs
             .Where(od => od.OrderId == orderId)
             .ToListAsync();
     }
-    
-    public async Task<List<Soorderdetailstab>> ReadOrderDetailsByOrderIdAndUserId(string orderId, int userId)
+
+    public async Task<List<SoOrderDetailsTab>> ReadOrderDetailsByOrderIdAndUserId(string orderId, int userId)
     {
-        return await _dbContext.Soorderdetailstabs
+        return await _dbContext.SoOrderDetailsTabs
             .Where(od => od.OrderId == orderId && od.UserId == userId)
             .ToListAsync();
     }
-    
+
     public async Task<OrderModel> ReadOrderById(string orderId)
     {
-        var orders = await _dbContext.Soordertabs.FindAsync(orderId) ?? new Soordertab();
+        var orders = await _dbContext.SoOrderTabs.FindAsync(orderId) ?? new SoOrderTab();
 
         var orderModel = new OrderModel
         {
@@ -50,14 +50,13 @@ public class OrderService : IOrderService
             FoodorderRestaurantIdProp = orders.RestaurantId,
             FoodorderUserIdProp = orders.UserId,
             FoodorderOrderDateProp = orders.OrderDate
-            
         };
         return orderModel;
     }
-    
+
     public async Task<OrderDetailsModel> ReadOrderDetailsById(string orderDetailId)
     {
-        var details = await _dbContext.Soorderdetailstabs.FindAsync(orderDetailId) ?? new Soorderdetailstab();
+        var details = await _dbContext.SoOrderDetailsTabs.FindAsync(orderDetailId) ?? new SoOrderDetailsTab();
 
         var orderDetailModel = new OrderDetailsModel
         {
@@ -66,26 +65,25 @@ public class OrderService : IOrderService
             FoodorderUserIdProp = details.UserId,
             FoodorderDishIdProp = details.DishId,
             FoodorderPaymentMethodProp = details.PaymentMethod
-            
         };
         return orderDetailModel;
     }
-    
-    public async Task SaveOrder(Soordertab order)
+
+    public async Task SaveOrder(SoOrderTab order)
     {
-        var existingOrder = await _dbContext.Soordertabs.FindAsync(order.OrderId);
+        var existingOrder = await _dbContext.SoOrderTabs.FindAsync(order.OrderId);
 
         if (existingOrder != null)
             _dbContext.Entry(existingOrder).CurrentValues.SetValues(order);
         else
-            await _dbContext.Soordertabs.AddAsync(order);
+            await _dbContext.SoOrderTabs.AddAsync(order);
 
         await _dbContext.SaveChangesAsync();
     }
 
     public async Task SaveOrder(OrderModel ordermodel)
     {
-        var modelorder = new Soordertab
+        var modelorder = new SoOrderTab
         {
             OrderId = ordermodel.FoodorderOrderIdProp,
             RestaurantId = ordermodel.FoodorderRestaurantIdProp,
@@ -94,22 +92,22 @@ public class OrderService : IOrderService
         };
         await SaveOrder(modelorder);
     }
-    
-    public async Task SaveOrderDetails(Soorderdetailstab details)
+
+    public async Task SaveOrderDetails(SoOrderDetailsTab details)
     {
-        var existingOrderDetails = await _dbContext.Soorderdetailstabs.FindAsync(details.OrderDetailsId);
+        var existingOrderDetails = await _dbContext.SoOrderDetailsTabs.FindAsync(details.OrderDetailsId);
 
         if (existingOrderDetails != null)
             _dbContext.Entry(existingOrderDetails).CurrentValues.SetValues(details);
         else
-            await _dbContext.Soorderdetailstabs.AddAsync(details);
+            await _dbContext.SoOrderDetailsTabs.AddAsync(details);
 
         await _dbContext.SaveChangesAsync();
     }
 
     public async Task SaveOrderDetails(OrderDetailsModel detailsmodel)
     {
-        var modeldetails = new Soorderdetailstab
+        var modeldetails = new SoOrderDetailsTab
         {
             OrderDetailsId = detailsmodel.FoodorderOrderDetailsIdProp,
             OrderId = detailsmodel.FoodorderOrderIdProp,
@@ -122,11 +120,12 @@ public class OrderService : IOrderService
 
     public async Task DeleteOrderById(string orderId)
     {
-        await _dbContext.Soordertabs.Where(order => order.OrderId == orderId).ExecuteDeleteAsync();
+        await _dbContext.SoOrderTabs.Where(order => order.OrderId == orderId).ExecuteDeleteAsync();
     }
-    
+
     public async Task DeleteOrderDetailsById(string orderDetailsId)
     {
-        await _dbContext.Soorderdetailstabs.Where(detail => detail.OrderDetailsId == orderDetailsId).ExecuteDeleteAsync();
+        await _dbContext.SoOrderDetailsTabs.Where(detail => detail.OrderDetailsId == orderDetailsId)
+            .ExecuteDeleteAsync();
     }
 }

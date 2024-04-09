@@ -16,12 +16,12 @@ public class DishService : IDishService
         _service = service;
     }
 
-    public Task<List<Sodishtab>> ReadAllDishes()
+    public Task<List<SoDishTab>> ReadAllDishes()
     {
-        return _dbContext.Sodishtabs.ToListAsync();
+        return _dbContext.SoDishTabs.ToListAsync();
     }
 
-    private List<DishDataGridModel> DbToScreen(List<Sodishtab> dishes)
+    private List<DishDataGridModel> DbToScreen(List<SoDishTab> dishes)
     {
         var dishDataGrid = new List<DishDataGridModel>();
 
@@ -42,12 +42,12 @@ public class DishService : IDishService
 
     public async Task<List<DishDataGridModel>> ReadAllDishesForGridById(string restaurantId)
     {
-        return DbToScreen(await _dbContext.Sodishtabs.Where(dish => dish.DishRestId == restaurantId).ToListAsync());
+        return DbToScreen(await _dbContext.SoDishTabs.Where(dish => dish.DishRestId == restaurantId).ToListAsync());
     }
     
     public async Task<DishModel> ReadDishById(string restaurantId, string foodNumber)
     {
-        var dishes = await _dbContext.Sodishtabs.Where(dish => dish.DishId == restaurantId + foodNumber).FirstOrDefaultAsync() ?? new Sodishtab();
+        var dishes = await _dbContext.SoDishTabs.Where(dish => dish.DishId == restaurantId + foodNumber).FirstOrDefaultAsync() ?? new SoDishTab();
 
         var dishModel = new DishModel
         {
@@ -65,24 +65,24 @@ public class DishService : IDishService
 
     public async Task<string> ReadDishDesignationById(string dishId)
     {
-        var designation = await _dbContext.Sodishtabs.FindAsync(dishId);
+        var designation = await _dbContext.SoDishTabs.FindAsync(dishId);
         return designation?.DishDesignation ?? throw new InvalidOperationException("Speisebezeichnung nicht gefunden");
     }
 
     public async Task<string> ReadDishPriceById(string dishId)
     {
-        var price = await _dbContext.Sodishtabs.FindAsync(dishId);
+        var price = await _dbContext.SoDishTabs.FindAsync(dishId);
         return price?.DishPrice ?? throw new InvalidOperationException("Speisepreis nicht gefunden");
     }
 
-    public async Task SaveDish(Sodishtab dish)
+    public async Task SaveDish(SoDishTab dish)
     {
-        var existingDish = await _dbContext.Sodishtabs.FindAsync(dish.DishId);
+        var existingDish = await _dbContext.SoDishTabs.FindAsync(dish.DishId);
 
         if (existingDish != null)
             _dbContext.Entry(existingDish).CurrentValues.SetValues(dish);
         else
-            await _dbContext.Sodishtabs.AddAsync(dish);
+            await _dbContext.SoDishTabs.AddAsync(dish);
 
         await _dbContext.SaveChangesAsync();
     }
@@ -91,7 +91,7 @@ public class DishService : IDishService
     {
         var menuId = menumodel.FoodorderDishRestaurantIdProp + menumodel.FoodorderDishNumberProp;
         
-        var modelmenu = new Sodishtab
+        var modelmenu = new SoDishTab
         {
             DishId = menuId,
             DishRestId = menumodel.FoodorderDishRestaurantIdProp,
@@ -108,6 +108,6 @@ public class DishService : IDishService
     
     public async Task DeleteDishById(string restaurantId, string foodNumber)
     {
-        await _dbContext.Sodishtabs.Where(dish => dish.DishId == restaurantId + foodNumber).ExecuteDeleteAsync();
+        await _dbContext.SoDishTabs.Where(dish => dish.DishId == restaurantId + foodNumber).ExecuteDeleteAsync();
     }
 }

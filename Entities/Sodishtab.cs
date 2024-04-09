@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 namespace SmartOffice.Entities;
 
-public partial class Sodishtab
+public partial class SoDishTab
 {
     public string DishId { get; set; } = null!;
+
+    public bool IsSelected { get; set; }
 
     public string DishRestId { get; set; } = null!;
 
@@ -21,7 +23,7 @@ public partial class Sodishtab
 
     public string DishPrice { get; set; } = null!;
 
-    public virtual Soresttab DishRest { get; set; } = null!;
+    public virtual SoRestTab DishRest { get; set; } = null!;
 
-    public virtual ICollection<Soorderdetailstab> Soorderdetailstabs { get; set; } = new List<Soorderdetailstab>();
+    public virtual ICollection<SoOrderDetailsTab> SoOrderDetailsTabs { get; set; } = new List<SoOrderDetailsTab>();
 }

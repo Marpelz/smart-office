@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SmartOffice.Entities;
 
-public partial class Sousertab
+public partial class SoUserTab
 {
     public int UserId { get; set; }
 
@@ -15,7 +15,7 @@ public partial class Sousertab
 
     public string? PaypalEmail { get; set; }
 
-    public virtual ICollection<Soorderdetailstab> Soorderdetailstabs { get; set; } = new List<Soorderdetailstab>();
+    public virtual ICollection<SoOrderDetailsTab> SoOrderDetailsTabs { get; set; } = new List<SoOrderDetailsTab>();
 
-    public virtual ICollection<Soordertab> Soordertabs { get; set; } = new List<Soordertab>();
+    public virtual ICollection<SoOrderTab> SoOrderTabs { get; set; } = new List<SoOrderTab>();
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SmartOffice.Entities;
 
-public partial class Efmigrationshistory
+public partial class EfmigrationsHistory
 {
     public string MigrationId { get; set; } = null!;
 

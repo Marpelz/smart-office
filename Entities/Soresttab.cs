@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SmartOffice.Entities;
 
-public partial class Soresttab
+public partial class SoRestTab
 {
     public string RestId { get; set; } = null!;
 
@@ -31,7 +31,7 @@ public partial class Soresttab
 
     public string RestLieferandoLink { get; set; } = null!;
 
-    public virtual ICollection<Sodishtab> Sodishtabs { get; set; } = new List<Sodishtab>();
+    public virtual ICollection<SoDishTab> SoDishTabs { get; set; } = new List<SoDishTab>();
 
-    public virtual ICollection<Soordertab> Soordertabs { get; set; } = new List<Soordertab>();
+    public virtual ICollection<SoOrderTab> SoOrderTabs { get; set; } = new List<SoOrderTab>();
 }

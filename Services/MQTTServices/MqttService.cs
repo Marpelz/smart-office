@@ -50,7 +50,7 @@ public class MqttService : IMqttService
             if (a.ApplicationMessage.Topic == "smartoffice/foodorder")
             {
                 _notification.Show("Smart Office - Essensbestellung",
-                    "Hunger? Es wird essen bestellt. Möchten Sie mitbestellen?",
+                    "Hunger? Es wird Essen bestellt. Möchten Sie mitbestellen?",
                     NotificationType.Information,
                     LeftButtonText: "Ja",
                     LeftButton: async () =>
@@ -70,7 +70,7 @@ public class MqttService : IMqttService
 
         MqttClientOptionsBuilder builder = new MqttClientOptionsBuilder()
             .WithClientId(username)
-            .WithTcpServer("127.0.0.1", 1883);
+            .WithTcpServer("192.168.42.174", 1883);
 
         ManagedMqttClientOptions options = new ManagedMqttClientOptionsBuilder()
             .WithAutoReconnectDelay(TimeSpan.FromSeconds(30))

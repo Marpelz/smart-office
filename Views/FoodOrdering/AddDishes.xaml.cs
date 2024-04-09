@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SmartOffice.Models.DishModels;
 using SmartOffice.Models.Settings;
 using SmartOffice.Services.FoodOrderServices.DishServices;
-using SmartOffice.Services.FoodOrderServices.RestaurantService;
+using SmartOffice.Services.FoodOrderServices.RestaurantServices;
 
 namespace SmartOffice.Views.FoodOrdering;
 

@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SmartOffice.Models.RestaurantModels;
-using SmartOffice.Services.FoodOrderServices.RestaurantService;
+using SmartOffice.Services.FoodOrderServices.RestaurantServices;
 
 namespace SmartOffice.Views.FoodOrdering;
 
@@ -69,36 +69,51 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
 
     private async Task NewRestaurantModel()
     {
-        RestModel = new RestaurantModel();
-
-        var restaurants = await _restaurantService.ReadAllRestaurants();
-        var lastRestaurantIdAsString = restaurants
-            .Where(soresttab => !string.IsNullOrEmpty(soresttab.RestId))
-            .Max(soresttab => soresttab.RestId);
-
-        if (!string.IsNullOrEmpty(lastRestaurantIdAsString) && int.TryParse(lastRestaurantIdAsString, out int lastRestaurantId))
+        try
         {
-            int newId = lastRestaurantId + 1;
-            string newIdString = newId.ToString("D3");
-            restId.Text = newIdString;
+            var restaurants = await _restaurantService.ReadAllRestaurants();
+            var lastRestaurantIdAsString = restaurants
+                .Where(soresttab => !string.IsNullOrEmpty(soresttab.RestId))
+                .Max(soresttab => soresttab.RestId);
+
+            if (!string.IsNullOrEmpty(lastRestaurantIdAsString) && int.TryParse(lastRestaurantIdAsString, out int lastRestaurantId))
+            {
+                int newId = lastRestaurantId + 1;
+                string newIdString = newId.ToString("D3");
+                restId.Text = newIdString;
+            }
+            else
+            {
+                restId.Text = "001";
+            }
         }
-        else
+        catch (Exception ex)
         {
-            restId.Text = "001";
+            MessageBox.Show($"Fehler beim Erstellen eines neuen Restaurants: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+        
     }
 
     private async Task SaveRestaurant()
     {
-        if (RestModel.FoodorderRestaurantIdProp != "" &&
-            RestModel.FoodorderRestaurantNameProp != "")
+        try
         {
-            await _restaurantService.SaveRestaurant(RestModel);
-            await ReloadDataGrid();
+            RestModel = new RestaurantModel();
+            
+            if (RestModel.FoodorderRestaurantIdProp != "" &&
+                RestModel.FoodorderRestaurantNameProp != "")
+            {
+                await _restaurantService.SaveRestaurant(RestModel);
+                await ReloadDataGrid();
+            }
+            else
+            {
+                MessageBox.Show("Pflichtfelder: Restaurant-ID und Name sind nicht befüllt!");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            MessageBox.Show("Pflichtfelder: Restaurant-ID und Name sind nicht befüllt!");
+            MessageBox.Show($"Fehler beim speichern eines neuen Restaurants: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 

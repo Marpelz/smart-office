@@ -258,32 +258,15 @@
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
-                                            <GridViewColumn Width="50">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <Button x:Name="deleteorderdetail" Height="20" Width="20" Style="{StaticResource MaterialDesignIconButton}"
-                                                                HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                                            <materialDesign:PackIcon Kind="Trash" Width="20" Height="20" />
-                                                        </Button>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn Header="Hat bezahlt" Width="150">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <CheckBox  />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
                             </StackPanel>
                                 
-                                <StackPanel x:Name="orderinguserinformation" Grid.Row="1" Height="40" Width="700" Orientation="Horizontal"
+                                <StackPanel x:Name="userorderinginformation" Grid.Row="1" Height="40" Width="700" Orientation="Horizontal"
                                             HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                                            Margin="5, 25, 0, 5">
-                                    <materialDesign:PackIcon Kind="InformationBox" Height="30" Width="30" VerticalAlignment="Center" Background="Cyan" />
+                                            Margin="5, 25, 0, 5" Visibility="Hidden">
+                                    <materialDesign:PackIcon Kind="InformationBox" Height="30" Width="30" VerticalAlignment="Center" />
                                     <Label Content="Bitte zahlen Sie:" VerticalAlignment="Center"/>
                                     <Label x:Name="userdetailsum" VerticalAlignment="Center" />
                                     <Label Content="an:" VerticalAlignment="Center" />
@@ -292,11 +275,23 @@
                                     <Label x:Name="orderinguserpaypal" VerticalAlignment="Center" />
                                 </StackPanel>
                                 
+                                <StackPanel x:Name="restorderinginformation" Grid.Row="1" Height="40" Width="700" Orientation="Horizontal"
+                                            HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                            Margin="5, 25, 0, 5" Visibility="Hidden">
+                                    <materialDesign:PackIcon Kind="InformationBox" Height="30" Width="30" VerticalAlignment="Center" />
+                                    <Label Content="Bitte zahlen Sie:" VerticalAlignment="Center"/>
+                                    <Label x:Name="orderingdetailsum" VerticalAlignment="Center" />
+                                    <Label Content="zzgl.:" VerticalAlignment="Center" />
+                                    <Label x:Name="orderingrestdeliverycost" VerticalAlignment="Center" />
+                                    <Label Content="an:" VerticalAlignment="Center" />
+                                    <Label x:Name="orderingrestname" VerticalAlignment="Center" />
+                                </StackPanel>
+                                
                                 <StackPanel Grid.Row="1" Height="40" Width="250" Orientation="Horizontal" 
                                             HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                             Margin="5, 25, 0, 5">
-                                    <Button Height="30" Content="Zurück" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                            Click="BackToStepTwo_OnClick" />
+                                    <Button Height="30" Content="Aktualisieren" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Click="ReloadOrderDetails_OnClick" />
                                     <Button Height="30" Content="Schließen" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Click="Close_OnClick"/>
                                 </StackPanel>

@@ -56,7 +56,8 @@
                     </Button>
                     
                     <Button Grid.Column="3" Grid.Row="0" Height="80" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" 
-                            Style="{StaticResource MaterialDesignPaperButton}" Click="OpenOrderHistoryBTN_Click">
+                            Style="{StaticResource MaterialDesignPaperButton}" Click="OpenOrderHistoryBTN_Click"
+                            IsEnabled="False">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <materialDesign:PackIcon Kind="TextBoxSearchOutline" HorizontalAlignment="Left" Height="30" Width="30" />
                             <TextBlock Text="Bestellübersicht"></TextBlock>
