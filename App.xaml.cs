@@ -47,13 +47,15 @@ public partial class App
         services.AddDbContext<SmartOfficeDbContext>(options =>
             options.UseMySql(configuration.GetConnectionString("SmartOfficeDB"),
                 new MySqlServerVersion(new Version(11, 3, 2)),
-                builder => builder.MigrationsAssembly(typeof(SmartOfficeDbContext).Assembly.FullName)), ServiceLifetime.Singleton);
+                builder => builder.MigrationsAssembly(typeof(SmartOfficeDbContext).Assembly.FullName)),
+            ServiceLifetime.Transient);
 
 
         services.AddDbContext<SoDbContext>(options =>
             options.UseMySql(configuration.GetConnectionString("SmartOfficeDB"),
                 new MySqlServerVersion(new Version(11, 3, 2)),
-                builder => builder.MigrationsAssembly(typeof(SoDbContext).Assembly.FullName)), ServiceLifetime.Singleton);
+                builder => builder.MigrationsAssembly(typeof(SoDbContext).Assembly.FullName)),
+            ServiceLifetime.Transient);
         
         
         

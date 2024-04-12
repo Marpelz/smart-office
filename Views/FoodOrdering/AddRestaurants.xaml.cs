@@ -23,10 +23,11 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
         _restaurantService = _service.GetRequiredService<IRestaurantService>();
         _restaurantModel = new RestaurantModel();
         _restaurantDataGrid = new List<RestaurantDataGridModel>();
+        RestModel = new RestaurantModel();
         
         Task.Run(async () =>
         {
-            await InitData();
+            await ReloadDataGrid();
         });
         
         DataContext = this;
@@ -55,12 +56,6 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
     }
     
     // Functions
-
-    private async Task InitData()
-    {
-        await ReloadDataGrid();
-        await NewRestaurantModel();
-    }
 
     private async Task ReloadDataGrid()
     {
@@ -98,8 +93,6 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
     {
         try
         {
-            RestModel = new RestaurantModel();
-            
             if (RestModel.FoodorderRestaurantIdProp != "" &&
                 RestModel.FoodorderRestaurantNameProp != "")
             {
@@ -113,7 +106,8 @@ public partial class AddRestaurants : Window, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Fehler beim speichern eines neuen Restaurants: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"Fehler beim speichern eines neuen Restaurants: {ex.Message}", "Fehler",
+                MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 

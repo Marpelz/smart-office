@@ -71,7 +71,8 @@
                             <PasswordBox x:Name="SoUsrPassword" Grid.Row="4" Grid.Column="1" Style="{StaticResource MaterialDesignFilledRevealPasswordBox}"
                                         HorizontalContentAlignment="Left"
                                         VerticalContentAlignment="Center"
-                                        materialDesign:HintAssist.Hint="Passwort" />
+                                        materialDesign:HintAssist.Hint="Passwort"
+                                        KeyDown="SoUsrPassword_OnKeyDown"/>
                     
                             <Button Grid.Row="6" Grid.Column="1" Click="StartSmartOffice" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="200" Margin="0" >
                                 <StackPanel Orientation="Horizontal">

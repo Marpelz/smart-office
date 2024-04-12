@@ -52,6 +52,12 @@ public partial class Register
             var paypalEnabled = SetPaypalToggle.IsChecked ?? false;
             var paypalAddress = SetUsrPaypal.Text;
 
+            if (SetUsrName.Text == "" && SetUsrPassword.Password == "")
+            {
+                MessageBox.Show("Pflichtfelder sind nicht befüllt. Bitte Benutzername und Passwort ausfüllen.", "Hinweis", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             var newUser = new UserModel
             {
                 UserName = userName,

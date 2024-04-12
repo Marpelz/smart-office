@@ -523,35 +523,60 @@ public partial class OrderStart : Window, INotifyPropertyChanged
 
     private async void LoadStepTwo_OnClick(object sender, RoutedEventArgs e)
     {
-        stepper.SelectedIndex++;
-        await CreateNewOrder();
-        await LoadDishes();
-        await PublishFoodOrderMessage();
+        MessageBoxResult result = MessageBox.Show("Möchten Sie wirklich beim ausgewählten Restaurant bestellen? Vorgang kann nicht rückgängig gemacht werden.", "Bestätigen", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            stepper.SelectedIndex++;
+            await CreateNewOrder();
+            await LoadDishes();
+            await PublishFoodOrderMessage();
+        }
+        else
+        {
+            return;
+        }
     }
 
     private async void LoadStepThree_OnClick(object sender, RoutedEventArgs e)
     {
         var userId = await _userService.GetUserIdByUsername(AppSettings.Username);
         var lastOrder = (await _orderService.ReadAllOrders()).LastOrDefault();
-        
-        stepper.SelectedIndex++;
-        await CreateNewOrderDetails();
-        await LoadOrderDetails();
 
-        if (lastOrder != null && userId == lastOrder.UserId)
+        if (paymentmethod.SelectedItem == null)
         {
-            string orderSumAsString = await CalculateOrderDetailsSum();
-            orderingdetailsum.Content = orderSumAsString;
-            await GetOrderingRestInformation();
-            restorderinginformation.Visibility = Visibility.Visible;
+            MessageBox.Show("Bitte wählen Sie eine Zahlungsmethode aus.", "Hinweis", MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
+        
+        MessageBoxResult result = MessageBox.Show("Möchten Sie die ausgewählten Speisen wirklich hinzufügen? Vorgang kann nicht rückgängig gemacht werden.", "Bestätigen", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            stepper.SelectedIndex++;
+            await CreateNewOrderDetails();
+            await LoadOrderDetails();
+
+            if (lastOrder != null && userId == lastOrder.UserId)
+            {
+                string orderSumAsString = await CalculateOrderDetailsSum();
+                orderingdetailsum.Content = orderSumAsString;
+                await GetOrderingRestInformation();
+                restorderinginformation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                string userSumAsString = await CalculateUserOrderDetailsSum();
+                userdetailsum.Content = userSumAsString;
+                await GetOrderingUserInformation();
+                userorderinginformation.Visibility = Visibility.Visible;
+            }
         }
         else
         {
-            string userSumAsString = await CalculateUserOrderDetailsSum();
-            userdetailsum.Content = userSumAsString;
-            await GetOrderingUserInformation();
-            userorderinginformation.Visibility = Visibility.Visible;
+            return;
         }
+        
     }
 
     private async void ReloadOrderDetails_OnClick(object sender, RoutedEventArgs e)

@@ -40,7 +40,7 @@ public partial class Login
         Close();
     }
 
-    private async void StartSmartOffice(object sender, RoutedEventArgs e)
+    private async Task UserLogin()
     {
         var userName = SoUsrName.Text;
         var userPassword = SoUsrPassword.Password;
@@ -77,6 +77,19 @@ public partial class Login
         catch (Exception ex)
         {
             MessageBox.Show($"Fehler beim Abrufen des Benutzers: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private async void StartSmartOffice(object sender, RoutedEventArgs e)
+    {
+        await UserLogin();
+    }
+
+    private async void SoUsrPassword_OnKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter)
+        {
+            await UserLogin();
         }
     }
 }

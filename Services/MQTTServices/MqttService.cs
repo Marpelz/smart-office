@@ -1,6 +1,5 @@
 using System.Text;
-using System.Windows;
-using System.Windows.Input;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MQTTnet;
 using MQTTnet.Client.Connecting;
@@ -34,7 +33,8 @@ public class MqttService : IMqttService
 
         if (_clientRunning)
         {
-            _notification.Show("Smart Office", "Verbindung zum Broker bereits vorhanden.", NotificationType.Information);
+            _notification.Show("Smart Office", "Verbindung zum Broker bereits vorhanden.",
+                NotificationType.Information);
             return;
         }
         
@@ -44,7 +44,8 @@ public class MqttService : IMqttService
         _mqttClient.ConnectedHandler = new MqttClientConnectedHandlerDelegate(OnConnected);
         _mqttClient.DisconnectedHandler = new MqttClientDisconnectedHandlerDelegate(OnDisconnected);
         _mqttClient.ConnectingFailedHandler = new ConnectingFailedHandlerDelegate(OnConnectingFailed);
-        _mqttClient.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandlerDelegate(a =>
+        _mqttClient.ApplicationMessageReceivedHandler = new MqttApplicationMessageReceivedHandlerDelegate
+        (a =>
         {
             string payload = Encoding.UTF8.GetString(a.ApplicationMessage.Payload);
             if (a.ApplicationMessage.Topic == "smartoffice/foodorder")
@@ -68,9 +69,16 @@ public class MqttService : IMqttService
             }
         });
 
+        var configBuilder = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+        var configuration = configBuilder.Build();
+
+        var mqttBrokerIp = configuration.GetConnectionString("MqttBroker");
+
         MqttClientOptionsBuilder builder = new MqttClientOptionsBuilder()
             .WithClientId(username)
-            .WithTcpServer("192.168.42.174", 1883);
+            .WithTcpServer(mqttBrokerIp, 1883);
 
         ManagedMqttClientOptions options = new ManagedMqttClientOptionsBuilder()
             .WithAutoReconnectDelay(TimeSpan.FromSeconds(30))

@@ -118,8 +118,8 @@
                                 
                                 <StackPanel Grid.Row="1" Height="40" Width="250" Orientation="Horizontal" 
                                             HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                                            Margin="5, 25, 0, 5">
-                                    <Button Height="30" Content="Abbrechen" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Margin="5, 25, 0, 5" >
+                                    <Button Height="30" Content="Abbrechen" Margin="60, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Click="Close_OnClick" />
                                     <Button Height="30" Content="Weiter" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Click="LoadStepTwo_OnClick"/>
@@ -192,7 +192,7 @@
                                 <StackPanel Grid.Row="1" Height="40" Width="250" Orientation="Horizontal" 
                                             HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                             Margin="5, 25, 0, 5">
-                                    <Button Height="30" Content="Abbrechen" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    <Button Height="30" Content="Abbrechen" Margin="60, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Click="Close_OnClick" />
                                     <Button Height="30" Content="Weiter" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Click="LoadStepThree_OnClick"/>
@@ -290,7 +290,7 @@
                                 <StackPanel Grid.Row="1" Height="40" Width="250" Orientation="Horizontal" 
                                             HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                             Margin="5, 25, 0, 5">
-                                    <Button Height="30" Content="Aktualisieren" Margin="65, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    <Button Height="30" Content="Aktualisieren" Margin="20, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Click="ReloadOrderDetails_OnClick" />
                                     <Button Height="30" Content="Schließen" Margin="5, 5, 5, 5" HorizontalAlignment="Right" VerticalAlignment="Center"
                                             Click="Close_OnClick"/>

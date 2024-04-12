@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d0538458-2b68-4882-a356-1d9580ec3fee" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Views/FoodOrdering/AddRestaurants.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Views/FoodOrdering/AddRestaurants.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/FoodOrdering/OrderStart.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/FoodOrdering/OrderStart.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/FoodOrdering/OrderStart.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Views/FoodOrdering/OrderStart.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Login.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Login.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Login.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Login.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Register.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Register.xaml.cs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="2eu1Kv1mVXVbfVaZ637rAgK9SOV" />
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/protzel/Documents/Abschlussprojekt/smart-office"
+  },
+  "keyToStringList": {
+    "stardust.markdown.MarkdownSplitEditorSuppressor:keyList": [
+    ]
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+</project>

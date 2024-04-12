@@ -100,7 +100,7 @@
                             </Button>
                             
                             <Label Grid.Column="1" Grid.Row="2" Content="Name:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 5, 0" />
-                            <TextBox Grid.Column="2" Grid.Row="2" Height="30" Margin="5, 0, 5, 0"
+                            <TextBox x:Name="restName" Grid.Column="2" Grid.Row="2" Height="30" Margin="5, 0, 5, 0"
                                      HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                      Text="{Binding Path=RestModel.FoodorderRestaurantNameProp, UpdateSourceTrigger=PropertyChanged}"/>
                             
